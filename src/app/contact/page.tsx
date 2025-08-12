@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Get Started with Corporate Solutions',
@@ -107,46 +108,14 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Contact Form Placeholder */}
+              {/* Contact Form */}
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-navy mb-8">
                   Send us a Message
                 </h2>
                 
-                <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-12 text-center">
-                  <div className="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8 text-slate-500">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-navy mb-4">
-                    Contact Form Coming Soon
-                  </h3>
-                  
-                  <p className="text-gray leading-relaxed mb-8">
-                    We&apos;re currently developing a secure contact form to make it even easier to reach us. In the meantime, please use the contact information on the left to get in touch directly.
-                  </p>
-
-                  <div className="space-y-4">
-                    <p className="text-sm text-gray">
-                      For immediate assistance, please call or email us:
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <a
-                        href="tel:+15551234567"
-                        className="bg-teal text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
-                      >
-                        Call Now
-                      </a>
-                      <a
-                        href="mailto:contact@corporate-solutions.com"
-                        className="border-2 border-navy text-navy px-6 py-3 rounded-lg font-semibold hover:bg-navy hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2"
-                      >
-                        Send Email
-                      </a>
-                    </div>
-                  </div>
+                <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+                  <ContactForm />
                 </div>
               </div>
             </div>

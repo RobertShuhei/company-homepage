@@ -1,0 +1,33 @@
+{
+  "name": "company-contact-api",
+  "version": "1.0.0",
+  "description": "Secure contact form API using Cloudflare Workers",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "npx tsc --noEmit",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:production": "wrangler deploy --env production",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:development": "wrangler deploy --env development",
+    "tail": "wrangler tail",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "contact-form",
+    "api",
+    "security",
+    "spam-protection"
+  ],
+  "author": "Your Company",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250812.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0",
+    "wrangler": "^3.57.1"
+  }
+}
