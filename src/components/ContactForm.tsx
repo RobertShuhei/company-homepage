@@ -39,8 +39,8 @@ export default function ContactForm() {
 
   // API endpoint - replace with your deployed worker URL
   const API_ENDPOINT = process.env.NODE_ENV === 'production' 
-    ? 'https://company-contact-api.your-username.workers.dev'
-    : 'https://company-contact-api-dev.your-username.workers.dev'
+  ? 'https://company-contact-api.global-genex.workers.dev'
+  : 'https://company-contact-api-dev.global-genex.workers.dev'
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target

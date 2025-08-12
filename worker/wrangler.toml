@@ -27,5 +27,3 @@ vars = { ALLOWED_ORIGINS = "http://localhost:3002,http://localhost:3000,http://1
 command = "npm run build"
 
 # Worker limits and settings
-[limits]
-cpu_ms = 50
