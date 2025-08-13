@@ -101,11 +101,17 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
   const validInquiryTypes = ['Service Inquiry', 'Hiring', 'Partnership', 'General Support', 'Other'];
   if (!validInquiryTypes.includes(data.inquiryType)) return { isValid: false, error: 'Invalid inquiry type' };
 
-  // Timing validation - reduced to 1 second to allow legitimate fast submissions
+  // Timing validation - allow current timestamps and reasonable delays, block old submissions
   if (data.timestamp && typeof data.timestamp === 'number') {
     const now = Date.now();
     const timeDiff = now - data.timestamp;
-    if (timeDiff < 1000) return { isValid: false, error: 'Submission too fast' };
+    
+    // Block submissions that are too old (more than 5 minutes) or from the future
+    if (timeDiff > 5 * 60 * 1000) return { isValid: false, error: 'Submission expired' };
+    if (timeDiff < -30000) return { isValid: false, error: 'Invalid timestamp' };
+    
+    // Allow all submissions within reasonable time range (including current timestamps)
+    // This removes the previous "too fast" protection that was blocking legitimate users
   }
 
   // Spam content detection
