@@ -128,7 +128,7 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
 
 /** Send via Resend */
 async function sendEmail(data: ContactFormData, env: Env): Promise<{ success: boolean; error?: string }> {
-  const recipientEmail = env.RECIPIENT_EMAIL || 'info@global-genex.com';
+  const recipientEmail = env.RECIPIENT_EMAIL || 'info@mail.global-genex.com';
 
   const emailPayload = {
     from: 'Contact Form <noreply@mail.global-genex.com>',
@@ -200,7 +200,7 @@ Submitted at: ${new Date().toISOString()}
 function makeCorsHeaders(origin: string | null, env: Env) {
   const allowed = env.ALLOWED_ORIGINS
     ? env.ALLOWED_ORIGINS.split(',').map(s => s.trim())
-    : ['https://global-genex.com'];
+    : ['https://global-genex.com', 'https://www.global-genex.com'];
   const allow = origin && allowed.includes(origin) ? origin : allowed[0] ?? '*';
   return {
     'Access-Control-Allow-Origin': allow,

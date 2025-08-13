@@ -12,7 +12,7 @@ compatibility_flags = ["nodejs_compat"]
 # 本番用の変数をこちらに定義します
 [env.production.vars]
 ALLOWED_ORIGINS = "https://global-genex.com,https://www.global-genex.com"
-RECIPIENT_EMAIL = "info@global-genex.com"
+RECIPIENT_EMAIL = "info@mail.global-genex.com"
 
 [env.staging]
 [env.development]
