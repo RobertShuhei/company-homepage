@@ -10,25 +10,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Corporate Solutions | Professional Business Services",
+    default: "Corporate Solutions",
     template: "%s | Corporate Solutions",
   },
-  description: "Leading provider of professional business solutions, delivering exceptional results through innovative services and expert consultation.",
+  description: "We help businesses unlock their potential through strategic consulting, digital transformation, and process optimization.",
   keywords: ["business solutions", "professional services", "corporate consulting", "business consulting"],
   authors: [{ name: "Corporate Solutions" }],
   robots: "index, follow",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://corporate-solutions.com",
-    title: "Corporate Solutions | Professional Business Services",
-    description: "Leading provider of professional business solutions, delivering exceptional results through innovative services and expert consultation.",
+    url: "https://global-genex.com",
+    title: "Corporate Solutions",
+    description: "We help businesses unlock their potential through strategic consulting, digital transformation, and process optimization.",
     siteName: "Corporate Solutions",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Corporate Solutions | Professional Business Services",
-    description: "Leading provider of professional business solutions, delivering exceptional results through innovative services and expert consultation.",
+    title: "Corporate Solutions",
+    description: "We help businesses unlock their potential through strategic consulting, digital transformation, and process optimization.",
   },
 };
 

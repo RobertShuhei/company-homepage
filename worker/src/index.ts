@@ -6,7 +6,11 @@
 interface ContactFormData {
   name: string;
   email: string;
+  companyName: string;
+  phoneNumber: string;
+  inquiryType: string;
   message: string;
+  privacyConsent: boolean;
   honeypot: string;
   timestamp: number;
 }
@@ -55,35 +59,62 @@ function isContactFormData(data: unknown): data is Record<string, unknown> {
 function validateContactData(data: unknown): { isValid: boolean; error?: string } {
   if (!isContactFormData(data)) return { isValid: false, error: 'Invalid data format' };
 
+  // Required fields validation
   if (!data.name || typeof data.name !== 'string') return { isValid: false, error: 'Name is required' };
   if (!data.email || typeof data.email !== 'string') return { isValid: false, error: 'Email is required' };
   if (!data.message || typeof data.message !== 'string') return { isValid: false, error: 'Message is required' };
+  if (!data.inquiryType || typeof data.inquiryType !== 'string') return { isValid: false, error: 'Inquiry type is required' };
+  if (typeof data.privacyConsent !== 'boolean' || !data.privacyConsent) return { isValid: false, error: 'Privacy policy consent is required' };
 
+  // Optional fields type validation
+  if (data.companyName !== undefined && typeof data.companyName !== 'string') return { isValid: false, error: 'Invalid company name format' };
+  if (data.phoneNumber !== undefined && typeof data.phoneNumber !== 'string') return { isValid: false, error: 'Invalid phone number format' };
+
+  // Honeypot spam detection
   if (data.honeypot && typeof data.honeypot === 'string' && data.honeypot.trim() !== '') {
     return { isValid: false, error: 'Spam detected' };
   }
 
+  // Field length validations
   if (data.name.trim().length < 2 || data.name.trim().length > 100)
     return { isValid: false, error: 'Name must be between 2 and 100 characters' };
 
   if (data.message.trim().length < 10 || data.message.trim().length > 2000)
     return { isValid: false, error: 'Message must be between 10 and 2000 characters' };
 
+  // Optional company name length validation
+  if (data.companyName && typeof data.companyName === 'string' && data.companyName.trim().length > 100)
+    return { isValid: false, error: 'Company name must be less than 100 characters' };
+
+  // Email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test((data.email as string).trim())) return { isValid: false, error: 'Invalid email format' };
 
+  // Optional phone number format validation
+  if (data.phoneNumber && typeof data.phoneNumber === 'string' && data.phoneNumber.trim() !== '') {
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    const cleanPhone = data.phoneNumber.replace(/[\s\-\(\)]/g, '');
+    if (!phoneRegex.test(cleanPhone)) return { isValid: false, error: 'Invalid phone number format' };
+  }
+
+  // Inquiry type validation
+  const validInquiryTypes = ['Service Inquiry', 'Hiring', 'Partnership', 'General Support', 'Other'];
+  if (!validInquiryTypes.includes(data.inquiryType)) return { isValid: false, error: 'Invalid inquiry type' };
+
+  // Timing validation
   if (data.timestamp && typeof data.timestamp === 'number') {
     const now = Date.now();
     const timeDiff = now - data.timestamp;
     if (timeDiff < 3000) return { isValid: false, error: 'Submission too fast' };
   }
 
+  // Spam content detection
   const spamPatterns = [
     /\b(?:viagra|cialis|pharmacy|casino|lottery|winner|congratulations)\b/i,
     /\$\d+/g,
     /https?:\/\//g,
   ];
-  const fullText = `${data.name} ${data.email} ${data.message}`.toLowerCase();
+  const fullText = `${data.name} ${data.email} ${data.companyName || ''} ${data.message}`.toLowerCase();
   for (const pattern of spamPatterns) if (pattern.test(fullText)) return { isValid: false, error: 'Content not allowed' };
 
   return { isValid: true };
@@ -96,25 +127,41 @@ async function sendEmail(data: ContactFormData, env: Env): Promise<{ success: bo
   const emailPayload = {
     from: 'Contact Form <noreply@mail.global-genex.com>',
     to: [recipientEmail],
-    subject: `New Contact Form Submission from ${data.name}`,
+    subject: `New ${data.inquiryType} from ${data.name}${data.companyName ? ` (${data.companyName})` : ''}`,
     html: `
       <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-      <p><strong>Message:</strong></p>
-      <div style="background:#f5f5f5;padding:15px;border-left:4px solid #0891b2;margin:10px 0;">
+      <div style="background:#f8f9fa;padding:20px;border-radius:8px;margin:15px 0;">
+        <h3 style="color:#1e3a5f;margin-top:0;">Contact Information</h3>
+        <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+        ${data.companyName ? `<p><strong>Company:</strong> ${escapeHtml(data.companyName)}</p>` : ''}
+        ${data.phoneNumber ? `<p><strong>Phone:</strong> ${escapeHtml(data.phoneNumber)}</p>` : ''}
+        <p><strong>Inquiry Type:</strong> <span style="color:#0891b2;font-weight:600;">${escapeHtml(data.inquiryType)}</span></p>
+      </div>
+      
+      <h3 style="color:#1e3a5f;">Message</h3>
+      <div style="background:#f5f5f5;padding:15px;border-left:4px solid #0891b2;margin:10px 0;border-radius:4px;">
         ${escapeHtml(data.message).replace(/\n/g, '<br>')}
       </div>
-      <hr>
-      <p><small>Submitted at: ${new Date().toISOString()}</small></p>
+      
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+      <p style="color:#64748b;font-size:14px;">
+        <strong>Privacy Consent:</strong> ✅ Confirmed<br>
+        <strong>Submitted at:</strong> ${new Date().toISOString()}
+      </p>
     `,
     text: `
 New Contact Form Submission
 
+CONTACT INFORMATION:
 Name: ${data.name}
 Email: ${data.email}
-Message: ${data.message}
+${data.companyName ? `Company: ${data.companyName}\n` : ''}${data.phoneNumber ? `Phone: ${data.phoneNumber}\n` : ''}Inquiry Type: ${data.inquiryType}
 
+MESSAGE:
+${data.message}
+
+Privacy Consent: Confirmed
 Submitted at: ${new Date().toISOString()}
     `.trim(),
     reply_to: data.email,
@@ -214,7 +261,11 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
     const contactData: ContactFormData = {
       name: (v.name as string).trim(),
       email: (v.email as string).trim(),
+      companyName: v.companyName ? (v.companyName as string).trim() : '',
+      phoneNumber: v.phoneNumber ? (v.phoneNumber as string).trim() : '',
+      inquiryType: (v.inquiryType as string),
       message: (v.message as string).trim(),
+      privacyConsent: (v.privacyConsent as boolean),
       honeypot: (v.honeypot as string) || '',
       timestamp: (v.timestamp as number) || Date.now(),
     };
