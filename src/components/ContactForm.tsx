@@ -77,7 +77,7 @@ export default function ContactForm() {
 
     // Optional phone number validation
     if (formData.phoneNumber.trim()) {
-      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      const phoneRegex = /^[\+]?[\d]{8,15}$/;
       if (!phoneRegex.test(formData.phoneNumber.replace(/[\s\-\(\)]/g, ''))) {
         return 'Please enter a valid phone number';
       }

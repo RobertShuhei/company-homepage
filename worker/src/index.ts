@@ -92,7 +92,7 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
 
   // Optional phone number format validation
   if (data.phoneNumber && typeof data.phoneNumber === 'string' && data.phoneNumber.trim() !== '') {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    const phoneRegex = /^[\+]?[\d]{8,15}$/;
     const cleanPhone = data.phoneNumber.replace(/[\s\-\(\)]/g, '');
     if (!phoneRegex.test(cleanPhone)) return { isValid: false, error: 'Invalid phone number format' };
   }
