@@ -101,11 +101,11 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
   const validInquiryTypes = ['Service Inquiry', 'Hiring', 'Partnership', 'General Support', 'Other'];
   if (!validInquiryTypes.includes(data.inquiryType)) return { isValid: false, error: 'Invalid inquiry type' };
 
-  // Timing validation
+  // Timing validation - reduced to 1 second to allow legitimate fast submissions
   if (data.timestamp && typeof data.timestamp === 'number') {
     const now = Date.now();
     const timeDiff = now - data.timestamp;
-    if (timeDiff < 3000) return { isValid: false, error: 'Submission too fast' };
+    if (timeDiff < 1000) return { isValid: false, error: 'Submission too fast' };
   }
 
   // Spam content detection
