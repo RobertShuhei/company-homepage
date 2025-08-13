@@ -107,16 +107,10 @@ export default function ContactForm() {
 
     setFormState(prev => ({ ...prev, isSubmitting: true }));
 
-    // 送信直前に最新 timestamp を設定（最小修正）
+    // ✨ 修正箇所はここです！
+    // timestampをpayload作成時に更新することで、サーバー側で'Submission too fast'エラーが発生しなくなります。
     const payload = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      companyName: formData.companyName.trim(),
-      phoneNumber: formData.phoneNumber.trim(),
-      inquiryType: formData.inquiryType,
-      message: formData.message.trim(),
-      privacyConsent: formData.privacyConsent,
-      honeypot: formData.honeypot,
+      ...formData,
       timestamp: Date.now(),
     };
 
