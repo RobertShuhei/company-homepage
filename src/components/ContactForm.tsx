@@ -1,25 +1,24 @@
-'use client'
+'use client';
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent } from 'react';
 
-// サーバーからのレスポンスの型を定義
 interface FormResponse {
-  success: boolean
-  error?: string // エラーメッセージはオプション
+  success: boolean;
+  error?: string;
 }
 
 interface FormData {
-  name: string
-  email: string
-  message: string
-  honeypot: string
-  timestamp: number
+  name: string;
+  email: string;
+  message: string;
+  honeypot: string;
+  timestamp: number;
 }
 
 interface FormState {
-  isSubmitting: boolean
-  isSubmitted: boolean
-  error: string | null
+  isSubmitting: boolean;
+  isSubmitted: boolean;
+  error: string | null;
 }
 
 export default function ContactForm() {
@@ -28,133 +27,123 @@ export default function ContactForm() {
     email: '',
     message: '',
     honeypot: '',
-    timestamp: Date.now()
-  })
+    timestamp: Date.now(),
+  });
 
   const [formState, setFormState] = useState<FormState>({
     isSubmitting: false,
     isSubmitted: false,
-    error: null
-  })
+    error: null,
+  });
 
-  // API endpoint - replace with your deployed worker URL
-  const API_ENDPOINT = process.env.NODE_ENV === 'production' 
-  ? 'https://company-contact-api.global-genex.workers.dev'
-  : 'https://company-contact-api-dev.global-genex.workers.dev'
+  // Production API endpoint
+  const API_ENDPOINT =
+    process.env.NODE_ENV === 'production'
+      ? 'https://company-contact-api-production.global-genex.workers.dev'
+      : 'http://localhost:8787';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const validateForm = (): string | null => {
-    if (!formData.name.trim()) return 'Name is required'
-    if (formData.name.trim().length < 2) return 'Name must be at least 2 characters'
-    if (formData.name.trim().length > 100) return 'Name must be less than 100 characters'
-    
-    if (!formData.email.trim()) return 'Email is required'
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(formData.email)) return 'Please enter a valid email address'
-    
-    if (!formData.message.trim()) return 'Message is required'
-    if (formData.message.trim().length < 10) return 'Message must be at least 10 characters'
-    if (formData.message.trim().length > 2000) return 'Message must be less than 2000 characters'
-    
-    return null
-  }
+    if (!formData.name.trim()) return 'Name is required';
+    if (formData.name.trim().length < 2) return 'Name must be at least 2 characters';
+    if (formData.name.trim().length > 100) return 'Name must be less than 100 characters';
+
+    if (!formData.email.trim()) return 'Email is required';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) return 'Please enter a valid email address';
+
+    if (!formData.message.trim()) return 'Message is required';
+    if (formData.message.trim().length < 10) return 'Message must be at least 10 characters';
+    if (formData.message.trim().length > 2000) return 'Message must be less than 2000 characters';
+
+    return null;
+  };
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    
-    // Reset previous states
-    setFormState(prev => ({ ...prev, error: null }))
-    
-    // Client-side validation
-    const validationError = validateForm()
+    e.preventDefault();
+
+    setFormState(prev => ({ ...prev, error: null }));
+
+    const validationError = validateForm();
     if (validationError) {
-      setFormState(prev => ({ ...prev, error: validationError }))
-      return
+      setFormState(prev => ({ ...prev, error: validationError }));
+      return;
     }
-    
-    setFormState(prev => ({ ...prev, isSubmitting: true }))
-    
+
+    setFormState(prev => ({ ...prev, isSubmitting: true }));
+
+    // 送信直前に最新 timestamp を設定（最小修正）
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+      honeypot: formData.honeypot,
+      timestamp: Date.now(),
+    };
+
+    // タイムアウト（任意だがUX向上・10秒）
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
-          honeypot: formData.honeypot, // Should be empty for legitimate users
-          timestamp: formData.timestamp
-        })
-      })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
 
-      // サーバーからのレスポンスを FormResponse 型にキャスト（型アサーション）
-      const result = await response.json() as FormResponse
+      clearTimeout(timeoutId);
 
-      if (response.ok && result.success) {
-        setFormState({
-          isSubmitting: false,
-          isSubmitted: true,
-          error: null
-        })
-        
-        // Reset form data
-        setFormData({
-          name: '',
-          email: '',
-          message: '',
-          honeypot: '',
-          timestamp: Date.now()
-        })
+      let result: FormResponse | null = null;
+      try {
+        result = await response.json();
+      } catch {
+        // JSON でなければ null のまま
+      }
+
+      if (response.ok && result?.success) {
+        setFormState({ isSubmitting: false, isSubmitted: true, error: null });
+        setFormData({ name: '', email: '', message: '', honeypot: '', timestamp: Date.now() });
       } else {
-        // result.error が存在しない場合に備えてフォールバック
-        throw new Error(result.error || 'Failed to send message')
+        throw new Error(result?.error || `Failed to send message (${response.status})`);
       }
     } catch (error) {
-      console.error('Form submission error:', error)
+      clearTimeout(timeoutId);
+      console.error('Form submission error:', error);
       setFormState({
         isSubmitting: false,
         isSubmitted: false,
-        error: error instanceof Error ? error.message : 'Failed to send message. Please try again.'
-      })
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to send message. Please try again.',
+      });
     }
-  }
+  };
 
   if (formState.isSubmitted) {
     return (
       <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24" 
-            className="w-8 h-8 text-green-600"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M5 13l4 4L19 7" 
-            />
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8 text-green-600">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        
-        <h3 className="text-2xl font-bold text-navy mb-4">
-          Message Sent Successfully!
-        </h3>
-        
+
+        <h3 className="text-2xl font-bold text-navy mb-4">Message Sent Successfully!</h3>
+
         <p className="text-gray mb-6">
           Thank you for reaching out. We have received your message and will respond within 24 hours.
         </p>
-        
+
         <button
           onClick={() => setFormState(prev => ({ ...prev, isSubmitted: false }))}
           className="text-teal hover:text-teal/80 font-semibold"
@@ -162,7 +151,7 @@ export default function ContactForm() {
           Send Another Message
         </button>
       </div>
-    )
+    );
   }
 
   return (
@@ -171,18 +160,8 @@ export default function ContactForm() {
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <svg 
-                className="h-5 w-5 text-red-400" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-                />
+              <svg className="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div className="ml-3">
@@ -281,9 +260,7 @@ export default function ContactForm() {
       </div>
 
       <div className="text-sm text-gray-500 text-center">
-        <p>
-          We respect your privacy. Your information will not be shared with third parties.
-        </p>
+        <p>We respect your privacy. Your information will not be shared with third parties.</p>
         <p className="mt-1">
           By submitting this form, you agree to our{' '}
           <a href="/privacy" className="text-teal hover:text-teal/80">
@@ -293,5 +270,5 @@ export default function ContactForm() {
         </p>
       </div>
     </form>
-  )
+  );
 }

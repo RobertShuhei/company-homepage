@@ -3,27 +3,19 @@ main = "src/index.ts"
 compatibility_date = "2024-01-15"
 compatibility_flags = ["nodejs_compat"]
 
-# KV namespace for rate limiting
-[[kv_namespaces]]
-binding = "RATE_LIMIT_KV"
-id = "b1283a50cf2c402ca05c7b089f495e0d"
-preview_id = "67ccace068a44a689c5427c86f2b7c69"
+# 開発環境用の設定をここに残しても良い
+# [vars]
+# ALLOWED_ORIGINS = "http://localhost:3000"
+# RECIPIENT_EMAIL = "dev@example.com"
 
-# Environment variables (secrets should be set via CLI)
 [env.production]
-name = "company-contact-api"
-vars = { ALLOWED_ORIGINS = "https://your-domain.com,https://www.your-domain.com" }
+# 本番用の変数をこちらに定義します
+[env.production.vars]
+ALLOWED_ORIGINS = "https://global-genex.com,https://www.global-genex.com"
+RECIPIENT_EMAIL = "info@global-genex.com"
 
 [env.staging]
-name = "company-contact-api-staging"
-vars = { ALLOWED_ORIGINS = "https://staging.your-domain.com,http://localhost:3002" }
-
 [env.development]
-name = "company-contact-api-dev"
-vars = { ALLOWED_ORIGINS = "http://localhost:3002,http://localhost:3000,http://127.0.0.1:3002" }
 
-# Build configuration
 [build]
 command = "npm run build"
-
-# Worker limits and settings
