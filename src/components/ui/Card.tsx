@@ -16,26 +16,26 @@ const Card: React.FC<CardProps> = ({
   const cardContent = (
     <>
       {icon && (
-        <div className="flex-shrink-0 mb-4">
-          <div className="w-12 h-12 bg-teal/10 rounded-lg flex items-center justify-center text-teal">
+        <div className="flex-shrink-0 mb-6">
+          <div className="w-14 h-14 lg:w-16 lg:h-16 bg-teal/10 rounded-xl flex items-center justify-center text-teal">
             {icon}
           </div>
         </div>
       )}
       
-      <h3 className="text-xl font-semibold text-navy mb-3 group-hover:text-teal transition-colors duration-200">
+      <h3 className="text-xl lg:text-2xl font-semibold text-navy mb-4 lg:mb-5 group-hover:text-teal transition-colors duration-200">
         {title}
       </h3>
       
-      <p className="text-gray leading-relaxed">
+      <p className="text-gray text-base lg:text-lg leading-relaxed flex-grow">
         {description}
       </p>
 
       {href && (
-        <div className="mt-4 flex items-center text-teal font-medium group-hover:text-navy transition-colors duration-200">
+        <div className="mt-6 lg:mt-8 flex items-center text-teal font-semibold group-hover:text-navy transition-colors duration-200">
           Learn more
           <svg 
-            className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" 
+            className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -48,7 +48,7 @@ const Card: React.FC<CardProps> = ({
     </>
   )
 
-  const baseClasses = `bg-white p-8 rounded-xl border border-gray-200 transition-all duration-200 hover:shadow-lg hover:border-teal/20 ${className}`
+  const baseClasses = `card-enhanced p-8 lg:p-10 h-full flex flex-col ${className}`
 
   if (href) {
     return (

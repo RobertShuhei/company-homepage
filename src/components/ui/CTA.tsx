@@ -28,24 +28,24 @@ const CTA: React.FC<CTAProps> = ({
           section: 'bg-navy text-white',
           title: 'text-white',
           description: 'text-slate-300',
-          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal focus:ring-offset-navy',
-          secondaryBtn: 'border-white text-white hover:bg-white hover:text-navy focus:ring-white focus:ring-offset-navy'
+          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal focus:ring-offset-navy shadow-xl hover:shadow-2xl px-10 py-5',
+          secondaryBtn: 'border-white text-white hover:bg-white hover:text-navy focus:ring-white focus:ring-offset-navy opacity-90 hover:opacity-100'
         }
       case 'light':
         return {
           section: 'bg-slate-50 text-navy',
           title: 'text-navy',
           description: 'text-gray',
-          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal focus:ring-offset-slate-50',
-          secondaryBtn: 'border-navy text-navy hover:bg-navy hover:text-white focus:ring-navy focus:ring-offset-slate-50'
+          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal focus:ring-offset-slate-50 shadow-xl hover:shadow-2xl px-10 py-5',
+          secondaryBtn: 'border-navy text-navy hover:bg-navy hover:text-white focus:ring-navy focus:ring-offset-slate-50 opacity-90 hover:opacity-100'
         }
       default:
         return {
           section: 'bg-white text-navy',
           title: 'text-navy',
           description: 'text-gray',
-          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal',
-          secondaryBtn: 'border-navy text-navy hover:bg-navy hover:text-white focus:ring-navy'
+          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal shadow-xl hover:shadow-2xl px-10 py-5',
+          secondaryBtn: 'border-navy text-navy hover:bg-navy hover:text-white focus:ring-navy opacity-90 hover:opacity-100'
         }
     }
   }
@@ -56,7 +56,7 @@ const CTA: React.FC<CTAProps> = ({
     <section className={`py-16 lg:py-24 ${classes.section}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 ${classes.title}`}>
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 ${classes.title}`}>
             {title}
           </h2>
           
@@ -67,7 +67,7 @@ const CTA: React.FC<CTAProps> = ({
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={primaryButton.href}
-              className={`px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${classes.primaryBtn}`}
+              className={`rounded-lg text-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center transform hover:-translate-y-0.5 ${classes.primaryBtn}`}
             >
               {primaryButton.text}
             </Link>

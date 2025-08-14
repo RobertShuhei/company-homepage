@@ -40,32 +40,32 @@ const Hero: React.FC<HeroProps> = ({
         </div>
       )}
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div className="max-w-4xl">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 xl:py-40">
+        <div className="max-w-5xl">
           {/* Subtitle */}
-          <div className="mb-6">
-            <span className="inline-block bg-teal/10 text-teal px-4 py-2 rounded-full text-sm font-medium border border-teal/20">
+          <div className="mb-8">
+            <span className="inline-block bg-teal/10 text-teal px-6 py-3 rounded-full text-sm lg:text-base font-medium border border-teal/20 backdrop-blur-sm">
               {subtitle}
             </span>
           </div>
 
           {/* Main Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10">
             {title}
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed max-w-3xl">
+          <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 mb-12 lg:mb-16 leading-relaxed max-w-4xl">
             {description}
           </p>
 
           {/* CTA Buttons */}
           {(primaryCTA || secondaryCTA) && (
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
               {primaryCTA && (
                 <Link
                   href={primaryCTA.href}
-                  className="bg-teal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal/90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="btn-primary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
                 >
                   {primaryCTA.text}
                 </Link>
@@ -73,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({
               {secondaryCTA && (
                 <Link
                   href={secondaryCTA.href}
-                  className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-navy transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy text-center transform hover:-translate-y-0.5"
+                  className="btn-secondary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
                 >
                   {secondaryCTA.text}
                 </Link>

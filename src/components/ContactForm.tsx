@@ -176,16 +176,16 @@ export default function ContactForm() {
 
   if (formState.isSubmitted) {
     return (
-      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8 text-green-600">
+      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-10 lg:p-12 text-center">
+        <div className="w-20 h-20 lg:w-24 lg:h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-10 h-10 lg:w-12 lg:h-12 text-green-600">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
 
-        <h3 className="text-2xl font-bold text-navy mb-4">Message Sent Successfully!</h3>
+        <h3 className="text-2xl lg:text-3xl font-bold text-navy mb-6">Message Sent Successfully!</h3>
 
-        <p className="text-gray mb-6">
+        <p className="text-gray text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
           Thank you for reaching out. We have received your message and will respond within 24-48 hours. You should also receive a confirmation email shortly.
         </p>
 
@@ -193,7 +193,7 @@ export default function ContactForm() {
           onClick={() => {
             setFormState(prev => ({ ...prev, isSubmitted: false }));
           }}
-          className="text-teal hover:text-teal/80 font-semibold"
+          className="text-teal hover:text-teal/80 font-semibold text-lg transition-colors duration-200"
         >
           Send Another Message
         </button>
@@ -202,24 +202,24 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="content-spacing">
       {formState.error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <div className="ml-3">
-              <p className="text-sm text-red-700">{formState.error}</p>
+            <div className="ml-4">
+              <p className="text-base lg:text-lg text-red-700 font-medium">{formState.error}</p>
             </div>
           </div>
         </div>
       )}
 
       {/* Two-column layout for name/company and email/phone */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
         <div>
           <label htmlFor="name" className="block text-sm font-semibold text-navy mb-2">
             Full Name *
@@ -232,7 +232,7 @@ export default function ContactForm() {
             onChange={handleInputChange}
             required
             disabled={formState.isSubmitting}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal transition-colors duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="form-input"
             placeholder="Enter your full name"
             maxLength={100}
             aria-describedby="name-help"
@@ -250,7 +250,7 @@ export default function ContactForm() {
             value={formData.companyName}
             onChange={handleInputChange}
             disabled={formState.isSubmitting}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal transition-colors duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="form-input"
             placeholder="Enter your company name (optional)"
             maxLength={100}
           />
@@ -268,7 +268,7 @@ export default function ContactForm() {
             onChange={handleInputChange}
             required
             disabled={formState.isSubmitting}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal transition-colors duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="form-input"
             placeholder="Enter your email address"
             maxLength={254}
             aria-describedby="email-help"
@@ -286,7 +286,7 @@ export default function ContactForm() {
             value={formData.phoneNumber}
             onChange={handleInputChange}
             disabled={formState.isSubmitting}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal transition-colors duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="form-input"
             placeholder="Enter your phone number (optional)"
             maxLength={20}
           />
@@ -305,7 +305,7 @@ export default function ContactForm() {
           onChange={handleInputChange}
           required
           disabled={formState.isSubmitting}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal transition-colors duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed bg-white"
+          className="form-select"
           aria-describedby="inquiry-help"
         >
           <option value="">Please select an inquiry type</option>
@@ -330,7 +330,7 @@ export default function ContactForm() {
           required
           disabled={formState.isSubmitting}
           rows={6}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal focus:border-teal transition-colors duration-200 disabled:bg-gray-100 disabled:cursor-not-allowed resize-vertical"
+          className="form-textarea"
           placeholder="Tell us about your project or how we can help you..."
           maxLength={2000}
           aria-describedby="message-help"
@@ -387,7 +387,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={formState.isSubmitting || !formData.privacyConsent || !formData.inquiryType}
-          className="w-full bg-teal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal/90 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
+          className="w-full btn-primary text-xl lg:text-2xl disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none"
         >
           {formState.isSubmitting ? (
             <div className="flex items-center justify-center">
@@ -400,7 +400,7 @@ export default function ContactForm() {
         </button>
       </div>
 
-      <div className="text-sm text-gray-500 text-center">
+      <div className="text-base lg:text-lg text-gray-500 text-center">
         <p>We respect your privacy. Your information will not be shared with third parties.</p>
       </div>
     </form>

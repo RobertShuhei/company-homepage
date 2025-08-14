@@ -88,31 +88,30 @@ export default function AboutPage() {
           secondaryCTA={{ text: 'Services', href: '/business' }}
         />
 
-        {/* Mission & Vision（数値カードは削除） */}
-        <section className="py-20 bg-white">
+        {/* Mission & Vision */}
+        <section className="section-spacing bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6">Our Mission</h2>
-                <p className="text-xl text-gray leading-relaxed mb-8">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-8">Our Mission</h2>
+                <p className="text-xl lg:text-2xl text-gray leading-relaxed mb-10">
                   Help clients visualize issues on site, prioritize with data, and execute pragmatic improvements that stick.
                 </p>
-                <div className="bg-slate-50 p-6 rounded-xl">
-                  <h3 className="text-xl font-semibold text-navy mb-3">Our Vision</h3>
-                  <p className="text-gray">
+                <div className="bg-slate-50 p-8 lg:p-10 rounded-xl">
+                  <h3 className="text-2xl font-semibold text-navy mb-4">Our Vision</h3>
+                  <p className="text-gray text-lg leading-relaxed">
                     Be a trusted partner for practical transformation across Japan and global markets.
                   </p>
                 </div>
               </div>
-              {/* 右側の数値カード（500+/98%など）は削除 */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="text-center bg-slate-100 text-navy p-8 rounded-xl">
-                  <div className="text-lg font-semibold">Hands-on & On-site</div>
-                  <div className="text-sm text-gray mt-2">Work directly with client teams at the site.</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+                <div className="text-center bg-slate-100 text-navy p-8 lg:p-10 rounded-xl">
+                  <div className="text-xl font-semibold mb-3">Hands-on & On-site</div>
+                  <div className="text-base text-gray">Work directly with client teams at the site.</div>
                 </div>
-                <div className="text-center bg-slate-100 text-navy p-8 rounded-xl">
-                  <div className="text-lg font-semibold">Bilingual Support</div>
-                  <div className="text-sm text-gray mt-2">Japanese & English communication, documents, and delivery.</div>
+                <div className="text-center bg-slate-100 text-navy p-8 lg:p-10 rounded-xl">
+                  <div className="text-xl font-semibold mb-3">Bilingual Support</div>
+                  <div className="text-base text-gray">Japanese & English communication, documents, and delivery.</div>
                 </div>
               </div>
             </div>
@@ -120,13 +119,13 @@ export default function AboutPage() {
         </section>
 
         {/* Values */}
-        <section className="py-20 bg-slate-50">
+        <section className="section-spacing bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6">Our Core Values</h2>
-              <p className="text-xl text-gray max-w-3xl mx-auto">Principles that guide how we work</p>
+            <div className="text-center mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-8">Our Core Values</h2>
+              <p className="text-xl lg:text-2xl text-gray max-w-4xl mx-auto">Principles that guide how we work</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 grid-gap-enhanced">
               {values.map((value, i) => (
                 <Card key={i} title={value.title} description={value.description} icon={value.icon} />
               ))}
@@ -134,26 +133,26 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Leadership（代表のみ） */}
-        <section id="leadership" className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-navy mb-6">Leadership</h2>
-              <p className="text-xl text-gray max-w-3xl mx-auto">Profile</p>
+        {/* Leadership */}
+        <section id="leadership" className="section-spacing bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-8">Leadership</h2>
+              <p className="text-xl lg:text-2xl text-gray max-w-4xl mx-auto">Profile</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-1 gap-12">
+            <div className="max-w-3xl mx-auto">
               {leadership.map((leader, index) => (
-                <div key={index} className="bg-slate-50 p-8 rounded-xl">
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-bold text-navy mb-2">{leader.name}</h3>
-                    <p className="text-teal font-semibold text-lg mb-4">{leader.position}</p>
-                    <p className="text-gray leading-relaxed mb-6">{leader.bio}</p>
+                <div key={index} className="bg-slate-50 p-10 lg:p-12 rounded-xl">
+                  <div className="mb-8">
+                    <h3 className="text-3xl lg:text-4xl font-bold text-navy mb-3">{leader.name}</h3>
+                    <p className="text-teal font-semibold text-xl lg:text-2xl mb-6">{leader.position}</p>
+                    <p className="text-gray text-lg lg:text-xl leading-relaxed mb-8">{leader.bio}</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-navy mb-3">Areas of Expertise</h4>
-                    <div className="flex flex-wrap gap-2">
+                    <h4 className="font-semibold text-navy text-lg mb-4">Areas of Expertise</h4>
+                    <div className="flex flex-wrap gap-3">
                       {leader.expertise.map((skill, i) => (
-                        <span key={i} className="bg-teal/10 text-teal px-3 py-1 rounded-full text-sm font-medium">
+                        <span key={i} className="bg-teal/10 text-teal px-4 py-2 rounded-full text-base font-medium">
                           {skill}
                         </span>
                       ))}
@@ -165,21 +164,21 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Timeline（数値誇張なし） */}
-        <section className="py-20 bg-navy text-white">
+        {/* Timeline */}
+        <section className="section-spacing bg-navy text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">Our Story</h2>
+              <p className="text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto">
                 Key steps from launch to today
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-enhanced">
               {milestones.map((m, i) => (
-                <div key={i} className="bg-white/5 p-6 rounded-xl border border-white/10">
-                  <div className="text-2xl font-bold text-teal mb-2">{m.year}</div>
-                  <h3 className="text-xl font-semibold mb-3">{m.title}</h3>
-                  <p className="text-slate-300">{m.description}</p>
+                <div key={i} className="bg-white/5 p-8 lg:p-10 rounded-xl border border-white/10 h-full">
+                  <div className="text-3xl lg:text-4xl font-bold text-teal mb-4">{m.year}</div>
+                  <h3 className="text-xl lg:text-2xl font-semibold mb-5">{m.title}</h3>
+                  <p className="text-slate-300 text-base lg:text-lg leading-relaxed">{m.description}</p>
                 </div>
               ))}
             </div>
