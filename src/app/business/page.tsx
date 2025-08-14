@@ -5,9 +5,34 @@ import Hero from '@/components/ui/Hero'
 import CTA from '@/components/ui/CTA'
 
 export const metadata: Metadata = {
-  title: 'Services | Retail & Manufacturing Consulting',
+  title: 'Business Services - Retail & Manufacturing Consulting Solutions',
   description:
-    'Practical consulting focused on retail and manufacturing: operations improvement, inventory & demand planning, data dashboards, and market entry/localization.',
+    'Expert consulting services for retail and manufacturing companies. Operations improvement, inventory & demand planning, data analytics dashboards, and Japan market entry support.',
+  keywords: [
+    'retail consulting services',
+    'manufacturing consulting',
+    'operations improvement',
+    'inventory planning',
+    'demand planning',
+    'data analytics consulting',
+    'Japan market entry',
+    'business localization',
+    'supply chain consulting',
+    'digital transformation services',
+  ],
+  alternates: {
+    canonical: 'https://global-genex.com/business',
+  },
+  openGraph: {
+    title: 'Professional Consulting Services - Global Genex Inc.',
+    description: 'Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise.',
+    url: 'https://global-genex.com/business',
+    type: 'website',
+  },
+  twitter: {
+    title: 'Professional Consulting Services - Global Genex Inc.',
+    description: 'Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise.',
+  },
 }
 
 export default function BusinessPage() {

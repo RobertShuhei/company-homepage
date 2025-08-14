@@ -4,8 +4,31 @@ import Footer from '@/components/layout/Footer'
 import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Get Started with Global Genex Inc.',
-  description: 'Contact Global Genex Inc. to discuss your business consulting needs. Schedule a consultation and discover how we can help transform your organization.',
+  title: 'Contact Us - Get Started with Expert Consulting Services',
+  description: 'Contact Global Genex Inc. to discuss your retail & manufacturing consulting needs. Schedule a consultation in Japanese or English and discover how we can help improve your operations.',
+  keywords: [
+    'contact Global Genex',
+    'consulting inquiry',
+    'business consultation',
+    'schedule consultation',
+    'retail consulting contact',
+    'manufacturing consulting inquiry',
+    'Fukuoka consultant contact',
+    'bilingual consulting services',
+  ],
+  alternates: {
+    canonical: 'https://global-genex.com/contact',
+  },
+  openGraph: {
+    title: 'Contact Global Genex Inc. - Schedule Your Consultation',
+    description: 'Ready to improve your business operations? Contact our expert consultants for retail & manufacturing solutions.',
+    url: 'https://global-genex.com/contact',
+    type: 'website',
+  },
+  twitter: {
+    title: 'Contact Global Genex Inc. - Schedule Your Consultation',
+    description: 'Ready to improve your business operations? Contact our expert consultants for retail & manufacturing solutions.',
+  },
 }
 
 export default function ContactPage() {

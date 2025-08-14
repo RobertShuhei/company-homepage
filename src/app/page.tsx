@@ -1,8 +1,51 @@
-﻿import Header from '@/components/layout/Header'
+﻿import { Metadata } from 'next'
+import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
+
+export const metadata: Metadata = {
+  title: 'Global Genex Inc. - Expert Retail & Manufacturing Consulting | Japan Market Entry',
+  description:
+    'Professional consulting services for retail & manufacturing companies. AI-driven data analytics, Japan market entry support, and digital transformation expertise. Based in Fukuoka, serving global clients.',
+  keywords: [
+    'retail consulting',
+    'manufacturing consulting',
+    'Japan market entry',
+    'business consulting Fukuoka',
+    'AI consulting',
+    'data analytics consulting',
+    'digital transformation',
+    'cross-border business',
+    'bilingual consultant',
+    'Global Genex',
+    'operations improvement',
+    'supply chain consulting',
+  ],
+  alternates: {
+    canonical: 'https://global-genex.com',
+  },
+  openGraph: {
+    title: 'Global Genex Inc. - Expert Retail & Manufacturing Consulting',
+    description: 'Transform your business with professional consulting services. AI-driven analytics, operations improvement, and Japan market entry expertise.',
+    url: 'https://global-genex.com',
+    type: 'website',
+    images: [
+      {
+        url: '/og-homepage.png',
+        width: 1200,
+        height: 630,
+        alt: 'Global Genex Inc. - Professional Business Consulting Services',
+      },
+    ],
+  },
+  twitter: {
+    title: 'Global Genex Inc. - Expert Retail & Manufacturing Consulting',
+    description: 'Transform your business with professional consulting services. AI-driven analytics, operations improvement, and Japan market entry expertise.',
+    images: ['/og-homepage.png'],
+  },
+}
 
 export default function Home() {
   // ① 会社の3本柱に合わせる

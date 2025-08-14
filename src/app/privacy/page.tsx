@@ -2,9 +2,35 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Global Genex Inc.',
+  title: 'Privacy Policy - Data Protection & Information Security',
   description:
-    'Global Genex Inc. privacy policy explaining how we collect, use, protect, and manage personal information.',
+    'Global Genex Inc. privacy policy explaining how we collect, use, protect, and manage personal information. Learn about our commitment to data security and privacy protection.',
+  keywords: [
+    'privacy policy',
+    'data protection',
+    'personal information',
+    'Global Genex privacy',
+    'information security',
+    'data handling',
+    'privacy rights',
+  ],
+  alternates: {
+    canonical: 'https://global-genex.com/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy - Global Genex Inc.',
+    description: 'Our commitment to protecting your personal information and data privacy.',
+    url: 'https://global-genex.com/privacy',
+    type: 'website',
+  },
+  twitter: {
+    title: 'Privacy Policy - Global Genex Inc.',
+    description: 'Our commitment to protecting your personal information and data privacy.',
+  },
+  robots: {
+    index: true,
+    follow: false,
+  },
 };
 
 export default function PrivacyPage() {

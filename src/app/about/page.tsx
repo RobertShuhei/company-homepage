@@ -6,9 +6,31 @@ import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
 
 export const metadata: Metadata = {
-  title: 'About Us | Company Profile',
+  title: 'About Us - Company Profile & Leadership',
   description:
-    'Global Genex Inc. is a consulting company based in Fukuoka, Japan. We help retailers and manufacturers improve operations with practical, data-driven execution.',
+    'Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. We help retailers and manufacturers improve operations with practical, data-driven execution and bilingual support.',
+  keywords: [
+    'Global Genex about',
+    'company profile',
+    'Fukuoka consulting company', 
+    'Shuhei Nakahara',
+    'bilingual consultant',
+    'Japan consulting firm',
+    'retail manufacturing consultant',
+  ],
+  alternates: {
+    canonical: 'https://global-genex.com/about',
+  },
+  openGraph: {
+    title: 'About Global Genex Inc. - Expert Consulting Team',
+    description: 'Meet the Global Genex team. Professional consulting for retail & manufacturing companies with practical, data-driven execution.',
+    url: 'https://global-genex.com/about',
+    type: 'website',
+  },
+  twitter: {
+    title: 'About Global Genex Inc. - Expert Consulting Team',
+    description: 'Meet the Global Genex team. Professional consulting for retail & manufacturing companies with practical, data-driven execution.',
+  },
 }
 
 export default function AboutPage() {
@@ -69,10 +91,25 @@ export default function AboutPage() {
 
   // ── Milestones：実績数字は避け、設立と方向性のみ
   const milestones = [
-    { year: '2025', title: 'Established in Fukuoka', description: 'Global Genex Inc. launched as an independent consulting practice.' },
-    { year: '2025', title: 'Services Launched', description: 'Retail & manufacturing operations, data analytics, and cross-border support.' },
-    { year: '2025', title: 'Reusable Assets', description: 'Started publishing templates, checklists, and simple tools for clients.' }
-  ]
+  {
+    year: '2024',
+    title: 'Founded in Fukuoka',
+    description:
+      'Incorporated in October 2024 as an independent consulting company.',
+  },
+  {
+    year: '2025',
+    title: 'Services Launched',
+    description:
+      'Started consulting for retail and manufacturing operations, data & analytics, and cross-border support.',
+  },
+  {
+    year: '2025',
+    title: 'Reusable Assets',
+    description:
+      'Began publishing templates, checklists, and simple tools for clients.',
+  },
+]
 
   return (
     <div className="min-h-screen flex flex-col">
