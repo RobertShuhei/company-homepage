@@ -128,9 +128,7 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
 
 /** Send via Resend */
 async function sendEmail(data: ContactFormData, env: Env): Promise<{ success: boolean; error?: string }> {
-  console.log('Attempting to send email. RECIPIENT_EMAIL variable is:', env.RECIPIENT_EMAIL);
   const recipientEmail = env.RECIPIENT_EMAIL || 'info@global-genex.com';
-  console.log('Final recipient address being used:', recipientEmail);
 
   const emailPayload = {
     from: 'Contact Form <noreply@mail.global-genex.com>',
@@ -176,14 +174,6 @@ Submitted at: ${new Date().toISOString()}
   };
 
   try {
-    console.log('Email payload TO field:', JSON.stringify(emailPayload.to));
-    console.log('Full email payload structure:', JSON.stringify({
-      from: emailPayload.from,
-      to: emailPayload.to,
-      subject: emailPayload.subject,
-      reply_to: emailPayload.reply_to
-    }));
-    
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -195,7 +185,6 @@ Submitted at: ${new Date().toISOString()}
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Resend API error response:', response.status, errorText);
       throw new Error(`Resend API error: ${response.status} ${errorText}`);
     }
 
@@ -203,7 +192,6 @@ Submitted at: ${new Date().toISOString()}
     console.log('Email sent successfully:', result.id);
     return { success: true };
   } catch (error) {
-    console.error('Email sending error:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown email error' };
   }
 }
