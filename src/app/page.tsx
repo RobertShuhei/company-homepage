@@ -5,73 +5,75 @@ import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
 
 export default function Home() {
+  // ① 会社の3本柱に合わせる
   const services = [
     {
-      title: "Strategic Consulting",
-      description: "Expert guidance to help your business navigate complex challenges and identify growth opportunities with data-driven insights.",
+      title: "Manufacturing Consulting",
+      description:
+        "Hands-on support to visualize processes, train teams, and improve productivity and quality at the shop floor.",
       icon: (
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       )
     },
     {
-      title: "Digital Transformation",
-      description: "Modernize your operations with cutting-edge technology solutions that streamline processes and enhance productivity.",
+      title: "IT Implementation / System Development",
+      description:
+        "Practical systems for sales performance, operational efficiency, and production/quality analytics tailored to your operations.",
       icon: (
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       )
     },
     {
-      title: "Process Optimization",
-      description: "Analyze and refine your business processes to eliminate inefficiencies and maximize operational performance.",
+      title: "Support for Market Development",
+      description:
+        "Hands-on support to open and expand sales channels in Japan and overseas, leveraging bilingual, on-the-ground execution.",
       icon: (
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
       )
     }
   ]
 
+  // ② “実績・人数”を誤解させない表現に
   const features = [
     {
-      title: "Expert Team",
-      description: "Our certified professionals bring decades of industry experience to every project."
+      title: "Founder-Led",
+      description: "Projects are led directly by the founder for speed, accountability, and clear communication."
     },
     {
-      title: "Proven Results",
-      description: "Track record of delivering measurable improvements for businesses of all sizes."
+      title: "Hands-On & On-Site",
+      description: "We work at the site with your team to visualize issues and implement practical countermeasures."
     },
     {
-      title: "Custom Solutions",
-      description: "Tailored approaches designed specifically for your unique business challenges."
+      title: "Bilingual & Cross-Border",
+      description: "Japanese–English support for supply chains and sales channels across Japan and overseas."
     },
     {
-      title: "Ongoing Support",
-      description: "Comprehensive support throughout implementation and beyond for lasting success."
+      title: "Practical, Phased Delivery",
+      description: "Small wins first, then scale. We avoid overengineering and focus on measurable improvements."
     }
   ]
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main>
-        {/* Hero Section */}
+        {/* ③ Hero 文言を“実態”に寄せる */}
         <Hero
-          title="Transform Your Business with Expert Solutions"
-          subtitle="Professional Consulting Services"
-          description="We help businesses unlock their potential through strategic consulting, digital transformation, and process optimization. Partner with us to achieve exceptional results."
-          primaryCTA={{
-            text: "Get Started Today",
-            href: "/contact"
-          }}
-          secondaryCTA={{
-            text: "Learn More",
-            href: "/business"
-          }}
+          title="Transform Your Operations with AI-Driven, Hands-On Consulting"
+          subtitle="Professional Consulting for Retail & Manufacturing"
+          description="We help manufacturers and retailers improve productivity and quality through on-site consulting, data analytics, and digital transformation. We also support market development in Japan and overseas."
+          primaryCTA={{ text: "Get Started Today", href: "/contact" }}
+          secondaryCTA={{ text: "Explore Services", href: "/business" }}
         />
 
         {/* Services Section */}
@@ -82,10 +84,10 @@ export default function Home() {
                 Our Core Services
               </h2>
               <p className="text-xl text-gray max-w-3xl mx-auto">
-                Comprehensive business solutions designed to drive growth and operational excellence
+                Practical consulting to raise productivity, quality, and sales performance
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
                 <Card
@@ -108,10 +110,10 @@ export default function Home() {
                 Why Choose Global Genex Inc.
               </h2>
               <p className="text-xl text-gray max-w-3xl mx-auto">
-                We combine industry expertise with innovative approaches to deliver exceptional value
+                Practical, bilingual, and execution-focused support
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center">
@@ -129,38 +131,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-20 bg-navy text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-teal mb-2">500+</div>
-                <div className="text-xl text-slate-300">Projects Completed</div>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-teal mb-2">98%</div>
-                <div className="text-xl text-slate-300">Client Satisfaction</div>
-              </div>
-              <div>
-                <div className="text-4xl md:text-5xl font-bold text-teal mb-2">15+</div>
-                <div className="text-xl text-slate-300">Years Experience</div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ④ “数字実績”は一旦削除（嘘防止）*/}
 
         {/* CTA Section */}
         <CTA
-          title="Ready to Transform Your Business?"
-          description="Let's discuss how our expert solutions can help you achieve your goals and drive sustainable growth."
-          primaryButton={{
-            text: "Schedule Consultation",
-            href: "/contact"
-          }}
-          secondaryButton={{
-            text: "View Our Work",
-            href: "/about"
-          }}
+          title="Ready to Move Forward?"
+          description="Tell us your current challenges. We’ll propose a phased approach that fits your site, team, and timeline."
+          primaryButton={{ text: "Schedule Consultation", href: "/contact" }}
+          secondaryButton={{ text: "About the Founder", href: "/about" }}
           variant="light"
         />
       </main>

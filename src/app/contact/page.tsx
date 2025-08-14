@@ -81,9 +81,9 @@ export default function ContactPage() {
                     <div className="ml-6">
                       <h3 className="text-xl font-semibold text-navy mb-2">Office</h3>
                       <p className="text-gray">
-                        1-23-2 HakataEkimae<br />
-                        Hakata-ku<br />
-                        Fukuoka, Japan
+                        5F-B, ParkFront<br />
+                        1-23-2 Hakata Ekimae<br />
+                        Hakata ward, Fukuoka, Japan
                       </p>
                     </div>
                   </div>
@@ -137,8 +137,8 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  title: "Strategic Consulting",
-                  description: "Expert guidance for long-term growth and competitive advantage",
+                  title: "Manufacturing Consulting",
+                  description: "Hands-on support to visualize processes, train teams, and improve productivity and quality.",
                   icon: (
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -146,8 +146,8 @@ export default function ContactPage() {
                   )
                 },
                 {
-                  title: "Digital Transformation",
-                  description: "Modernize operations with cutting-edge technology solutions",
+                  title: "IT Implementation / System Development",
+                  description: "Systems for sales performance, operational efficiency, and production/quality analytics.",
                   icon: (
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -155,8 +155,8 @@ export default function ContactPage() {
                   )
                 },
                 {
-                  title: "Process Optimization",
-                  description: "Streamline workflows to maximize efficiency and performance",
+                  title: "Support for Market Development",
+                  description: "Practical support to open and expand sales channels in Japan and overseas.",
                   icon: (
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
