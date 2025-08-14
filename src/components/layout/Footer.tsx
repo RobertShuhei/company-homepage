@@ -40,16 +40,17 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="text-2xl font-bold hover:text-teal transition-colors duration-200"
-                aria-label="Corporate Solutions - Home"
+                aria-label="Global Genex Inc. - Home"
               >
-                Corporate Solutions
+                Global Genex Inc.
               </Link>
             </div>
             <p className="text-slate-300 mb-4">
-              Leading provider of professional business solutions, delivering exceptional results through innovative services and expert consultation.
+              Retail & Manufacturing × AI & Data Analytics × Global Expansion.
+              We bridge Japan and global markets with AI-driven consulting.
             </p>
             <div className="flex space-x-4">
               <a
@@ -98,7 +99,7 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-slate-700">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-slate-300 text-sm">
-              © {currentYear} Corporate Solutions. All rights reserved.
+              © {currentYear} Global Genex Inc. All rights reserved.
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link

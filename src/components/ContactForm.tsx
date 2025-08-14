@@ -158,9 +158,9 @@ export default function ContactForm() {
       let errorMessage = 'Failed to send message. Please try again.';
       
       if (error instanceof Error) {
-        // Check if it's the timing protection error and provide Japanese message
+        // Check if it's the timing protection error and provide message
         if (error.message.includes('Submission too fast')) {
-          errorMessage = '送信に失敗しました。もう一度お試しください。';
+          errorMessage = 'Failed to send message. Please try again.';
         } else {
           errorMessage = error.message;
         }

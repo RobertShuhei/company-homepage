@@ -22,6 +22,8 @@ interface Env {
   RESEND_API_KEY: string;
   RECIPIENT_EMAIL: string;
   ALLOWED_ORIGINS?: string; // 例: "https://global-genex.com,https://www.global-genex.com,http://localhost:3000"
+  ENABLE_CONFIRMATION_EMAILS?: string; // "true" to enable, anything else to disable
+  BLOCKED_EMAIL_DOMAINS?: string; // Comma-separated list of additional blocked domains
 }
 
 /** HTML escape */
@@ -36,6 +38,7 @@ function escapeHtml(unsafe: string): string {
 
 /** in-memory rate limit (注意: 実運用は KV/DO 推奨) */
 const rateLimitCache = new Map<string, { count: number; resetTime: number }>();
+const emailRateLimitCache = new Map<string, { count: number; resetTime: number }>();
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -50,6 +53,77 @@ function isRateLimited(ip: string): boolean {
 
   rateLimitCache.set(key, { ...existing, count: existing.count + 1 });
   return false;
+}
+
+/** Email-specific rate limiting to prevent confirmation email abuse */
+function isEmailRateLimited(email: string): boolean {
+  const now = Date.now();
+  const key = `email_rate_limit_${email.toLowerCase()}`;
+  const existing = emailRateLimitCache.get(key);
+
+  if (!existing || now > existing.resetTime) {
+    emailRateLimitCache.set(key, { count: 1, resetTime: now + 60 * 60 * 1000 }); // 1 hour window
+    return false;
+  }
+  
+  if (existing.count >= 2) return true; // Max 2 confirmation emails per email per hour
+  
+  emailRateLimitCache.set(key, { ...existing, count: existing.count + 1 });
+  return false;
+}
+
+/** Validate email domain to prevent abuse from disposable email services */
+function isValidEmailDomain(email: string, env: Env): boolean {
+  const domain = email.split('@')[1]?.toLowerCase();
+  if (!domain) return false;
+  
+  // Core disposable email services (high-risk)
+  const disposableDomains = [
+    'tempmail.org', '10minutemail.com', 'guerrillamail.com', 
+    'mailinator.com', 'yopmail.com', 'temp-mail.org',
+    'throwaway.email', 'getnada.com', 'maildrop.cc',
+    'mailnesia.com', 'sharklasers.com', 'grr.la',
+    'guerrillamailblock.com', 'pokemail.net', 'spam4.me',
+    'tempmail.de', 'temporary-mail.net', 'dispostable.com',
+    'fakeinbox.com', 'mohmal.com', 'mytrashmail.com',
+    'tempinbox.com', 'trashmail.com', 'incognitomail.org'
+  ];
+  
+  // Additional blocked domains from environment
+  const additionalBlocked = env.BLOCKED_EMAIL_DOMAINS 
+    ? env.BLOCKED_EMAIL_DOMAINS.split(',').map(d => d.trim().toLowerCase())
+    : [];
+  
+  // Check against known disposable domains
+  if (disposableDomains.includes(domain)) return false;
+  if (additionalBlocked.includes(domain)) return false;
+  
+  // Block suspicious patterns
+  const suspiciousPatterns = [
+    /^\d+\.\w+$/, // Numeric subdomains (e.g., 123.example.com)
+    /^[a-z]{1,3}\.\w+$/, // Very short subdomains (e.g., ab.example.com)
+    /temp/i, // Domains containing "temp"
+    /mail.*\d+/i, // Domains like mail123.com
+    /^\w{1,3}\d+\./i, // Short domains with numbers
+  ];
+  
+  if (suspiciousPatterns.some(pattern => pattern.test(domain))) return false;
+  
+  // Additional domain validation
+  if (domain.length < 4 || domain.length > 253) return false; // RFC limits
+  if (domain.includes('..') || domain.startsWith('.') || domain.endsWith('.')) return false;
+  
+  return true;
+}
+
+/** Sanitize email address to prevent header injection */
+function sanitizeEmailForHeaders(email: string): string {
+  // Remove potential header injection characters and control characters
+  return email
+    .replace(/[\r\n\0]/g, '') // Remove newlines and null bytes
+    .replace(/[<>]/g, '') // Remove angle brackets
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+    .trim();
 }
 
 function isContactFormData(data: unknown): data is Record<string, unknown> {
@@ -86,9 +160,17 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
   if (data.companyName && typeof data.companyName === 'string' && data.companyName.trim().length > 100)
     return { isValid: false, error: 'Company name must be less than 100 characters' };
 
-  // Email format validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test((data.email as string).trim())) return { isValid: false, error: 'Invalid email format' };
+  // Enhanced email format validation
+  const email = (data.email as string).trim();
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if (!emailRegex.test(email)) return { isValid: false, error: 'Invalid email format' };
+  
+  // Additional email security checks
+  if (email.length > 254) return { isValid: false, error: 'Email address too long' };
+  if (email.includes('..') || email.startsWith('.') || email.endsWith('.')) return { isValid: false, error: 'Invalid email format' };
+  
+  // Check for potential header injection characters in email
+  if (/[\r\n\0<>]/.test(email)) return { isValid: false, error: 'Invalid email format' };
 
   // Optional phone number format validation
   if (data.phoneNumber && typeof data.phoneNumber === 'string' && data.phoneNumber.trim() !== '') {
@@ -126,8 +208,9 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
   return { isValid: true };
 }
 
-/** Send confirmation email to user */
+/** Send confirmation email to user with minimal data exposure */
 async function sendConfirmationEmail(data: ContactFormData, env: Env): Promise<{ success: boolean; error?: string }> {
+  // Security-hardened confirmation email with minimal data exposure
   const htmlTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -155,21 +238,19 @@ async function sendConfirmationEmail(data: ContactFormData, env: Env): Promise<{
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Thank You, ${escapeHtml(data.name)}!</h1>
+            <h1>Thank You, ${escapeHtml(data.name.split(' ')[0] || data.name)}!</h1>
             <p style="margin: 10px 0 0 0; opacity: 0.9;">Your inquiry has been successfully received</p>
         </div>
         
         <div class="content">
             <div class="highlight-box">
-                <h2 style="margin-top: 0; color: #0891b2;">📩 Inquiry Confirmed</h2>
+                <h2 style="margin-top: 0; color: #0891b2;">Inquiry Confirmed</h2>
                 <p>We've received your <strong>${escapeHtml(data.inquiryType)}</strong> inquiry and our team will review it carefully. You can expect a personalized response within 24-48 hours during business days.</p>
             </div>
 
             <div class="contact-summary">
-                <h3>📋 Your Submission Summary</h3>
+                <h3>Submission Summary</h3>
                 <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-                <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-                ${data.companyName ? `<p><strong>Company:</strong> ${escapeHtml(data.companyName)}</p>` : ''}
                 <p><strong>Inquiry Type:</strong> ${escapeHtml(data.inquiryType)}</p>
                 <p><strong>Submitted:</strong> ${new Date().toLocaleDateString('en-US', { 
                   weekday: 'long', 
@@ -180,7 +261,7 @@ async function sendConfirmationEmail(data: ContactFormData, env: Env): Promise<{
             </div>
 
             <div class="next-steps">
-                <h3 style="color: #059669; margin-top: 0;">⏰ What Happens Next?</h3>
+                <h3 style="color: #059669; margin-top: 0;">What Happens Next?</h3>
                 <ul style="margin: 10px 0; padding-left: 20px;">
                     <li><strong>Immediate:</strong> Your inquiry is logged in our system</li>
                     <li><strong>Within 4 hours:</strong> Initial acknowledgment from our team</li>
@@ -190,7 +271,7 @@ async function sendConfirmationEmail(data: ContactFormData, env: Env): Promise<{
             </div>
 
             <div class="cta-box">
-                <h3 style="margin-top: 0;">🌐 Explore Global Genex</h3>
+                <h3 style="margin-top: 0;">Explore Global Genex</h3>
                 <p style="margin: 10px 0;">While you wait, feel free to learn more about our services and solutions.</p>
                 <p><a href="https://global-genex.com">Visit Our Website</a> | <a href="https://global-genex.com/about">About Us</a> | <a href="https://global-genex.com/business">Our Services</a></p>
             </div>
@@ -216,13 +297,12 @@ async function sendConfirmationEmail(data: ContactFormData, env: Env): Promise<{
   const textTemplate = `
 Thank You for Contacting Global Genex!
 
-Hi ${data.name},
+Hi ${data.name.split(' ')[0] || data.name},
 
 Your ${data.inquiryType} inquiry has been successfully received and our team will review it carefully.
 
 SUBMISSION SUMMARY:
 - Name: ${data.name}
-- Email: ${data.email}${data.companyName ? `\n- Company: ${data.companyName}` : ''}
 - Inquiry Type: ${data.inquiryType}
 - Submitted: ${new Date().toLocaleDateString('en-US', { 
     weekday: 'long', 
@@ -244,8 +324,8 @@ While you wait, learn more about our services:
 - Our Services: https://global-genex.com/business
 
 Need immediate assistance? Contact us directly:
-📧 Email: info@global-genex.com
-🌐 Website: www.global-genex.com
+Email: info@global-genex.com
+Website: www.global-genex.com
 
 ---
 Global Genex
@@ -255,9 +335,12 @@ This is an automated confirmation email. Please do not reply to this address.
 For support, contact us at info@global-genex.com
 `.trim();
 
+  // Sanitize email address for headers to prevent injection
+  const sanitizedEmail = sanitizeEmailForHeaders(data.email);
+  
   const emailPayload = {
     from: 'Global Genex Support <noreply@mail.global-genex.com>',
-    to: [data.email],
+    to: [sanitizedEmail],
     subject: 'Thank you for contacting Global Genex | Inquiry Received',
     html: htmlTemplate,
     text: textTemplate,
@@ -399,6 +482,7 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
       request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || 'unknown';
 
     if (isRateLimited(clientIP)) {
+      console.log('Rate limit exceeded for IP:', clientIP);
       return new Response(JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }), {
         status: 429,
         headers: { 'Content-Type': 'application/json', ...corsHeaders },
@@ -446,13 +530,27 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
       });
     }
 
-    // Send confirmation email to user (failure doesn't affect user response)
-    const confirmationResult = await sendConfirmationEmail(contactData, env);
-    if (!confirmationResult.success) {
-      console.error('Confirmation email failed:', confirmationResult.error);
-      // Log the failure but don't affect the user response since the main email succeeded
+    // Send confirmation email to user with comprehensive security checks
+    const enableConfirmationEmails = env.ENABLE_CONFIRMATION_EMAILS === 'true';
+    
+    if (enableConfirmationEmails) {
+      // Validate email domain to prevent abuse
+      if (!isValidEmailDomain(contactData.email, env)) {
+        console.log('Confirmation email blocked: Invalid or disposable email domain:', contactData.email);
+      } else if (isEmailRateLimited(contactData.email)) {
+        console.log('Confirmation email blocked: Rate limit exceeded for email:', contactData.email);
+      } else {
+        // Proceed with sending confirmation email
+        const confirmationResult = await sendConfirmationEmail(contactData, env);
+        if (!confirmationResult.success) {
+          console.error('Confirmation email failed:', confirmationResult.error);
+          // Log the failure but don't affect the user response since the main email succeeded
+        } else {
+          console.log('Both internal and confirmation emails sent successfully');
+        }
+      }
     } else {
-      console.log('Both internal and confirmation emails sent successfully');
+      console.log('Confirmation emails are disabled via feature flag');
     }
 
     return new Response(JSON.stringify({ success: true, message: 'Message sent successfully' }), {

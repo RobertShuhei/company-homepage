@@ -19,13 +19,13 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link 
-              href="/" 
-              className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
-              aria-label="Corporate Solutions - Home"
-            >
-              Corporate Solutions
-            </Link>
+            <Link
+                href="/"
+                className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
+                aria-label="Global Genex Inc. - Home"
+              >
+                Global Genex Inc.
+              </Link>
           </div>
 
           {/* Desktop Navigation */}
