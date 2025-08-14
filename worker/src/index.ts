@@ -131,7 +131,7 @@ async function sendEmail(data: ContactFormData, env: Env): Promise<{ success: bo
   const recipientEmail = env.RECIPIENT_EMAIL || 'info@mail.global-genex.com';
 
   const emailPayload = {
-    from: 'Contact Form <noreply@send.mail.global-genex.com>',
+    from: 'Contact Form <noreply@mail.global-genex.com>',
     to: [recipientEmail],
     subject: `New ${data.inquiryType} from ${data.name}${data.companyName ? ` (${data.companyName})` : ''}`,
     html: `
