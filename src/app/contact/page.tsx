@@ -50,7 +50,7 @@ export default function ContactPage() {
                     <div className="ml-6">
                       <h3 className="text-xl font-semibold text-navy mb-2">Phone</h3>
                       <p className="text-gray">+81 (0)70-8361-4870</p>
-                      <p className="text-gray text-sm mt-1">Monday - Friday, 9:00 AM - 6:00 PM (JST)</p>
+                      <p className="text-gray text-sm mt-1">Monday - Friday, 10:00 AM - 5:00 PM (JST)</p>
                     </div>
                   </div>
 

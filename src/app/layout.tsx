@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://global-genex.com"),
   title: {
     default: "Global Genex Inc.",
     template: "%s | Global Genex Inc.",
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Global Genex Inc." }],
   robots: "index, follow",
+  alternates: {
+    canonical: "https://global-genex.com",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -36,25 +40,35 @@ export const metadata: Metadata = {
     description:
       "Retail & Manufacturing × AI & Data Analytics × Global Expansion.",
     siteName: "Global Genex Inc.",
+    images: [
+      {
+        url: "/og.png", // 例: public/og.png を用意
+        width: 1200,
+        height: 630,
+        alt: "Global Genex Inc.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Global Genex Inc.",
     description:
       "Retail & Manufacturing × AI & Data Analytics × Global Expansion.",
+    images: ["/og.png"], // 同じでOK
+  },
+  icons: {
+    icon: [{ url: "/favicon.ico" }],
   },
 };
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased bg-white text-slate-900">

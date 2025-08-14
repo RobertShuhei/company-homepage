@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+﻿import { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
@@ -7,7 +7,7 @@ import CTA from '@/components/ui/CTA'
 
 export const metadata: Metadata = {
   title: 'About Us | Company Profile & Leadership Team',
-  description: 'Learn about Corporate Solutions - our mission, values, leadership team, and commitment to delivering exceptional business consulting services worldwide.',
+  description: 'Learn about Global Genex Inc. - our mission, values, leadership team, and commitment to delivering exceptional business consulting services worldwide.',
 }
 
 export default function AboutPage() {
@@ -81,7 +81,7 @@ export default function AboutPage() {
     {
       year: "2008",
       title: "Company Founded",
-      description: "Corporate Solutions was established with a vision to help businesses unlock their potential through expert consulting."
+      description: "Global Genex Inc. was established with a vision to help businesses unlock their potential through expert consulting."
     },
     {
       year: "2012",
@@ -127,7 +127,7 @@ export default function AboutPage() {
         {/* Hero Section */}
         <Hero
           title="Driving Business Excellence Since 2008"
-          subtitle="About Corporate Solutions"
+          subtitle="About Global Genex Inc."
           description="We are a team of passionate consultants dedicated to helping organizations achieve their full potential through strategic guidance, innovative solutions, and operational excellence."
           primaryCTA={{
             text: "Meet Our Team",
