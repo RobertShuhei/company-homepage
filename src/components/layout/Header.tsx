@@ -12,7 +12,7 @@ const Header = () => {
     { href: '/', label: 'Home' },
     { href: '/business', label: 'Services' },
     { href: '/about', label: 'About' },
-    // Contact は右上のCTAで出す想定（ナビにも出したい場合はここに追加してOK）
+    { href: '/contact', label: 'Contact' },
   ]
 
   const isActiveHref = (href: string) => {
