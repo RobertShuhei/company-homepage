@@ -186,7 +186,7 @@ export default function ContactForm() {
         <h3 className="text-2xl font-bold text-navy mb-4">Message Sent Successfully!</h3>
 
         <p className="text-gray mb-6">
-          Thank you for reaching out. We have received your message and will respond within 24 hours.
+          Thank you for reaching out. We have received your message and will respond within 24-48 hours. You should also receive a confirmation email shortly.
         </p>
 
         <button

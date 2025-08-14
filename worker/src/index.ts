@@ -126,6 +126,166 @@ function validateContactData(data: unknown): { isValid: boolean; error?: string 
   return { isValid: true };
 }
 
+/** Send confirmation email to user */
+async function sendConfirmationEmail(data: ContactFormData, env: Env): Promise<{ success: boolean; error?: string }> {
+  const htmlTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Global Genex</title>
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1e3a5f; margin: 0; padding: 0; background-color: #f8fafc; }
+        .container { max-width: 600px; margin: 0 auto; background: white; }
+        .header { background: linear-gradient(135deg, #1e3a5f 0%, #0891b2 100%); color: white; text-align: center; padding: 30px 20px; }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 600; }
+        .content { padding: 30px; }
+        .highlight-box { background: #f0f9ff; border-left: 4px solid #0891b2; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .contact-summary { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .contact-summary h3 { color: #1e3a5f; margin-top: 0; }
+        .next-steps { background: #ecfdf5; border: 1px solid #a7f3d0; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .footer { background: #64748b; color: white; text-align: center; padding: 20px; font-size: 14px; }
+        .footer a { color: #93c5fd; text-decoration: none; }
+        .cta-box { background: #1e3a5f; color: white; padding: 20px; border-radius: 8px; text-align: center; margin: 25px 0; }
+        .cta-box a { color: #93c5fd; text-decoration: none; font-weight: 600; }
+        @media only screen and (max-width: 600px) { .container { width: 100% !important; } .content { padding: 20px !important; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Thank You, ${escapeHtml(data.name)}!</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Your inquiry has been successfully received</p>
+        </div>
+        
+        <div class="content">
+            <div class="highlight-box">
+                <h2 style="margin-top: 0; color: #0891b2;">📩 Inquiry Confirmed</h2>
+                <p>We've received your <strong>${escapeHtml(data.inquiryType)}</strong> inquiry and our team will review it carefully. You can expect a personalized response within 24-48 hours during business days.</p>
+            </div>
+
+            <div class="contact-summary">
+                <h3>📋 Your Submission Summary</h3>
+                <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+                <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+                ${data.companyName ? `<p><strong>Company:</strong> ${escapeHtml(data.companyName)}</p>` : ''}
+                <p><strong>Inquiry Type:</strong> ${escapeHtml(data.inquiryType)}</p>
+                <p><strong>Submitted:</strong> ${new Date().toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}</p>
+            </div>
+
+            <div class="next-steps">
+                <h3 style="color: #059669; margin-top: 0;">⏰ What Happens Next?</h3>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>Immediate:</strong> Your inquiry is logged in our system</li>
+                    <li><strong>Within 4 hours:</strong> Initial acknowledgment from our team</li>
+                    <li><strong>Within 24-48 hours:</strong> Detailed response with next steps</li>
+                    <li><strong>Follow-up:</strong> Scheduled call or meeting if needed</li>
+                </ul>
+            </div>
+
+            <div class="cta-box">
+                <h3 style="margin-top: 0;">🌐 Explore Global Genex</h3>
+                <p style="margin: 10px 0;">While you wait, feel free to learn more about our services and solutions.</p>
+                <p><a href="https://global-genex.com">Visit Our Website</a> | <a href="https://global-genex.com/about">About Us</a> | <a href="https://global-genex.com/business">Our Services</a></p>
+            </div>
+
+            <p style="color: #64748b; border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px;">
+                <strong>Need immediate assistance?</strong> You can reach us directly at <a href="mailto:info@global-genex.com" style="color: #0891b2;">info@global-genex.com</a> or call our support line during business hours.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Global Genex</strong><br>
+            Innovative Solutions for Global Business<br>
+            <a href="https://global-genex.com">www.global-genex.com</a></p>
+            <p style="font-size: 12px; margin-top: 15px; opacity: 0.8;">
+                This is an automated confirmation email. Please do not reply to this address.<br>
+                For support, contact us at info@global-genex.com
+            </p>
+        </div>
+    </div>
+</body>
+</html>`;
+
+  const textTemplate = `
+Thank You for Contacting Global Genex!
+
+Hi ${data.name},
+
+Your ${data.inquiryType} inquiry has been successfully received and our team will review it carefully.
+
+SUBMISSION SUMMARY:
+- Name: ${data.name}
+- Email: ${data.email}${data.companyName ? `\n- Company: ${data.companyName}` : ''}
+- Inquiry Type: ${data.inquiryType}
+- Submitted: ${new Date().toLocaleDateString('en-US', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  })}
+
+WHAT HAPPENS NEXT:
+✓ Immediate: Your inquiry is logged in our system
+✓ Within 4 hours: Initial acknowledgment from our team  
+✓ Within 24-48 hours: Detailed response with next steps
+✓ Follow-up: Scheduled call or meeting if needed
+
+EXPLORE GLOBAL GENEX:
+While you wait, learn more about our services:
+- Website: https://global-genex.com
+- About Us: https://global-genex.com/about  
+- Our Services: https://global-genex.com/business
+
+Need immediate assistance? Contact us directly:
+📧 Email: info@global-genex.com
+🌐 Website: www.global-genex.com
+
+---
+Global Genex
+Innovative Solutions for Global Business
+
+This is an automated confirmation email. Please do not reply to this address.
+For support, contact us at info@global-genex.com
+`.trim();
+
+  const emailPayload = {
+    from: 'Global Genex Support <noreply@mail.global-genex.com>',
+    to: [data.email],
+    subject: 'Thank you for contacting Global Genex | Inquiry Received',
+    html: htmlTemplate,
+    text: textTemplate,
+  };
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailPayload),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Resend API error: ${response.status} ${errorText}`);
+    }
+
+    const result = (await response.json()) as { id: string };
+    console.log('Confirmation email sent successfully:', result.id);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown confirmation email error' };
+  }
+}
+
 /** Send via Resend */
 async function sendEmail(data: ContactFormData, env: Env): Promise<{ success: boolean; error?: string }> {
   const recipientEmail = env.RECIPIENT_EMAIL || 'info@global-genex.com';
@@ -276,6 +436,7 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
       timestamp: (v.timestamp as number) || Date.now(),
     };
 
+    // Send internal notification email
     const emailResult = await sendEmail(contactData, env);
     if (!emailResult.success) {
       console.error('Email sending failed:', emailResult.error);
@@ -283,6 +444,15 @@ async function handleRequest(request: Request, env: Env): Promise<Response> {
         status: 500,
         headers: { 'Content-Type': 'application/json', ...corsHeaders },
       });
+    }
+
+    // Send confirmation email to user (failure doesn't affect user response)
+    const confirmationResult = await sendConfirmationEmail(contactData, env);
+    if (!confirmationResult.success) {
+      console.error('Confirmation email failed:', confirmationResult.error);
+      // Log the failure but don't affect the user response since the main email succeeded
+    } else {
+      console.log('Both internal and confirmation emails sent successfully');
     }
 
     return new Response(JSON.stringify({ success: true, message: 'Message sent successfully' }), {
