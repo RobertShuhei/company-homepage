@@ -1,3 +1,5 @@
+'use client' // ← 追加して年号を毎年自動更新に
+
 import Link from 'next/link'
 
 const Footer = () => {
@@ -8,6 +10,7 @@ const Footer = () => {
       title: 'Services',
       links: [
         { href: '/business', label: 'Business Consulting' },
+        // それぞれのURLができたら差し替え:
         { href: '/business', label: 'Strategic Planning' },
         { href: '/business', label: 'Process Optimization' },
         { href: '/business', label: 'Digital Transformation' },
@@ -24,6 +27,7 @@ const Footer = () => {
     },
     {
       title: 'Resources',
+      // 実URLが用意できるまで # は避ける（非表示か差し替え推奨）
       links: [
         { href: '#', label: 'Case Studies' },
         { href: '#', label: 'White Papers' },
@@ -53,8 +57,11 @@ const Footer = () => {
               We bridge Japan and global markets with AI-driven consulting.
             </p>
             <div className="flex space-x-4">
+              {/* 外部リンクは target+rel を付与 */}
               <a
                 href="#"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-slate-300 hover:text-teal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
                 aria-label="LinkedIn"
               >
@@ -64,6 +71,8 @@ const Footer = () => {
               </a>
               <a
                 href="#"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-slate-300 hover:text-teal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
                 aria-label="Twitter"
               >
