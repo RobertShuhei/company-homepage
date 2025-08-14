@@ -42,11 +42,11 @@ export default function Home() {
     }
   ]
 
-  // ② “実績・人数”を誤解させない表現に
+
   const features = [
     {
-      title: "Founder-Led",
-      description: "Projects are led directly by the founder for speed, accountability, and clear communication."
+      title: "Data-Driven Execution",
+      description: "Diagnose, prioritize, and implement improvements backed by facts.."
     },
     {
       title: "Hands-On & On-Site",
