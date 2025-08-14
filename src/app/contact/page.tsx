@@ -4,8 +4,8 @@ import Footer from '@/components/layout/Footer'
 import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Get Started with Corporate Solutions',
-  description: 'Contact Corporate Solutions to discuss your business consulting needs. Schedule a consultation and discover how we can help transform your organization.',
+  title: 'Contact Us | Get Started with Global Genex Inc.',
+  description: 'Contact Global Genex Inc. to discuss your business consulting needs. Schedule a consultation and discover how we can help transform your organization.',
 }
 
 export default function ContactPage() {
@@ -49,8 +49,8 @@ export default function ContactPage() {
                     </div>
                     <div className="ml-6">
                       <h3 className="text-xl font-semibold text-navy mb-2">Phone</h3>
-                      <p className="text-gray">+1 (555) 123-4567</p>
-                      <p className="text-gray text-sm mt-1">Monday - Friday, 9:00 AM - 6:00 PM EST</p>
+                      <p className="text-gray">+81 (0)70-8361-4870</p>
+                      <p className="text-gray text-sm mt-1">Monday - Friday, 9:00 AM - 6:00 PM (JST)</p>
                     </div>
                   </div>
 
@@ -64,8 +64,8 @@ export default function ContactPage() {
                     </div>
                     <div className="ml-6">
                       <h3 className="text-xl font-semibold text-navy mb-2">Email</h3>
-                      <p className="text-gray">contact@corporate-solutions.com</p>
-                      <p className="text-gray text-sm mt-1">We typically respond within 24 hours</p>
+                      <p className="text-gray">info@global-genex.com</p>
+                      <p className="text-gray text-sm mt-1">We typically respond within 24–48 hours</p>
                     </div>
                   </div>
 
@@ -81,9 +81,9 @@ export default function ContactPage() {
                     <div className="ml-6">
                       <h3 className="text-xl font-semibold text-navy mb-2">Office</h3>
                       <p className="text-gray">
-                        123 Business District<br />
-                        Suite 400<br />
-                        Professional City, PC 12345
+                        1-23-2 HakataEkimae<br />
+                        Hakata-ku<br />
+                        Fukuoka, Japan
                       </p>
                     </div>
                   </div>
