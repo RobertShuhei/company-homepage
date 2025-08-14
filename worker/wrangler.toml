@@ -13,6 +13,10 @@ compatibility_flags = ["nodejs_compat"]
 [env.production.vars]
 ALLOWED_ORIGINS = "https://global-genex.com,https://www.global-genex.com"
 RECIPIENT_EMAIL = "info@global-genex.com"
+# Feature flag: set to "true" to enable confirmation emails (disabled by default for security)
+ENABLE_CONFIRMATION_EMAILS = "true"
+# Additional blocked email domains (comma-separated)
+BLOCKED_EMAIL_DOMAINS = "example.com,test.com"
 
 [env.staging]
 [env.development]
