@@ -73,7 +73,7 @@ export async function generateLocalizedMetadata({
       url: canonicalUrl,
       title: pageMetadata.openGraph.title,
       description: pageMetadata.openGraph.description,
-      siteName: locale === 'ja' ? 'グローバルジェネックス株式会社' : 'Global Genex Inc.',
+      siteName: locale === 'ja' ? '株式会社グローバルジェネックス' : 'Global Genex Inc.',
       images: [
         {
           url: pageMetadata.openGraph.image,

@@ -55,7 +55,7 @@ export default async function LocaleLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "@id": "https://global-genex.com/#organization",
-              name: locale === 'ja' ? "グローバルジェネックス株式会社" : "Global Genex Inc.",
+              name: locale === 'ja' ? "株式会社グローバルジェネックス" : "Global Genex Inc.",
               alternateName: locale === 'ja' ? ["グローバルジェネックス", "Global Genex"] : ["Global Genex", "グローバルジェネックス"],
               url: "https://global-genex.com",
               logo: {
