@@ -106,7 +106,7 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
               "@type": "WebSite",
               "@id": "https://global-genex.com/#website",
               url: "https://global-genex.com",
-              name: locale === 'ja' ? "グローバルジェネックス株式会社" : "Global Genex Inc.",
+              name: locale === 'ja' ? "株式会社グローバルジェネックス" : "Global Genex Inc.",
               description: locale === 'ja' 
                 ? "日本とグローバルな小売・製造業向けの専門コンサルティング。AIを活用したデータ分析、市場参入支援、デジタル変革サービス。"
                 : "Expert consulting for retail & manufacturing companies in Japan and globally. AI-driven data analytics, market entry support, and digital transformation services.",
@@ -135,7 +135,7 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
               "@id": `https://global-genex.com${baseURL}#webpage`,
               url: `https://global-genex.com${baseURL}`,
               name: locale === 'ja' 
-                ? "グローバルジェネックス株式会社 - 小売・製造業コンサルティングの専門家"
+                ? "株式会社グローバルジェネックス - 小売・製造業コンサルティングの専門家"
                 : "Global Genex Inc. - Expert Retail & Manufacturing Consulting",
               isPartOf: {
                 "@id": "https://global-genex.com/#website"

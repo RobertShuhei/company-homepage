@@ -116,7 +116,7 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
               "@id": `https://global-genex.com${baseURL}/services#webpage`,
               url: `https://global-genex.com${baseURL}/services`,
               name: locale === 'ja' 
-                ? "プロフェッショナルコンサルティングサービス - グローバルジェネックス株式会社"
+                ? "プロフェッショナルコンサルティングサービス - 株式会社グローバルジェネックス"
                 : "Professional Consulting Services - Global Genex Inc.",
               isPartOf: {
                 "@id": "https://global-genex.com/#website"
