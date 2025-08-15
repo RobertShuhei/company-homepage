@@ -35,13 +35,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/services',
-        destination: '/business',
+        source: '/business',
+        destination: '/services',
         permanent: true,
       },
       {
         source: '/solutions',
-        destination: '/business',
+        destination: '/services',
         permanent: true,
       },
       {

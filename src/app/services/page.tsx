@@ -22,12 +22,12 @@ export const metadata: Metadata = {
     'digital transformation services',
   ],
   alternates: {
-    canonical: 'https://global-genex.com/business',
+    canonical: 'https://global-genex.com/services',
   },
   openGraph: {
     title: 'Professional Consulting Services - Global Genex Inc.',
     description: 'Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise.',
-    url: 'https://global-genex.com/business',
+    url: 'https://global-genex.com/services',
     type: 'website',
   },
   twitter: {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function BusinessPage() {
+export default function ServicesPage() {
   const services = [
     {
       title: 'Retail Operations Improvement',
@@ -125,15 +125,15 @@ export default function BusinessPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Script
-        id="business-structured-data"
+        id="services-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             {
               "@context": "https://schema.org",
               "@type": "WebPage",
-              "@id": "https://global-genex.com/business#webpage",
-              url: "https://global-genex.com/business",
+              "@id": "https://global-genex.com/services#webpage",
+              url: "https://global-genex.com/services",
               name: "Professional Consulting Services - Global Genex Inc.",
               isPartOf: {
                 "@id": "https://global-genex.com/#website"
@@ -143,14 +143,14 @@ export default function BusinessPage() {
               },
               description: "Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise.",
               breadcrumb: {
-                "@id": "https://global-genex.com/business#breadcrumb"
+                "@id": "https://global-genex.com/services#breadcrumb"
               },
               inLanguage: "en"
             },
             {
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
-              "@id": "https://global-genex.com/business#breadcrumb",
+              "@id": "https://global-genex.com/services#breadcrumb",
               itemListElement: [
                 {
                   "@type": "ListItem",
@@ -162,14 +162,14 @@ export default function BusinessPage() {
                   "@type": "ListItem",
                   position: 2,
                   name: "Services",
-                  item: "https://global-genex.com/business"
+                  item: "https://global-genex.com/services"
                 }
               ]
             },
             {
               "@context": "https://schema.org",
               "@type": "Service",
-              "@id": "https://global-genex.com/business#retail-operations",
+              "@id": "https://global-genex.com/services#retail-operations",
               name: "Retail Operations Improvement",
               provider: {
                 "@id": "https://global-genex.com/#organization"
@@ -216,7 +216,7 @@ export default function BusinessPage() {
             {
               "@context": "https://schema.org",
               "@type": "Service",
-              "@id": "https://global-genex.com/business#inventory-planning",
+              "@id": "https://global-genex.com/services#inventory-planning",
               name: "Inventory & Demand Planning",
               provider: {
                 "@id": "https://global-genex.com/#organization"
@@ -263,7 +263,7 @@ export default function BusinessPage() {
             {
               "@context": "https://schema.org",
               "@type": "Service",
-              "@id": "https://global-genex.com/business#data-analytics",
+              "@id": "https://global-genex.com/services#data-analytics",
               name: "Data Analytics & Dashboards",
               provider: {
                 "@id": "https://global-genex.com/#organization"
@@ -310,7 +310,7 @@ export default function BusinessPage() {
             {
               "@context": "https://schema.org",
               "@type": "Service",
-              "@id": "https://global-genex.com/business#market-entry",
+              "@id": "https://global-genex.com/services#market-entry",
               name: "Market Entry & Localization",
               provider: {
                 "@id": "https://global-genex.com/#organization"
@@ -358,7 +358,7 @@ export default function BusinessPage() {
             {
               "@context": "https://schema.org",
               "@type": "ItemList",
-              "@id": "https://global-genex.com/business#industry-focus",
+              "@id": "https://global-genex.com/services#industry-focus",
               name: "Industry Focus Areas",
               description: "Industries where Global Genex provides specialized consulting services",
               itemListElement: [
@@ -522,7 +522,7 @@ export default function BusinessPage() {
         {/* CTA */}
         <CTA
           title="Discuss Your Priorities"
-          description="Tell me where you need impact first. We’ll scope a practical project you can start quickly."
+          description="Tell me where you need impact first. We'll scope a practical project you can start quickly."
           primaryButton={{ text: 'Contact', href: '/contact' }}
           secondaryButton={{ text: 'About Global Genex', href: '/about' }}
           variant="dark"

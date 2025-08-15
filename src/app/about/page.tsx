@@ -271,34 +271,27 @@ export default function AboutPage() {
           subtitle="Company Profile"
           description="Consulting company in Fukuoka, Japan. We help retailers and manufacturers improve operations with data-driven, on-site execution in Japanese and English."
           primaryCTA={{ text: 'Contact', href: '/contact' }}
-          secondaryCTA={{ text: 'Services', href: '/business' }}
+          secondaryCTA={{ text: 'Services', href: '/services' }}
         />
 
         {/* Mission & Vision */}
         <section className="section-spacing bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-              <div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-8">Our Mission</h2>
-                <p className="text-xl lg:text-2xl text-gray leading-relaxed mb-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+              {/* Mission Section */}
+              <div className="bg-slate-50 p-8 lg:p-10 rounded-xl h-full flex flex-col">
+                <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-6">Our Mission</h2>
+                <p className="text-lg lg:text-xl text-gray leading-relaxed flex-grow">
                   Help clients visualize issues on site, prioritize with data, and execute pragmatic improvements that stick.
                 </p>
-                <div className="bg-slate-50 p-8 lg:p-10 rounded-xl">
-                  <h3 className="text-2xl font-semibold text-navy mb-4">Our Vision</h3>
-                  <p className="text-gray text-lg leading-relaxed">
-                    Be a trusted partner for practical transformation across Japan and global markets.
-                  </p>
-                </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
-                <div className="text-center bg-slate-100 text-navy p-8 lg:p-10 rounded-xl">
-                  <div className="text-xl font-semibold mb-3">Hands-on & On-site</div>
-                  <div className="text-base text-gray">Work directly with client teams at the site.</div>
-                </div>
-                <div className="text-center bg-slate-100 text-navy p-8 lg:p-10 rounded-xl">
-                  <div className="text-xl font-semibold mb-3">Bilingual Support</div>
-                  <div className="text-base text-gray">Japanese & English communication, documents, and delivery.</div>
-                </div>
+              
+              {/* Vision Section */}
+              <div className="bg-slate-50 p-8 lg:p-10 rounded-xl h-full flex flex-col">
+                <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-6">Our Vision</h2>
+                <p className="text-lg lg:text-xl text-gray leading-relaxed flex-grow">
+                  Be a trusted partner for practical transformation across Japan and global markets.
+                </p>
               </div>
             </div>
           </div>
@@ -377,7 +370,7 @@ export default function AboutPage() {
           title="Ready to discuss your challenge?"
           description="Tell us about your site, data, and goals. We’ll propose a practical, phased approach."
           primaryButton={{ text: 'Contact', href: '/contact' }}
-          secondaryButton={{ text: 'Services', href: '/business' }}
+          secondaryButton={{ text: 'Services', href: '/services' }}
           variant="default"
         />
       </main>

@@ -9,11 +9,11 @@ const Footer = () => {
     {
       title: 'Services',
       links: [
-        { href: '/business', label: 'Business Consulting' },
+        { href: '/services', label: 'Business Consulting' },
         // それぞれのURLができたら差し替え:
-        { href: '/business', label: 'Strategic Planning' },
-        { href: '/business', label: 'Process Optimization' },
-        { href: '/business', label: 'Digital Transformation' },
+        { href: '/services', label: 'Strategic Planning' },
+        { href: '/services', label: 'Process Optimization' },
+        { href: '/services', label: 'Digital Transformation' },
       ]
     },
     {

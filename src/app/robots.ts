@@ -72,7 +72,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: [
           '/',
           '/about',
-          '/business', 
+          '/services', 
           '/contact',
           '/privacy',
         ],

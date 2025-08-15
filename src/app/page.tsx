@@ -128,7 +128,7 @@ export default function Home() {
                   "@type": "SearchAction",
                   target: {
                     "@type": "EntryPoint",
-                    urlTemplate: "https://global-genex.com/business?search={search_term_string}"
+                    urlTemplate: "https://global-genex.com/services?search={search_term_string}"
                   },
                   "query-input": "required name=search_term_string"
                 }
@@ -230,7 +230,7 @@ export default function Home() {
           subtitle="Professional Consulting for Retail & Manufacturing"
           description="We help manufacturers and retailers improve productivity and quality through on-site consulting, data analytics, and digital transformation. We also support market development in Japan and overseas."
           primaryCTA={{ text: "Get Started Today", href: "/contact" }}
-          secondaryCTA={{ text: "Explore Services", href: "/business" }}
+          secondaryCTA={{ text: "Explore Services", href: "/services" }}
         />
 
         {/* Services Section */}
@@ -252,7 +252,7 @@ export default function Home() {
                   title={service.title}
                   description={service.description}
                   icon={service.icon}
-                  href="/business"
+                  href="/services"
                 />
               ))}
             </div>

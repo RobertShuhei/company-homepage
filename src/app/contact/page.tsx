@@ -203,7 +203,7 @@ export default function ContactPage() {
 
             <div className="text-center mt-12">
               <a
-                href="/business"
+                href="/services"
                 className="inline-flex items-center bg-teal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
               >
                 Explore All Services
