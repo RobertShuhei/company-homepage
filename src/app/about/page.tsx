@@ -169,7 +169,7 @@ export default function AboutPage() {
               name: "Shuhei Nakahara",
               givenName: "Shuhei",
               familyName: "Nakahara",
-              alternateName: "中原秀平",
+              alternateName: "中原修平",
               jobTitle: "Representative Director",
               description: "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
               worksFor: {
