@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ContactForm from '@/components/ContactForm'
@@ -202,7 +203,7 @@ export default function ContactPage() {
             </div>
 
             <div className="text-center mt-12">
-              <a
+              <Link
                 href="/services"
                 className="inline-flex items-center bg-teal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
               >
@@ -210,7 +211,7 @@ export default function ContactPage() {
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
         </section>

@@ -5,7 +5,7 @@ import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
 import Script from 'next/script'
-import { getServerTranslations } from '@/lib/hooks/useTranslations'
+import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
 import { type Locale, isValidLocale, defaultLocale } from '../../../../middleware'
 import { notFound } from 'next/navigation'
@@ -107,7 +107,7 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
               "@id": `https://global-genex.com${baseURL}/about#webpage`,
               url: `https://global-genex.com${baseURL}/about`,
               name: locale === 'ja' 
-                ? "グローバルジェネックス株式会社について - 企業プロフィール・経営陣"
+                ? "株式会社グローバルジェネックスについて - 企業プロフィール・経営陣"
                 : "About Global Genex Inc. - Company Profile & Leadership",
               isPartOf: {
                 "@id": "https://global-genex.com/#website"
@@ -116,7 +116,7 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
                 "@id": "https://global-genex.com/#organization"
               },
               description: locale === 'ja'
-                ? "福岡を拠点とするコンサルティング会社、グローバルジェネックス株式会社について。経営陣紹介と小売業者・製造業者の業務改善支援ミッションをご紹介。"
+                ? "福岡を拠点とするコンサルティング会社、株式会社グローバルジェネックスについて。経営陣紹介と小売業者・製造業者の業務改善支援ミッションをご紹介。"
                 : "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. Meet our leadership team and discover our mission to help retailers and manufacturers improve operations.",
               breadcrumb: {
                 "@id": `https://global-genex.com${baseURL}/about#breadcrumb`
@@ -152,10 +152,10 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
               "@context": "https://schema.org",
               "@type": "Person",
               "@id": "https://global-genex.com/about#shuhei-nakahara",
-              name: locale === 'ja' ? "中原 秀平" : "Shuhei Nakahara",
+              name: locale === 'ja' ? "中原 修平" : "Shuhei Nakahara",
               givenName: "Shuhei",
               familyName: "Nakahara",
-              alternateName: locale === 'ja' ? "Shuhei Nakahara" : "中原 秀平",
+              alternateName: locale === 'ja' ? "Shuhei Nakahara" : "中原 修平",
               jobTitle: locale === 'ja' ? "代表取締役" : "Representative Director",
               description: locale === 'ja'
                 ? "福岡を拠点とするバイリンガル（日本語・英語）コンサルタント。小売・製造業務、データ活用、国際展開支援に特化。実践的な現場実行と具体的な対策を提供。"
@@ -163,7 +163,7 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
               worksFor: {
                 "@type": "Organization",
                 "@id": "https://global-genex.com/#organization",
-                name: locale === 'ja' ? "グローバルジェネックス株式会社" : "Global Genex Inc."
+                name: locale === 'ja' ? "株式会社グローバルジェネックス" : "Global Genex Inc."
               },
               address: {
                 "@type": "PostalAddress",
@@ -227,9 +227,9 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
                 "@id": "https://global-genex.com/#organization"
               },
               url: `https://global-genex.com${baseURL}/about`,
-              name: locale === 'ja' ? "グローバルジェネックス株式会社について" : "About Global Genex Inc.",
+              name: locale === 'ja' ? "株式会社グローバルジェネックスについて" : "About Global Genex Inc.",
               description: locale === 'ja'
-                ? "小売・製造業に特化したプロフェッショナルコンサルティング会社、グローバルジェネックス株式会社の企業プロフィール、経営陣、ミッション、ビジョン、コアバリュー。"
+                ? "小売・製造業に特化したプロフェッショナルコンサルティング会社、株式会社グローバルジェネックスの企業プロフィール、経営陣、ミッション、ビジョン、コアバリュー。"
                 : "Company profile, leadership team, mission, vision, and core values of Global Genex Inc., a professional consulting firm specializing in retail and manufacturing operations.",
               inLanguage: locale
             }
