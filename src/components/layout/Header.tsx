@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import LanguageSwitcher from '../ui/LanguageSwitcher'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -54,6 +55,11 @@ const Header = () => {
               )
             })}
           </nav>
+
+          {/* Language Switcher (Desktop) */}
+          <div className="hidden md:flex">
+            <LanguageSwitcher variant="desktop" />
+          </div>
 
           {/* CTA Button */}
           <div className="hidden md:flex">
@@ -120,6 +126,11 @@ const Header = () => {
               >
                 Get Started
               </Link>
+              
+              {/* Language Switcher (Mobile) */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <LanguageSwitcher variant="mobile" />
+              </div>
             </div>
           </div>
         )}

@@ -1,60 +1,44 @@
 import { MetadataRoute } from 'next'
-import { locales, defaultLocale } from '../../middleware'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://global-genex.com'
   const currentDate = new Date().toISOString()
 
-  // Page definitions with their priorities and change frequencies
-  const pages = [
+  // Static pages with their priorities and change frequencies
+  const staticPages = [
     {
-      path: '',
+      url: baseUrl,
+      lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 1.0,
     },
     {
-      path: '/about',
+      url: `${baseUrl}/about`,
+      lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
     },
     {
-      path: '/services',
+      url: `${baseUrl}/services`,
+      lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
     },
     {
-      path: '/contact',
+      url: `${baseUrl}/contact`,
+      lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     {
-      path: '/privacy',
+      url: `${baseUrl}/privacy`,
+      lastModified: currentDate,
       changeFrequency: 'yearly' as const,
       priority: 0.3,
     },
   ]
 
-  // Generate URLs for all locales
-  const sitemapEntries: MetadataRoute.Sitemap = []
-
-  pages.forEach((page) => {
-    locales.forEach((locale) => {
-      const isDefault = locale === defaultLocale
-      const localePath = isDefault ? page.path : `/${locale}${page.path}`
-      const url = page.path === '' ? 
-        (isDefault ? baseUrl : `${baseUrl}/${locale}`) : 
-        `${baseUrl}${localePath}`
-
-      sitemapEntries.push({
-        url,
-        lastModified: currentDate,
-        changeFrequency: page.changeFrequency,
-        priority: page.priority,
-      })
-    })
-  })
-
-  return sitemapEntries
+  return staticPages
 }
 
 // Optional: Generate dynamic sitemap for future blog posts or case studies
