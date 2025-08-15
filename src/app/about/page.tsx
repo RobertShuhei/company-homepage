@@ -4,6 +4,7 @@ import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'About Us - Company Profile & Leadership',
@@ -113,6 +114,154 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Script
+        id="about-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "@id": "https://global-genex.com/about#webpage",
+              url: "https://global-genex.com/about",
+              name: "About Global Genex Inc. - Company Profile & Leadership",
+              isPartOf: {
+                "@id": "https://global-genex.com/#website"
+              },
+              about: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              description: "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. Meet our leadership team and discover our mission to help retailers and manufacturers improve operations.",
+              breadcrumb: {
+                "@id": "https://global-genex.com/about#breadcrumb"
+              },
+              inLanguage: "en",
+              potentialAction: [
+                {
+                  "@type": "ReadAction",
+                  target: ["https://global-genex.com/about"]
+                }
+              ]
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "@id": "https://global-genex.com/about#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://global-genex.com"
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "About",
+                  item: "https://global-genex.com/about"
+                }
+              ]
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "@id": "https://global-genex.com/about#shuhei-nakahara",
+              name: "Shuhei Nakahara",
+              givenName: "Shuhei",
+              familyName: "Nakahara",
+              alternateName: "中原秀平",
+              jobTitle: "Representative Director",
+              description: "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+              worksFor: {
+                "@type": "Organization",
+                "@id": "https://global-genex.com/#organization",
+                name: "Global Genex Inc."
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Fukuoka",
+                addressRegion: "Fukuoka Prefecture",
+                addressCountry: "JP"
+              },
+              nationality: {
+                "@type": "Country",
+                name: "Japan"
+              },
+              knowsLanguage: [
+                {
+                  "@type": "Language",
+                  name: "Japanese",
+                  alternateName: "ja"
+                },
+                {
+                  "@type": "Language", 
+                  name: "English",
+                  alternateName: "en"
+                }
+              ],
+              alumniOf: {
+                "@type": "CollegeOrUniversity",
+                name: "Tokyo Institute of Technology",
+                sameAs: "https://www.titech.ac.jp/"
+              },
+              hasOccupation: {
+                "@type": "Occupation",
+                name: "Business Consultant",
+                occupationLocation: {
+                  "@type": "Country",
+                  name: "Japan"
+                },
+                skills: [
+                  "Retail Operations",
+                  "Manufacturing Operations", 
+                  "Data Analytics",
+                  "Cross-border Business",
+                  "Project Management",
+                  "Digital Transformation"
+                ]
+              },
+              hasCredential: [
+                {
+                  "@type": "EducationalOccupationalCredential",
+                  name: "Business Consulting Expertise",
+                  credentialCategory: "Professional Experience",
+                  competencyRequired: "Retail & Manufacturing Operations, Data Analytics, Cross-border Business"
+                }
+              ],
+              knowsAbout: [
+                "Retail Operations",
+                "Manufacturing Consulting",
+                "Data Analytics", 
+                "Digital Transformation",
+                "Japan Market Entry",
+                "Cross-border Business",
+                "Supply Chain Management",
+                "Inventory Management",
+                "Demand Planning"
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "professional",
+                email: "info@global-genex.com",
+                telephone: "+81-70-8361-4870",
+                availableLanguage: ["Japanese", "English"]
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "AboutPage",
+              "@id": "https://global-genex.com/about#aboutpage",
+              mainEntity: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              url: "https://global-genex.com/about",
+              name: "About Global Genex Inc.",
+              description: "Company profile, leadership team, mission, vision, and core values of Global Genex Inc., a professional consulting firm specializing in retail and manufacturing operations.",
+              inLanguage: "en"
+            }
+          ])
+        }}
+      />
       <Header />
 
       <main>

@@ -3,6 +3,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import CTA from '@/components/ui/CTA'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Business Services - Retail & Manufacturing Consulting Solutions',
@@ -123,6 +124,276 @@ export default function BusinessPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Script
+        id="business-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "@id": "https://global-genex.com/business#webpage",
+              url: "https://global-genex.com/business",
+              name: "Professional Consulting Services - Global Genex Inc.",
+              isPartOf: {
+                "@id": "https://global-genex.com/#website"
+              },
+              about: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              description: "Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise.",
+              breadcrumb: {
+                "@id": "https://global-genex.com/business#breadcrumb"
+              },
+              inLanguage: "en"
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "@id": "https://global-genex.com/business#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://global-genex.com"
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Services",
+                  item: "https://global-genex.com/business"
+                }
+              ]
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://global-genex.com/business#retail-operations",
+              name: "Retail Operations Improvement",
+              provider: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              serviceType: "Business Consulting",
+              description: "Hands-on improvements for store and back-office operations to raise productivity and service quality.",
+              category: "Operations Consulting",
+              audience: {
+                "@type": "Audience",
+                audienceType: "Retail Companies"
+              },
+              areaServed: ["Japan", "Global"],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Retail Operations Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Current-state assessment and KPI setup",
+                      description: "Sales, inventory, and labor performance metrics"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "SOP and workflow documentation",
+                      description: "Standard operating procedures and process optimization"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Layout/merchandising improvements",
+                      description: "Store layout optimization and merchandising strategies"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://global-genex.com/business#inventory-planning",
+              name: "Inventory & Demand Planning",
+              provider: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              serviceType: "Supply Chain Consulting",
+              description: "Reduce stockouts and overstock with pragmatic demand planning and replenishment rules.",
+              category: "Supply Chain Optimization",
+              audience: {
+                "@type": "Audience",
+                audienceType: "Manufacturing and Retail Companies"
+              },
+              areaServed: ["Japan", "Global"],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Inventory Planning Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Simple forecasting setup",
+                      description: "Demand forecasting and planning systems"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Reorder points optimization",
+                      description: "Review and optimize reorder points and lot sizes"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Assortment optimization",
+                      description: "Product assortment and replenishment rule optimization"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://global-genex.com/business#data-analytics",
+              name: "Data Analytics & Dashboards",
+              provider: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              serviceType: "Data Analytics Consulting",
+              description: "Turn operational data into clear weekly/monthly insights with lightweight BI dashboards.",
+              category: "Business Intelligence",
+              audience: {
+                "@type": "Audience",
+                audienceType: "Data-Driven Organizations"
+              },
+              areaServed: ["Japan", "Global"],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Data Analytics Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "KPI definition and reporting",
+                      description: "Define key performance indicators and reporting structures"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "BI dashboard development",
+                      description: "Build dashboards using BI tools or spreadsheets"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Data automation",
+                      description: "Data preparation and automation workflows"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://global-genex.com/business#market-entry",
+              name: "Market Entry & Localization",
+              provider: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              serviceType: "Market Entry Consulting",
+              description: "Support for companies expanding to/from Japan: research, partner outreach, and localization.",
+              category: "International Business Development",
+              audience: {
+                "@type": "Audience",
+                audienceType: "Companies Expanding to Japan"
+              },
+              areaServed: ["Japan", "Global"],
+              availableLanguage: ["Japanese", "English"],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Market Entry Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Market research and analysis",
+                      description: "Market and competitor scan with working hypotheses"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Partner development",
+                      description: "Partner prospect research and outreach"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Localization services",
+                      description: "Terminology, UX, materials localization and translation"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "@id": "https://global-genex.com/business#industry-focus",
+              name: "Industry Focus Areas",
+              description: "Industries where Global Genex provides specialized consulting services",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  item: {
+                    "@type": "Thing",
+                    name: "Retail & E-commerce",
+                    description: "Food, apparel, specialty, D2C/marketplace, omnichannel operations"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  item: {
+                    "@type": "Thing",
+                    name: "Manufacturing & Logistics",
+                    description: "Discrete/process manufacturing and warehouse operations"
+                  }
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  item: {
+                    "@type": "Thing",
+                    name: "SMEs & Startups",
+                    description: "Japan-based or overseas teams expanding to/from Japan"
+                  }
+                }
+              ]
+            }
+          ])
+        }}
+      />
       <Header />
 
       <main>

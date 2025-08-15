@@ -4,6 +4,7 @@ import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Global Genex Inc. - Expert Retail & Manufacturing Consulting | Japan Market Entry',
@@ -107,6 +108,119 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Script
+        id="homepage-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": "https://global-genex.com/#website",
+              url: "https://global-genex.com",
+              name: "Global Genex Inc.",
+              description: "Expert consulting for retail & manufacturing companies in Japan and globally. AI-driven data analytics, market entry support, and digital transformation services.",
+              publisher: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              potentialAction: [
+                {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://global-genex.com/business?search={search_term_string}"
+                  },
+                  "query-input": "required name=search_term_string"
+                }
+              ],
+              inLanguage: "en",
+              copyrightYear: 2025,
+              copyrightHolder: {
+                "@id": "https://global-genex.com/#organization"
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "@id": "https://global-genex.com/#webpage",
+              url: "https://global-genex.com",
+              name: "Global Genex Inc. - Expert Retail & Manufacturing Consulting",
+              isPartOf: {
+                "@id": "https://global-genex.com/#website"
+              },
+              about: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              description: "Transform your operations with AI-driven, hands-on consulting. Professional consulting services for retail & manufacturing companies with practical execution.",
+              breadcrumb: {
+                "@id": "https://global-genex.com/#breadcrumb"
+              },
+              inLanguage: "en",
+              potentialAction: [
+                {
+                  "@type": "ReadAction",
+                  target: ["https://global-genex.com"]
+                }
+              ]
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "@id": "https://global-genex.com/#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://global-genex.com"
+                }
+              ]
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "@id": "https://global-genex.com/#consulting-services",
+              name: "Business Consulting Services",
+              provider: {
+                "@id": "https://global-genex.com/#organization"
+              },
+              serviceType: "Business Consulting",
+              description: "Comprehensive consulting services for retail & manufacturing companies including operations improvement, data analytics, and market entry support.",
+              areaServed: ["Japan", "Global"],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Consulting Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Manufacturing Consulting",
+                      description: "Hands-on support to visualize processes, train teams, and improve productivity and quality at the shop floor."
+                    }
+                  },
+                  {
+                    "@type": "Offer", 
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "IT Implementation / System Development",
+                      description: "Practical systems for sales performance, operational efficiency, and production/quality analytics tailored to your operations."
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service", 
+                      name: "Support for Market Development",
+                      description: "Hands-on support to open and expand sales channels in Japan and overseas, leveraging bilingual, on-the-ground execution."
+                    }
+                  }
+                ]
+              }
+            }
+          ])
+        }}
+      />
       <Header />
 
       <main>
