@@ -10,11 +10,15 @@ This file tracks the completion of tasks by various AI agents working on the com
 - Next.js
 - TypeScript  
 - Tailwind CSS
-- Hosting: Cloudflare Pages
+- Hosting: Vercel
 
 **Development Phases**:
-- **Phase 1**: Marketing-focused website with landing page, business description, company profile, contact form, and privacy policy
-- **Phase 2**: Future expansion including blog and hiring page after business growth
+- **Phase 1** (Completed): Marketing-focused website with landing page, business description, company profile, contact form, and privacy policy
+- **Phase 2**: Multi-Language Support (Staged Rollout)
+  - **Stage 2a** (Technical Foundation): Implement Japanese version based on direct translation of current English content, including i18n framework and language switcher (EN | JP)
+  - **Stage 2b** (Content Refinement - Manual Task): Project owner manually edits and professionalizes Japanese content
+  - **Stage 2c** (Content Sync - Manual Task): Project owner updates English content to align with refined Japanese version
+  - **Stage 2d** (Expansion): Implement Chinese (Simplified) version based on finalized content
 
 **Agent Team**:
 - **nextjs-architect**: Designs the overall project structure
@@ -52,4 +56,4 @@ This file tracks the completion of tasks by various AI agents working on the com
 - This file serves as a historical record of project development
 
 ---
-*Last updated: 2025-08-14*
+*Last updated: 2025-08-15*

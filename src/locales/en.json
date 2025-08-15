@@ -1,0 +1,544 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "getStarted": "Get Started"
+  },
+  "homepage": {
+    "meta": {
+      "title": "Global Genex Inc. - Expert Retail & Manufacturing Consulting | Japan Market Entry",
+      "description": "Professional consulting services for retail & manufacturing companies. AI-driven data analytics, Japan market entry support, and digital transformation expertise. Based in Fukuoka, serving global clients."
+    },
+    "hero": {
+      "title": "Transform Your Operations with AI-Driven, Hands-On Consulting",
+      "subtitle": "Professional Consulting for Retail & Manufacturing",
+      "description": "We help manufacturers and retailers improve productivity and quality through on-site consulting, data analytics, and digital transformation. We also support market development in Japan and overseas.",
+      "primaryCTA": "Get Started Today",
+      "secondaryCTA": "Explore Services"
+    },
+    "services": {
+      "title": "Our Core Services",
+      "subtitle": "Practical consulting to raise productivity, quality, and sales performance",
+      "manufacturing": {
+        "title": "Manufacturing Consulting",
+        "description": "Hands-on support to visualize processes, train teams, and improve productivity and quality at the shop floor."
+      },
+      "it": {
+        "title": "IT Implementation / System Development",
+        "description": "Practical systems for sales performance, operational efficiency, and production/quality analytics tailored to your operations."
+      },
+      "market": {
+        "title": "Support for Market Development",
+        "description": "Hands-on support to open and expand sales channels in Japan and overseas, leveraging bilingual, on-the-ground execution."
+      }
+    },
+    "features": {
+      "title": "Why Choose Global Genex Inc.",
+      "subtitle": "Practical, bilingual, and execution-focused support",
+      "dataExecution": {
+        "title": "Data-Driven Execution",
+        "description": "Diagnose, prioritize, and implement improvements backed by facts."
+      },
+      "handsOn": {
+        "title": "Hands-On & On-Site",
+        "description": "We work at the site with your team to visualize issues and implement practical countermeasures."
+      },
+      "bilingual": {
+        "title": "Bilingual & Cross-Border",
+        "description": "Japanese–English support for supply chains and sales channels across Japan and overseas."
+      },
+      "practical": {
+        "title": "Practical, Phased Delivery",
+        "description": "Small wins first, then scale. We avoid overengineering and focus on measurable improvements."
+      }
+    },
+    "cta": {
+      "title": "Ready to Move Forward?",
+      "description": "Tell us your current challenges. We'll propose a phased approach that fits your site, team, and timeline.",
+      "primaryButton": "Schedule Consultation",
+      "secondaryButton": "About the Founder"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About Us - Company Profile & Leadership",
+      "description": "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. We help retailers and manufacturers improve operations with practical, data-driven execution and bilingual support."
+    },
+    "hero": {
+      "title": "About Global Genex Inc.",
+      "subtitle": "Company Profile",
+      "description": "Consulting company in Fukuoka, Japan. We help retailers and manufacturers improve operations with data-driven, on-site execution in Japanese and English."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "Help clients visualize issues on site, prioritize with data, and execute pragmatic improvements that stick."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "Be a trusted partner for practical transformation across Japan and global markets."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "subtitle": "Principles that guide how we work",
+      "excellence": {
+        "title": "Excellence",
+        "description": "We pursue practical, high-quality outcomes on every engagement."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "Transparent, honest communication and responsible delivery."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Use data and technology pragmatically to solve on-site issues."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Work closely with client teams for sustainable change."
+      }
+    },
+    "leadership": {
+      "title": "Leadership",
+      "subtitle": "Profile",
+      "founder": {
+        "name": "Shuhei Nakahara",
+        "position": "Representative Director / Consultant",
+        "bio": "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+        "expertiseTitle": "Areas of Expertise",
+        "expertise": [
+          "Retail & Manufacturing Ops",
+          "Data & Analytics",
+          "Cross-border (JP⇄Global)",
+          "Project Delivery"
+        ]
+      }
+    },
+    "timeline": {
+      "title": "Our Story",
+      "subtitle": "Key steps from launch to today",
+      "milestones": [
+        {
+          "year": "2024",
+          "title": "Founded in Fukuoka",
+          "description": "Incorporated in October 2024 as an independent consulting company."
+        },
+        {
+          "year": "2025",
+          "title": "Services Launched",
+          "description": "Started consulting for retail and manufacturing operations, data & analytics, and cross-border support."
+        },
+        {
+          "year": "2025",
+          "title": "Reusable Assets",
+          "description": "Began publishing templates, checklists, and simple tools for clients."
+        }
+      ]
+    },
+    "values": {
+      "title": "Our Core Values",
+      "subtitle": "Principles that guide how we work",
+      "excellence": {
+        "title": "Excellence",
+        "description": "We pursue practical, high-quality outcomes on every engagement."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "Transparent, honest communication and responsible delivery."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Use data and technology pragmatically to solve on-site issues."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Work closely with client teams for sustainable change."
+      }
+    },
+    "leadership": {
+      "title": "Leadership",
+      "subtitle": "Profile",
+      "founder": {
+        "name": "Shuhei Nakahara",
+        "position": "Representative Director / Consultant",
+        "bio": "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+        "expertiseTitle": "Areas of Expertise",
+        "expertise": [
+          "Retail & Manufacturing Ops",
+          "Data & Analytics",
+          "Cross-border (JP⇄Global)",
+          "Project Delivery"
+        ]
+      }
+    },
+    "timeline": {
+      "title": "Our Story",
+      "subtitle": "Key steps from launch to today",
+      "milestones": [
+        {
+          "year": "2024",
+          "title": "Founded in Fukuoka",
+          "description": "Incorporated in October 2024 as an independent consulting company."
+        },
+        {
+          "year": "2025",
+          "title": "Services Launched",
+          "description": "Started consulting for retail and manufacturing operations, data & analytics, and cross-border support."
+        },
+        {
+          "year": "2025",
+          "title": "Reusable Assets",
+          "description": "Began publishing templates, checklists, and simple tools for clients."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to discuss your challenge?",
+      "description": "Tell us about your site, data, and goals. We'll propose a practical, phased approach.",
+      "primaryButton": "Contact",
+      "secondaryButton": "Services"
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "Business Services - Retail & Manufacturing Consulting Solutions",
+      "description": "Expert consulting services for retail and manufacturing companies. Operations improvement, inventory & demand planning, data analytics dashboards, and Japan market entry support."
+    },
+    "hero": {
+      "title": "Practical Consulting for Retail & Manufacturing",
+      "subtitle": "Services",
+      "description": "Operations improvement, inventory & demand planning, data dashboards, and market entry/localization — delivered with hands-on execution."
+    },
+    "overview": {
+      "title": "Service Offerings",
+      "subtitle": "Focused services you can start small with and scale as needed"
+    },
+    "retail": {
+      "title": "Retail Operations Improvement",
+      "description": "Hands-on improvements for store and back-office operations to raise productivity and service quality.",
+      "features": [
+        "Current-state assessment and KPI setup (sales, inventory, labor)",
+        "SOP and workflow documentation",
+        "Layout/merchandising and work-path improvements",
+        "Staff training and PDCA adoption"
+      ]
+    },
+    "inventory": {
+      "title": "Inventory & Demand Planning",
+      "description": "Reduce stockouts and overstock with pragmatic demand planning and replenishment rules.",
+      "features": [
+        "Simple forecasting setup",
+        "Review reorder points and lot sizes",
+        "Assortment and replenishment rule optimization",
+        "WMS/ERP & spreadsheet flow improvements"
+      ]
+    },
+    "analytics": {
+      "title": "Data Analytics & Dashboards",
+      "description": "Turn operational data into clear weekly/monthly insights with lightweight BI dashboards.",
+      "features": [
+        "Define KPIs and reporting",
+        "Build dashboards (BI or spreadsheets)",
+        "Data preparation and automation",
+        "Regular reviews and recommendations"
+      ]
+    },
+    "market": {
+      "title": "Market Entry & Localization",
+      "description": "Support for companies expanding to/from Japan: research, partner outreach, and localization.",
+      "features": [
+        "Market and competitor scan, working hypotheses",
+        "Partner prospect research and outreach",
+        "Localization (terminology/UX/materials, light translation)",
+        "Meeting support and bilingual communication"
+      ]
+    },
+    "industries": {
+      "title": "Industry Focus",
+      "subtitle": "Practical, domain-aware execution in industries where impact is immediate",
+      "retail": {
+        "name": "Retail & E-commerce",
+        "description": "Food, apparel, specialty, D2C/marketplace, omnichannel operations",
+        "expertise": ["Store operations", "Merchandising & inventory", "Customer experience & e-commerce", "Supply chain"]
+      },
+      "manufacturing": {
+        "name": "Manufacturing & Logistics",
+        "description": "Discrete/process manufacturing and warehouse operations",
+        "expertise": ["Lean/Kaizen", "Production & logistics KPIs", "Inventory & demand planning", "Quality & standardization"]
+      },
+      "smes": {
+        "name": "SMEs & Startups",
+        "description": "Japan-based or overseas teams expanding to/from Japan",
+        "expertise": ["Market validation", "Go-to-market", "Localization", "Partner development"]
+      }
+    },
+    "process": {
+      "title": "Process",
+      "subtitle": "A simple, transparent approach that keeps momentum and accountability",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Discovery",
+          "description": "Current state, constraints, and goals"
+        },
+        {
+          "step": "02",
+          "title": "Plan",
+          "description": "Prioritized roadmap and quick wins"
+        },
+        {
+          "step": "03",
+          "title": "Execute",
+          "description": "Hands-on delivery and reviews"
+        },
+        {
+          "step": "04",
+          "title": "Optimize",
+          "description": "Measure, learn, and iterate"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Discuss Your Priorities",
+      "description": "Tell me where you need impact first. We'll scope a practical project you can start quickly.",
+      "primaryButton": "Contact",
+      "secondaryButton": "About Global Genex"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact Us - Get Started with Expert Consulting Services",
+      "description": "Contact Global Genex Inc. to discuss your retail & manufacturing consulting needs. Schedule a consultation in Japanese or English and discover how we can help improve your operations."
+    },
+    "hero": {
+      "title": "Let's Transform Your Business Together",
+      "subtitle": "Contact Us",
+      "description": "Ready to unlock your organization's potential? Contact us today to schedule a consultation and discover how we can help you achieve exceptional results."
+    },
+    "form": {
+      "title": "Send us a Message",
+      "name": "Full Name",
+      "email": "Email Address",
+      "message": "Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you! Your message has been sent successfully. We'll get back to you within 24-48 hours.",
+      "error": "Sorry, there was an error sending your message. Please try again or contact us directly.",
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "messageRequired": "Message is required"
+    },
+    "info": {
+      "title": "Get in Touch",
+      "phone": {
+        "title": "Phone",
+        "number": "+81 (0)70-8361-4870",
+        "hours": "Monday - Friday, 10:00 AM - 5:00 PM (JST)"
+      },
+      "email": {
+        "title": "Email",
+        "address": "info@global-genex.com",
+        "response": "We typically respond within 24–48 hours"
+      },
+      "office": {
+        "title": "Office",
+        "address": "5F-B, ParkFront\n1-23-2 Hakata Ekimae\nHakata ward, Fukuoka, Japan"
+      },
+      "hours": {
+        "title": "Business Hours",
+        "weekdays": "Monday - Friday: 9:00 AM - 6:00 PM",
+        "saturday": "Saturday: Closed",
+        "sunday": "Sunday: Closed"
+      }
+    },
+    "services": {
+      "title": "How We Can Help",
+      "subtitle": "Discover our comprehensive range of consulting services designed to drive your business forward",
+      "manufacturing": {
+        "title": "Manufacturing Consulting",
+        "description": "Hands-on support to visualize processes, train teams, and improve productivity and quality."
+      },
+      "it": {
+        "title": "IT Implementation / System Development",
+        "description": "Systems for sales performance, operational efficiency, and production/quality analytics."
+      },
+      "market": {
+        "title": "Support for Market Development",
+        "description": "Practical support to open and expand sales channels in Japan and overseas."
+      },
+      "exploreAll": "Explore All Services"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy - Data Protection & Information Security",
+      "description": "Global Genex Inc. privacy policy explaining how we collect, use, protect, and manage personal information. Learn about our commitment to data security and privacy protection."
+    },
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: August 14, 2025",
+    "sections": {
+      "overview": {
+        "title": "Introduction",
+        "content": [
+          "Global Genex Inc. (\"we,\" \"our,\" or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.",
+          "By using our services, you agree to this policy. If you do not agree, please do not use our services."
+        ]
+      },
+      "collection": {
+        "title": "Information We Collect",
+        "personalInfo": {
+          "title": "Personal Information",
+          "description": "We may collect personal information that you voluntarily provide when you:",
+          "items": [
+            "Contact us through website forms",
+            "Subscribe to our communications",
+            "Request information about our services",
+            "Schedule consultations",
+            "Participate in surveys or feedback"
+          ]
+        },
+        "usage": {
+          "title": "Usage & Cookies",
+          "description": "We may collect usage data (e.g., pages visited, browser type) and use cookies or similar technologies to improve our services. You can control cookie settings in your browser, but disabling cookies may limit certain features."
+        }
+      },
+      "usage": {
+        "title": "How We Use Information",
+        "content": [
+          "Provide, maintain, and improve our services",
+          "Respond to inquiries and support requests",
+          "Send administrative or marketing communications (with consent)",
+          "Analyze usage to enhance user experience and security",
+          "Comply with legal obligations"
+        ]
+      },
+      "sharing": {
+        "title": "Sharing & Disclosure",
+        "content": [
+          "We do not sell your personal information. We may share it with service providers who assist our operations, in connection with business transfers, or when required by law. We take reasonable measures to ensure appropriate safeguards."
+        ]
+      },
+      "security": {
+        "title": "Data Security & Retention",
+        "content": [
+          "We implement technical and organizational measures to protect information. We retain personal information only as long as necessary for the purposes described in this policy or as required by law, after which we delete or anonymize it."
+        ]
+      },
+      "transfers": {
+        "title": "International Transfers",
+        "content": [
+          "Your information may be processed in countries other than your own. We ensure such transfers comply with applicable data protection laws and include appropriate safeguards."
+        ]
+      },
+      "rights": {
+        "title": "Your Rights",
+        "items": [
+          {
+            "title": "Access",
+            "description": "Request access to your personal information"
+          },
+          {
+            "title": "Correction",
+            "description": "Request correction of inaccurate information"
+          },
+          {
+            "title": "Deletion",
+            "description": "Request deletion of your personal information"
+          },
+          {
+            "title": "Portability",
+            "description": "Request a copy in a structured format"
+          },
+          {
+            "title": "Restriction/Objection",
+            "description": "Request restriction or object to processing"
+          }
+        ],
+        "contact": "To exercise these rights, contact us using the details below. We will respond within a reasonable timeframe in accordance with applicable laws."
+      },
+      "children": {
+        "title": "Children's Privacy",
+        "content": [
+          "Our services are not intended for individuals under 18. If we become aware that we collected information from a child under 18, we will delete it promptly."
+        ]
+      },
+      "contact": {
+        "title": "Contact Us",
+        "description": "If you have questions, concerns, or requests about this Privacy Policy or our data practices, please contact:",
+        "email": "info@global-genex.com",
+        "phone": "+81 (0)70-8361-4870",
+        "address": "Global Genex Inc.\n1-23-2 HakataEkimae\nHakata-ku\nFukuoka, Japan"
+      },
+      "updates": {
+        "title": "Updates to This Policy",
+        "content": [
+          "We may update this policy from time to time. We will post the updated policy and revise the \"Last updated\" date above. Your continued use constitutes acceptance of the updated policy."
+        ]
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Retail & Manufacturing × AI & Data Analytics × Global Expansion. We bridge Japan and global markets with AI-driven consulting.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact Information",
+    "copyright": "All rights reserved.",
+    "pages": {
+      "home": "Home",
+      "services": "Services",
+      "about": "About",
+      "contact": "Contact",
+      "privacy": "Privacy Policy"
+    },
+    "sections": {
+      "services": {
+        "title": "Services",
+        "links": {
+          "consulting": "Business Consulting",
+          "planning": "Strategic Planning",
+          "optimization": "Process Optimization",
+          "transformation": "Digital Transformation"
+        }
+      },
+      "company": {
+        "title": "Company",
+        "links": {
+          "about": "About Us",
+          "team": "Our Team",
+          "careers": "Careers",
+          "contact": "Contact"
+        }
+      },
+      "resources": {
+        "title": "Resources",
+        "links": {
+          "cases": "Case Studies",
+          "papers": "White Papers",
+          "insights": "Industry Insights",
+          "blog": "Blog"
+        }
+      }
+    },
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    }
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "backToTop": "Back to Top",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "language": "Language",
+    "japanese": "Japanese",
+    "english": "English",
+    "exploreServices": "Explore Services",
+    "scheduleConsultation": "Schedule Consultation",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "typicalWork": "Typical Work:",
+    "specializations": "Specializations:"
+  }
+}
