@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getServerTranslations } from '@/lib/hooks/useTranslations'
+import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
 import { type Locale, isValidLocale, defaultLocale } from '../../../../middleware'
 import { notFound } from 'next/navigation'
