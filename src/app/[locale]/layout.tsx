@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_JP } from "next/font/google";
 import "../globals.css";
 import { generateLocalizedMetadata } from '@/lib/metadata';
 import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config';
@@ -8,7 +8,15 @@ import { notFound } from 'next/navigation';
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
+  display: "optional",
+  preload: true,
+});
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  variable: "--font-noto-sans-jp",
+  display: "optional",
+  preload: true,
 });
 
 interface LocaleLayoutProps {
@@ -46,7 +54,7 @@ export default async function LocaleLayout({
   const locale = resolvedParams.locale as Locale;
 
   return (
-    <html lang={locale} className={inter.variable}>
+    <html lang={locale} className={`${inter.variable} ${notoSansJP.variable}`}>
       <head>
         <script
           type="application/ld+json"

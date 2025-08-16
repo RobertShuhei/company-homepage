@@ -45,7 +45,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="company-logo-stable">
             <LocalizedLink
               href="/"
               className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
@@ -59,11 +59,15 @@ const Header = () => {
           <nav className="hidden md:flex space-x-8" aria-label={t('nav.menuAriaLabel', 'Main navigation')}>
             {navItems.map((item) => {
               const active = isActiveHref(item.href)
+              const stableClass = item.href === '/' ? 'nav-item-home' : 
+                                 item.href === '/services' ? 'nav-item-services' :
+                                 item.href === '/about' ? 'nav-item-about' :
+                                 item.href === '/contact' ? 'nav-item-contact' : ''
               return (
                 <LocalizedLink
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
+                  className={`nav-item-stable ${stableClass} px-3 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
                     active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
                   }`}
                   aria-current={active ? 'page' : undefined}
@@ -83,7 +87,7 @@ const Header = () => {
           <div className="hidden md:flex">
             <LocalizedLink
               href="/contact"
-              className="bg-teal text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
+              className="nav-item-stable nav-item-cta bg-teal text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal/90 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
             >
               {t('nav.getStarted', 'Get Started')}
             </LocalizedLink>

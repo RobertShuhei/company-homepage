@@ -19,6 +19,15 @@ body {
   line-height: 1.6;
 }
 
+/* Locale-aware font optimization */
+html[lang="ja"] body {
+  font-family: var(--font-noto-sans-jp), var(--font-inter), system-ui, sans-serif;
+}
+
+html[lang="en"] body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
 /* Enhanced Typography System */
 h1 {
   font-weight: 700;
@@ -92,6 +101,37 @@ p {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Stable Navigation Layout - Prevents header layout shift between locales */
+.nav-item-stable {
+  @apply inline-flex items-center justify-center text-center min-w-0 transition-colors duration-200;
+}
+
+/* Specific widths for navigation items to maintain consistency */
+.nav-item-home {
+  min-width: 4rem; /* 64px */
+}
+
+.nav-item-services {
+  min-width: 5rem; /* 80px */
+}
+
+.nav-item-about {
+  min-width: 4rem; /* 64px */
+}
+
+.nav-item-contact {
+  min-width: 5rem; /* 80px */
+}
+
+.nav-item-cta {
+  min-width: 7rem; /* 112px */
+}
+
+/* Company logo stable width */
+.company-logo-stable {
+  @apply w-64 flex-shrink-0;
 }
 
 /* Enhanced form styles */
