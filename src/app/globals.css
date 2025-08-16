@@ -129,9 +129,92 @@ html {
   min-width: 7rem; /* 112px */
 }
 
-/* Company logo stable width */
+/* Company logo stable width with single-line constraint */
 .company-logo-stable {
-  @apply w-64 flex-shrink-0;
+  @apply flex-shrink-0;
+  /* Dynamic width based on locale */
+  min-width: 16rem; /* 256px - minimum for English */
+  max-width: 24rem; /* 384px - maximum for Japanese */
+  white-space: nowrap; /* CRITICAL: Prevents line wrapping */
+  overflow: hidden; /* Prevents overflow on extreme cases */
+}
+
+/* Locale-specific width optimizations */
+html[lang="ja"] .company-logo-stable {
+  min-width: 20rem; /* 320px - optimized for Japanese */
+  max-width: 26rem; /* 416px - extended for longer Japanese text */
+}
+
+html[lang="en"] .company-logo-stable {
+  min-width: 14rem; /* 224px - optimized for English */
+  max-width: 18rem; /* 288px - sufficient for English */
+}
+
+/* Company logo link styling with responsive font sizing */
+.company-logo-stable a {
+  @apply text-navy hover:text-teal font-bold transition-colors duration-200;
+  /* Responsive font sizing to accommodate different text lengths */
+  font-size: 1.5rem; /* 24px base */
+  line-height: 1.2;
+  display: block;
+  white-space: nowrap; /* Reinforces single-line display */
+  text-overflow: ellipsis; /* Graceful degradation on extreme cases */
+  overflow: hidden;
+}
+
+/* Locale-specific font size adjustments */
+html[lang="ja"] .company-logo-stable a {
+  font-size: 1.375rem; /* 22px - slightly smaller for Japanese */
+}
+
+html[lang="en"] .company-logo-stable a {
+  font-size: 1.5rem; /* 24px - standard for English */
+}
+
+/* Mobile responsiveness for company logo */
+@media (max-width: 640px) {
+  .company-logo-stable {
+    min-width: 12rem; /* 192px */
+    max-width: 18rem; /* 288px */
+  }
+  
+  .company-logo-stable a {
+    font-size: 1.25rem; /* 20px on mobile */
+  }
+  
+  html[lang="ja"] .company-logo-stable a {
+    font-size: 1.125rem; /* 18px for Japanese on mobile */
+  }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 641px) and (max-width: 768px) {
+  .company-logo-stable {
+    min-width: 16rem; /* 256px */
+    max-width: 22rem; /* 352px */
+  }
+}
+
+/* Header layout optimization for Japanese text */
+html[lang="ja"] header .flex.justify-between {
+  /* Ensure enough space allocation for Japanese company name */
+  gap: 0.75rem; /* 12px gap between elements */
+}
+
+html[lang="ja"] header .hidden.md\\:flex.space-x-8 {
+  /* Reduce navigation spacing on Japanese version to accommodate longer logo */
+  gap: 1.5rem; /* 24px instead of 32px (space-x-8) */
+}
+
+/* Prevent navigation items from wrapping on smaller screens with long Japanese text */
+@media (min-width: 768px) and (max-width: 1024px) {
+  html[lang="ja"] .hidden.md\\:flex.space-x-8 {
+    gap: 1rem; /* 16px on medium screens */
+  }
+  
+  html[lang="ja"] .nav-item-stable {
+    font-size: 0.875rem; /* 14px - slightly smaller navigation text */
+  }
 }
 
 /* Enhanced form styles */
