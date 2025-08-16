@@ -5,6 +5,11 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
+import {
+  getLocaleFromPathname,
+  addLocaleToPathname,
+  removeLocaleFromPathname
+} from '../../../i18n.config'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -17,17 +22,23 @@ const Header = () => {
     return getNestedTranslation(translations, path, fallback);
   }
 
+  // Get current locale and create locale-aware links
+  const currentLocale = getLocaleFromPathname(pathname)
+  
   const navItems = [
-    { href: '/', label: t('nav.home', 'Home') },
-    { href: '/services', label: t('nav.services', 'Services') },
-    { href: '/about', label: t('nav.about', 'About') },
-    { href: '/contact', label: t('nav.contact', 'Contact') },
+    { href: addLocaleToPathname('/', currentLocale), baseHref: '/', label: t('nav.home', 'Home') },
+    { href: addLocaleToPathname('/services', currentLocale), baseHref: '/services', label: t('nav.services', 'Services') },
+    { href: addLocaleToPathname('/about', currentLocale), baseHref: '/about', label: t('nav.about', 'About') },
+    { href: addLocaleToPathname('/contact', currentLocale), baseHref: '/contact', label: t('nav.contact', 'Contact') },
   ]
 
-  const isActiveHref = (href: string) => {
+  const isActiveHref = (baseHref: string) => {
+    // Remove locale from current pathname for comparison
+    const cleanPathname = removeLocaleFromPathname(pathname, currentLocale)
+    
     // "/" は完全一致、それ以外は「完全一致 or 配下パス」で判定
-    if (href === '/') return pathname === '/'
-    return pathname === href || pathname.startsWith(href + '/')
+    if (baseHref === '/') return cleanPathname === '/'
+    return cleanPathname === baseHref || cleanPathname.startsWith(baseHref + '/')
   }
 
   return (
@@ -37,7 +48,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link
-              href="/"
+              href={addLocaleToPathname('/', currentLocale)}
               className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
               aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
             >
@@ -48,10 +59,10 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8" aria-label={t('nav.menuAriaLabel', 'Main navigation')}>
             {navItems.map((item) => {
-              const active = isActiveHref(item.href)
+              const active = isActiveHref(item.baseHref)
               return (
                 <Link
-                  key={item.href}
+                  key={item.baseHref}
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
                     active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
@@ -72,7 +83,7 @@ const Header = () => {
           {/* CTA Button */}
           <div className="hidden md:flex">
             <Link
-              href="/contact"
+              href={addLocaleToPathname('/contact', currentLocale)}
               className="bg-teal text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
             >
               {t('nav.getStarted', 'Get Started')}
@@ -112,10 +123,10 @@ const Header = () => {
           <div className="md:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
               {navItems.map((item) => {
-                const active = isActiveHref(item.href)
+                const active = isActiveHref(item.baseHref)
                 return (
                   <Link
-                    key={item.href}
+                    key={item.baseHref}
                     href={item.href}
                     className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
                       active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
@@ -128,7 +139,7 @@ const Header = () => {
                 )
               })}
               <Link
-                href="/contact"
+                href={addLocaleToPathname('/contact', currentLocale)}
                 className="bg-teal text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 mt-4"
                 onClick={() => setIsMenuOpen(false)}
               >

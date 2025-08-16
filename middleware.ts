@@ -45,85 +45,51 @@ function getLocale(request: NextRequest): Locale {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // Skip processing for static files, API routes, and special Next.js files
+  // a. Initial Exclusion: Skip Next.js internals, API routes, and static files
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
-    pathname.startsWith('/favicon') ||
-    pathname.includes('.') ||
-    pathname === '/robots.txt' ||
-    pathname === '/sitemap.xml' ||
-    pathname === '/site.webmanifest'
+    pathname.includes('.')
   ) {
     return NextResponse.next()
   }
 
-  // Check if there's a locale in the pathname
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  // b. Locale Prefix Check: If already prefixed with supported locale, pass through
+  const hasLocalePrefix = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
-
-  // If pathname is missing locale, redirect to localized route
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request)
-    
-    // For Japanese (default), redirect to /ja/path
-    if (locale === 'ja') {
-      const redirectPath = pathname === '/' ? '/ja' : `/ja${pathname}`
-      const response = NextResponse.redirect(new URL(redirectPath, request.url))
-      
-      // Set cookie for Japanese preference
-      response.cookies.set({
-        name: cookieConfig.name,
-        value: locale,
-        maxAge: cookieConfig.maxAge,
-        httpOnly: cookieConfig.httpOnly,
-        secure: cookieConfig.secure,
-        sameSite: cookieConfig.sameSite,
-        path: cookieConfig.path
-      })
-      
-      return response
-    }
-    
-    // For English, redirect to /en/path
-    if (locale === 'en') {
-      const redirectPath = pathname === '/' ? '/en' : `/en${pathname}`
-      const response = NextResponse.redirect(new URL(redirectPath, request.url))
-      
-      // Set cookie for English preference
-      response.cookies.set({
-        name: cookieConfig.name,
-        value: locale,
-        maxAge: cookieConfig.maxAge,
-        httpOnly: cookieConfig.httpOnly,
-        secure: cookieConfig.secure,
-        sameSite: cookieConfig.sameSite,
-        path: cookieConfig.path
-      })
-      
-      return response
-    }
+  
+  if (hasLocalePrefix) {
+    return NextResponse.next()
   }
 
-  // All localized routes are now handled through [locale] directory
-
-  return NextResponse.next()
+  // c. Redirect Logic: Non-prefixed paths get redirected to /ja (default locale)
+  const redirectPath = pathname === '/' ? '/ja' : `/ja${pathname}`
+  const response = NextResponse.redirect(new URL(redirectPath, request.url))
+  
+  // Set cookie for Japanese preference
+  response.cookies.set({
+    name: cookieConfig.name,
+    value: defaultLocale,
+    maxAge: cookieConfig.maxAge,
+    httpOnly: cookieConfig.httpOnly,
+    secure: cookieConfig.secure,
+    sameSite: cookieConfig.sameSite,
+    path: cookieConfig.path
+  })
+  
+  return response
 }
 
 export const config = {
-  // Match all paths except static files and API routes
+  // Match all paths except Next.js internals, API routes, and static files
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - robots.txt, sitemap.xml (SEO files)
-     * - *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp (images)
-     * - *.css, *.js (static assets)
+     * - _next (Next.js internal files)
+     * - api (API routes)  
+     * - Any path containing a file extension (e.g. .png, .ico, .css)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.).*)'
+    '/((?!_next|api|.*\\.).*)'
   ]
 }
