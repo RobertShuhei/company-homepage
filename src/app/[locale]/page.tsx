@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
@@ -91,12 +89,9 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-
-      <main>
-        {/* Hero Section */}
-        <Hero
+    <>
+      {/* Hero Section */}
+      <Hero
           title={t.homepage.hero.title}
           subtitle={t.homepage.hero.subtitle}
           description={t.homepage.hero.description}
@@ -159,17 +154,14 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <CTA
-          title={t.homepage.cta.title}
-          description={t.homepage.cta.description}
-          primaryButton={{ text: t.homepage.cta.primaryButton, href: "/contact" }}
-          secondaryButton={{ text: t.homepage.cta.secondaryButton, href: "/about" }}
-          variant="light"
-        />
-      </main>
-
-      <Footer />
-    </div>
+      {/* CTA Section */}
+      <CTA
+        title={t.homepage.cta.title}
+        description={t.homepage.cta.description}
+        primaryButton={{ text: t.homepage.cta.primaryButton, href: "/contact" }}
+        secondaryButton={{ text: t.homepage.cta.secondaryButton, href: "/about" }}
+        variant="light"
+      />
+    </>
   )
 }

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { generateLocalizedMetadata } from '@/lib/metadata';
 import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config';
+import { extractNavigationTranslations } from '@/lib/translations';
 import { notFound } from 'next/navigation';
 import StructuredData from '@/components/StructuredData';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -38,10 +41,17 @@ export default async function LocaleLayout({
 
   const locale = resolvedParams.locale as Locale;
 
+  // Fetch navigation translations for server-side rendering
+  const navigationTranslations = await extractNavigationTranslations(locale);
+
   return (
     <>
       <StructuredData locale={locale} />
-      {children}
+      <Header navigationTranslations={navigationTranslations} locale={locale} />
+      <main>
+        {children}
+      </main>
+      <Footer />
     </>
   );
 }
