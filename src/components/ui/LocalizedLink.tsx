@@ -81,7 +81,7 @@ export interface LocalizedLinkProps extends Omit<ComponentProps<typeof Link>, 'h
  *   Services
  * </LocalizedLink>
  */
-const LocalizedLink: React.FC<LocalizedLinkProps> = ({
+export default function LocalizedLink({
   href,
   locale,
   children,
@@ -90,7 +90,7 @@ const LocalizedLink: React.FC<LocalizedLinkProps> = ({
   'aria-label': ariaLabel,
   onClick,
   ...restProps
-}) => {
+}: LocalizedLinkProps) {
   const pathname = usePathname()
   
   // Memoize locale-aware href calculation for performance
@@ -115,5 +115,3 @@ const LocalizedLink: React.FC<LocalizedLinkProps> = ({
     </Link>
   )
 }
-
-export default LocalizedLink

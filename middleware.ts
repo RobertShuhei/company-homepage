@@ -66,15 +66,20 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Redirect non-prefixed paths to default locale (Japanese)
-  const redirectPath = pathname === '/' ? '/ja' : `/ja${pathname}`
+  // For clean URLs (no locale prefix), determine the intended locale
+  const detectedLocale = getLocale(request)
+  console.log(`[MIDDLEWARE] Detected locale for ${pathname}: ${detectedLocale}`)
+  
+  // For all clean URLs, redirect to the appropriate locale-prefixed URL
+  // This ensures proper client-side navigation performance
+  const redirectPath = pathname === '/' ? `/${detectedLocale}` : `/${detectedLocale}${pathname}`
   console.log(`[MIDDLEWARE] Redirecting ${pathname} -> ${redirectPath}`)
   const response = NextResponse.redirect(new URL(redirectPath, request.url))
   
-  // Set cookie for Japanese preference
+  // Set cookie for the detected locale preference
   response.cookies.set({
     name: cookieConfig.name,
-    value: defaultLocale,
+    value: detectedLocale,
     maxAge: cookieConfig.maxAge,
     httpOnly: cookieConfig.httpOnly,
     secure: cookieConfig.secure,
