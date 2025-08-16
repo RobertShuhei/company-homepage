@@ -1,20 +1,19 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
+import LocalizedLink from '../ui/LocalizedLink'
 import {
   getLocaleFromPathname,
-  addLocaleToPathname,
   removeLocaleFromPathname
 } from '../../../i18n.config'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
-  const { t: translations, isLoading } = useTranslations()
+  const { t: translations } = useTranslations()
   
   // Helper function to get translations safely
   const t = (path: string, fallback?: string) => {
@@ -22,23 +21,23 @@ const Header = () => {
     return getNestedTranslation(translations, path, fallback);
   }
 
-  // Get current locale and create locale-aware links
+  // Get current locale for clean URL comparison
   const currentLocale = getLocaleFromPathname(pathname)
   
   const navItems = [
-    { href: addLocaleToPathname('/', currentLocale), baseHref: '/', label: t('nav.home', 'Home') },
-    { href: addLocaleToPathname('/services', currentLocale), baseHref: '/services', label: t('nav.services', 'Services') },
-    { href: addLocaleToPathname('/about', currentLocale), baseHref: '/about', label: t('nav.about', 'About') },
-    { href: addLocaleToPathname('/contact', currentLocale), baseHref: '/contact', label: t('nav.contact', 'Contact') },
+    { href: '/', label: t('nav.home', 'Home') },
+    { href: '/services', label: t('nav.services', 'Services') },
+    { href: '/about', label: t('nav.about', 'About') },
+    { href: '/contact', label: t('nav.contact', 'Contact') },
   ]
 
-  const isActiveHref = (baseHref: string) => {
+  const isActiveHref = (href: string) => {
     // Remove locale from current pathname for comparison
     const cleanPathname = removeLocaleFromPathname(pathname, currentLocale)
     
     // "/" は完全一致、それ以外は「完全一致 or 配下パス」で判定
-    if (baseHref === '/') return cleanPathname === '/'
-    return cleanPathname === baseHref || cleanPathname.startsWith(baseHref + '/')
+    if (href === '/') return cleanPathname === '/'
+    return cleanPathname === href || cleanPathname.startsWith(href + '/')
   }
 
   return (
@@ -47,22 +46,22 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link
-              href={addLocaleToPathname('/', currentLocale)}
+            <LocalizedLink
+              href="/"
               className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
               aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
             >
               {t('nav.companyName', 'Global Genex Inc.')}
-            </Link>
+            </LocalizedLink>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8" aria-label={t('nav.menuAriaLabel', 'Main navigation')}>
             {navItems.map((item) => {
-              const active = isActiveHref(item.baseHref)
+              const active = isActiveHref(item.href)
               return (
-                <Link
-                  key={item.baseHref}
+                <LocalizedLink
+                  key={item.href}
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
                     active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
@@ -70,7 +69,7 @@ const Header = () => {
                   aria-current={active ? 'page' : undefined}
                 >
                   {item.label}
-                </Link>
+                </LocalizedLink>
               )
             })}
           </nav>
@@ -82,12 +81,12 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex">
-            <Link
-              href={addLocaleToPathname('/contact', currentLocale)}
+            <LocalizedLink
+              href="/contact"
               className="bg-teal text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
             >
               {t('nav.getStarted', 'Get Started')}
-            </Link>
+            </LocalizedLink>
           </div>
 
           {/* Mobile menu button */}
@@ -123,10 +122,10 @@ const Header = () => {
           <div className="md:hidden" id="mobile-menu">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
               {navItems.map((item) => {
-                const active = isActiveHref(item.baseHref)
+                const active = isActiveHref(item.href)
                 return (
-                  <Link
-                    key={item.baseHref}
+                  <LocalizedLink
+                    key={item.href}
                     href={item.href}
                     className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
                       active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
@@ -135,16 +134,16 @@ const Header = () => {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
-                  </Link>
+                  </LocalizedLink>
                 )
               })}
-              <Link
-                href={addLocaleToPathname('/contact', currentLocale)}
+              <LocalizedLink
+                href="/contact"
                 className="bg-teal text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 mt-4"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('nav.getStarted', 'Get Started')}
-              </Link>
+              </LocalizedLink>
               
               {/* Language Switcher (Mobile) */}
               <div className="mt-4 pt-4 border-t border-gray-200">

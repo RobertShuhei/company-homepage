@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import LocalizedLink from './LocalizedLink'
 
 interface CTAProps {
   title: string
@@ -65,20 +65,20 @@ const CTA: React.FC<CTAProps> = ({
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
+            <LocalizedLink
               href={primaryButton.href}
               className={`rounded-lg text-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center transform hover:-translate-y-0.5 ${classes.primaryBtn}`}
             >
               {primaryButton.text}
-            </Link>
+            </LocalizedLink>
             
             {secondaryButton && (
-              <Link
+              <LocalizedLink
                 href={secondaryButton.href}
                 className={`border-2 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center transform hover:-translate-y-0.5 ${classes.secondaryBtn}`}
               >
                 {secondaryButton.text}
-              </Link>
+              </LocalizedLink>
             )}
           </div>
         </div>

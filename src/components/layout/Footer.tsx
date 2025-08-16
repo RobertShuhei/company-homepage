@@ -1,17 +1,11 @@
 'use client' // ← 追加して年号を毎年自動更新に
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
-import {
-  getLocaleFromPathname,
-  addLocaleToPathname
-} from '../../../i18n.config'
+import LocalizedLink from '../ui/LocalizedLink'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
-  const pathname = usePathname()
-  const { t: translations, isLoading } = useTranslations()
+  const { t: translations } = useTranslations()
   
   // Helper function to get translations safely
   const t = (path: string, fallback?: string) => {
@@ -19,27 +13,26 @@ const Footer = () => {
     return getNestedTranslation(translations, path, fallback);
   }
 
-  // Get current locale for locale-aware links
-  const currentLocale = getLocaleFromPathname(pathname)
+  // LocalizedLink component will handle locale prefixing automatically
 
   const footerSections = [
     {
       title: t('footer.sections.services.title', 'Services'),
       links: [
-        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.consulting', 'Business Consulting') },
+        { href: '/services', label: t('footer.sections.services.links.consulting', 'Business Consulting') },
         // それぞれのURLができたら差し替え:
-        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.planning', 'Strategic Planning') },
-        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.optimization', 'Process Optimization') },
-        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.transformation', 'Digital Transformation') },
+        { href: '/services', label: t('footer.sections.services.links.planning', 'Strategic Planning') },
+        { href: '/services', label: t('footer.sections.services.links.optimization', 'Process Optimization') },
+        { href: '/services', label: t('footer.sections.services.links.transformation', 'Digital Transformation') },
       ]
     },
     {
       title: t('footer.sections.company.title', 'Company'),
       links: [
-        { href: addLocaleToPathname('/about', currentLocale), label: t('footer.sections.company.links.about', 'About Us') },
-        { href: addLocaleToPathname('/about', currentLocale), label: t('footer.sections.company.links.team', 'Our Team') },
-        { href: addLocaleToPathname('/about', currentLocale), label: t('footer.sections.company.links.careers', 'Careers') },
-        { href: addLocaleToPathname('/contact', currentLocale), label: t('footer.sections.company.links.contact', 'Contact') },
+        { href: '/about', label: t('footer.sections.company.links.about', 'About Us') },
+        { href: '/about', label: t('footer.sections.company.links.team', 'Our Team') },
+        { href: '/about', label: t('footer.sections.company.links.careers', 'Careers') },
+        { href: '/contact', label: t('footer.sections.company.links.contact', 'Contact') },
       ]
     },
     {
@@ -61,13 +54,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <Link
-                href={addLocaleToPathname('/', currentLocale)}
+              <LocalizedLink
+                href="/"
                 className="text-2xl font-bold hover:text-teal transition-colors duration-200"
                 aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
               >
                 {t('footer.companyName', 'Global Genex Inc.')}
-              </Link>
+              </LocalizedLink>
             </div>
             <p className="text-slate-300 mb-4">
               {t('footer.tagline', 'Retail & Manufacturing × AI & Data Analytics × Global Expansion. We bridge Japan and global markets with AI-driven consulting.')}
@@ -108,12 +101,18 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.href === '#' ? (
+                      <span className="text-slate-300 cursor-not-allowed opacity-50">
+                        {link.label}
+                      </span>
+                    ) : (
+                      <LocalizedLink
+                        href={link.href}
+                        className="text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
+                      >
+                        {link.label}
+                      </LocalizedLink>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -127,18 +126,15 @@ const Footer = () => {
               © {currentYear} {t('footer.companyName', 'Global Genex Inc.')} {t('footer.copyright', 'All rights reserved.')}
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link
-                href={addLocaleToPathname('/privacy', currentLocale)}
+              <LocalizedLink
+                href="/privacy"
                 className="text-slate-300 hover:text-white text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
               >
                 {t('footer.legal.privacy', 'Privacy Policy')}
-              </Link>
-              <Link
-                href="#"
-                className="text-slate-300 hover:text-white text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
-              >
+              </LocalizedLink>
+              <span className="text-slate-300 cursor-not-allowed opacity-50 text-sm">
                 {t('footer.legal.terms', 'Terms of Service')}
-              </Link>
+              </span>
             </div>
           </div>
         </div>
