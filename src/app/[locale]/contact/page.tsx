@@ -4,7 +4,7 @@ import Footer from '@/components/layout/Footer'
 import ContactForm from '@/components/ContactForm'
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
-import { type Locale, isValidLocale, defaultLocale } from '../../../../middleware'
+import { type Locale, isValidLocale, defaultLocale } from '../../../../i18n.config'
 import { notFound } from 'next/navigation'
 
 interface ContactPageProps {

@@ -3,17 +3,25 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
+  const { t: translations, isLoading } = useTranslations()
+  
+  // Helper function to get translations safely
+  const t = (path: string, fallback?: string) => {
+    if (!translations) return fallback || path;
+    return getNestedTranslation(translations, path, fallback);
+  }
 
   const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/services', label: 'Services' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/', label: t('nav.home', 'Home') },
+    { href: '/services', label: t('nav.services', 'Services') },
+    { href: '/about', label: t('nav.about', 'About') },
+    { href: '/contact', label: t('nav.contact', 'Contact') },
   ]
 
   const isActiveHref = (href: string) => {
@@ -31,14 +39,14 @@ const Header = () => {
             <Link
               href="/"
               className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
-              aria-label="Global Genex Inc. - Home"
+              aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
             >
-              Global Genex Inc.
+              {t('nav.companyName', 'Global Genex Inc.')}
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8" aria-label="Main navigation">
+          <nav className="hidden md:flex space-x-8" aria-label={t('nav.menuAriaLabel', 'Main navigation')}>
             {navItems.map((item) => {
               const active = isActiveHref(item.href)
               return (
@@ -67,7 +75,7 @@ const Header = () => {
               href="/contact"
               className="bg-teal text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
             >
-              Get Started
+              {t('nav.getStarted', 'Get Started')}
             </Link>
           </div>
 
@@ -80,7 +88,7 @@ const Header = () => {
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{t('nav.openMenu', 'Open main menu')}</span>
               <svg
                 className="h-6 w-6"
                 fill="none"
@@ -124,7 +132,7 @@ const Header = () => {
                 className="bg-teal text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 mt-4"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Get Started
+                {t('nav.getStarted', 'Get Started')}
               </Link>
               
               {/* Language Switcher (Mobile) */}

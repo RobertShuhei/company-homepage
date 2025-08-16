@@ -4,7 +4,12 @@
     "services": "Services",
     "about": "About",
     "contact": "Contact",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "companyName": "Global Genex Inc.",
+    "homeAriaLabel": "Global Genex Inc. - Home",
+    "menuAriaLabel": "Main navigation",
+    "openMenu": "Open main menu",
+    "closeMenu": "Close main menu"
   },
   "homepage": {
     "meta": {
@@ -318,17 +323,75 @@
     },
     "form": {
       "title": "Send us a Message",
-      "name": "Full Name",
-      "email": "Email Address",
-      "message": "Message",
-      "submit": "Send Message",
-      "sending": "Sending...",
-      "success": "Thank you! Your message has been sent successfully. We'll get back to you within 24-48 hours.",
-      "error": "Sorry, there was an error sending your message. Please try again or contact us directly.",
-      "nameRequired": "Name is required",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Please enter a valid email address",
-      "messageRequired": "Message is required"
+      "fields": {
+        "name": {
+          "label": "Full Name *",
+          "placeholder": "Enter your full name"
+        },
+        "companyName": {
+          "label": "Company Name",
+          "placeholder": "Enter your company name (optional)"
+        },
+        "email": {
+          "label": "Email Address *",
+          "placeholder": "Enter your email address"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number (optional)"
+        },
+        "inquiryType": {
+          "label": "Inquiry Type *",
+          "placeholder": "Please select an inquiry type",
+          "options": {
+            "serviceInquiry": "Service Inquiry",
+            "hiring": "Hiring",
+            "partnership": "Partnership",
+            "generalSupport": "General Support",
+            "other": "Other"
+          }
+        },
+        "message": {
+          "label": "Message *",
+          "placeholder": "Tell us about your project or how we can help you...",
+          "characterCount": "characters"
+        },
+        "privacyConsent": {
+          "label": "I agree to the",
+          "privacyPolicy": "Privacy Policy",
+          "consentText": "and consent to the processing of my personal data. *"
+        }
+      },
+      "validation": {
+        "nameRequired": "Name is required",
+        "nameMinLength": "Name must be at least 2 characters",
+        "nameMaxLength": "Name must be less than 100 characters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "companyNameMaxLength": "Company name must be less than 100 characters",
+        "phoneInvalid": "Please enter a valid phone number",
+        "inquiryTypeRequired": "Please select an inquiry type",
+        "messageRequired": "Message is required",
+        "messageMinLength": "Message must be at least 10 characters",
+        "messageMaxLength": "Message must be less than 2000 characters",
+        "privacyConsentRequired": "You must agree to our Privacy Policy to proceed"
+      },
+      "states": {
+        "submit": "Send Message",
+        "sending": "Sending Message...",
+        "sendAnother": "Send Another Message"
+      },
+      "success": {
+        "title": "Message Sent Successfully!",
+        "message": "Thank you for reaching out. We have received your message and will respond within 24-48 hours. You should also receive a confirmation email shortly."
+      },
+      "error": {
+        "generic": "Failed to send message. Please try again.",
+        "tooFast": "Failed to send message. Please try again."
+      },
+      "privacy": {
+        "message": "We respect your privacy. Your information will not be shared with third parties."
+      }
     },
     "info": {
       "title": "Get in Touch",
@@ -480,10 +543,15 @@
     }
   },
   "footer": {
+    "companyName": "Global Genex Inc.",
     "tagline": "Retail & Manufacturing × AI & Data Analytics × Global Expansion. We bridge Japan and global markets with AI-driven consulting.",
     "quickLinks": "Quick Links",
     "contact": "Contact Information",
     "copyright": "All rights reserved.",
+    "social": {
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter"
+    },
     "pages": {
       "home": "Home",
       "services": "Services",

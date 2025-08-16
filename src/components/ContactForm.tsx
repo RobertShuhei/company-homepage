@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations';
 
 interface FormResponse {
   success: boolean;
@@ -26,6 +27,14 @@ interface FormState {
 }
 
 export default function ContactForm() {
+  const { t: translations, isLoading } = useTranslations();
+  
+  // Helper function to get translations safely
+  const t = (path: string, fallback?: string) => {
+    if (!translations) return fallback || path;
+    return getNestedTranslation(translations, path, fallback);
+  };
+  
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -62,34 +71,34 @@ export default function ContactForm() {
   };
 
   const validateForm = (): string | null => {
-    if (!formData.name.trim()) return 'Name is required';
-    if (formData.name.trim().length < 2) return 'Name must be at least 2 characters';
-    if (formData.name.trim().length > 100) return 'Name must be less than 100 characters';
+    if (!formData.name.trim()) return t('contact.form.validation.nameRequired');
+    if (formData.name.trim().length < 2) return t('contact.form.validation.nameMinLength');
+    if (formData.name.trim().length > 100) return t('contact.form.validation.nameMaxLength');
 
-    if (!formData.email.trim()) return 'Email is required';
+    if (!formData.email.trim()) return t('contact.form.validation.emailRequired');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) return 'Please enter a valid email address';
+    if (!emailRegex.test(formData.email)) return t('contact.form.validation.emailInvalid');
 
     // Optional company name validation
     if (formData.companyName.trim() && formData.companyName.trim().length > 100) {
-      return 'Company name must be less than 100 characters';
+      return t('contact.form.validation.companyNameMaxLength');
     }
 
     // Optional phone number validation
     if (formData.phoneNumber.trim()) {
       const phoneRegex = /^[\+]?[\d]{8,15}$/;
       if (!phoneRegex.test(formData.phoneNumber.replace(/[\s\-\(\)]/g, ''))) {
-        return 'Please enter a valid phone number';
+        return t('contact.form.validation.phoneInvalid');
       }
     }
 
-    if (!formData.inquiryType) return 'Please select an inquiry type';
+    if (!formData.inquiryType) return t('contact.form.validation.inquiryTypeRequired');
 
-    if (!formData.message.trim()) return 'Message is required';
-    if (formData.message.trim().length < 10) return 'Message must be at least 10 characters';
-    if (formData.message.trim().length > 2000) return 'Message must be less than 2000 characters';
+    if (!formData.message.trim()) return t('contact.form.validation.messageRequired');
+    if (formData.message.trim().length < 10) return t('contact.form.validation.messageMinLength');
+    if (formData.message.trim().length > 2000) return t('contact.form.validation.messageMaxLength');
 
-    if (!formData.privacyConsent) return 'You must agree to our Privacy Policy to proceed';
+    if (!formData.privacyConsent) return t('contact.form.validation.privacyConsentRequired');
 
     return null;
   };
@@ -155,12 +164,12 @@ export default function ContactForm() {
       clearTimeout(timeoutId);
       console.error('Form submission error:', error);
       
-      let errorMessage = 'Failed to send message. Please try again.';
+      let errorMessage = t('contact.form.error.generic');
       
       if (error instanceof Error) {
         // Check if it's the timing protection error and provide message
         if (error.message.includes('Submission too fast')) {
-          errorMessage = 'Failed to send message. Please try again.';
+          errorMessage = t('contact.form.error.tooFast');
         } else {
           errorMessage = error.message;
         }
@@ -174,6 +183,15 @@ export default function ContactForm() {
     }
   };
 
+  // Show loading state while translations are being loaded
+  if (isLoading) {
+    return (
+      <div className="content-spacing flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal"></div>
+      </div>
+    );
+  }
+
   if (formState.isSubmitted) {
     return (
       <div className="bg-green-50 border-2 border-green-200 rounded-xl p-10 lg:p-12 text-center">
@@ -183,10 +201,10 @@ export default function ContactForm() {
           </svg>
         </div>
 
-        <h3 className="text-2xl lg:text-3xl font-bold text-navy mb-6">Message Sent Successfully!</h3>
+        <h3 className="text-2xl lg:text-3xl font-bold text-navy mb-6">{t('contact.form.success.title')}</h3>
 
         <p className="text-gray text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
-          Thank you for reaching out. We have received your message and will respond within 24-48 hours. You should also receive a confirmation email shortly.
+          {t('contact.form.success.message')}
         </p>
 
         <button
@@ -195,7 +213,7 @@ export default function ContactForm() {
           }}
           className="text-teal hover:text-teal/80 font-semibold text-lg transition-colors duration-200"
         >
-          Send Another Message
+          {t('contact.form.states.sendAnother')}
         </button>
       </div>
     );
@@ -222,7 +240,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
         <div>
           <label htmlFor="name" className="block text-sm font-semibold text-navy mb-2">
-            Full Name *
+            {t('contact.form.fields.name.label')}
           </label>
           <input
             type="text"
@@ -233,7 +251,7 @@ export default function ContactForm() {
             required
             disabled={formState.isSubmitting}
             className="form-input"
-            placeholder="Enter your full name"
+            placeholder={t('contact.form.fields.name.placeholder')}
             maxLength={100}
             aria-describedby="name-help"
           />
@@ -241,7 +259,7 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="companyName" className="block text-sm font-semibold text-navy mb-2">
-            Company Name
+            {t('contact.form.fields.companyName.label')}
           </label>
           <input
             type="text"
@@ -251,14 +269,14 @@ export default function ContactForm() {
             onChange={handleInputChange}
             disabled={formState.isSubmitting}
             className="form-input"
-            placeholder="Enter your company name (optional)"
+            placeholder={t('contact.form.fields.companyName.placeholder')}
             maxLength={100}
           />
         </div>
 
         <div>
           <label htmlFor="email" className="block text-sm font-semibold text-navy mb-2">
-            Email Address *
+            {t('contact.form.fields.email.label')}
           </label>
           <input
             type="email"
@@ -269,7 +287,7 @@ export default function ContactForm() {
             required
             disabled={formState.isSubmitting}
             className="form-input"
-            placeholder="Enter your email address"
+            placeholder={t('contact.form.fields.email.placeholder')}
             maxLength={254}
             aria-describedby="email-help"
           />
@@ -277,7 +295,7 @@ export default function ContactForm() {
 
         <div>
           <label htmlFor="phoneNumber" className="block text-sm font-semibold text-navy mb-2">
-            Phone Number
+            {t('contact.form.fields.phoneNumber.label')}
           </label>
           <input
             type="tel"
@@ -287,7 +305,7 @@ export default function ContactForm() {
             onChange={handleInputChange}
             disabled={formState.isSubmitting}
             className="form-input"
-            placeholder="Enter your phone number (optional)"
+            placeholder={t('contact.form.fields.phoneNumber.placeholder')}
             maxLength={20}
           />
         </div>
@@ -296,7 +314,7 @@ export default function ContactForm() {
       {/* Full-width inquiry type field */}
       <div>
         <label htmlFor="inquiryType" className="block text-sm font-semibold text-navy mb-2">
-          Inquiry Type *
+          {t('contact.form.fields.inquiryType.label')}
         </label>
         <select
           id="inquiryType"
@@ -308,19 +326,19 @@ export default function ContactForm() {
           className="form-select"
           aria-describedby="inquiry-help"
         >
-          <option value="">Please select an inquiry type</option>
-          <option value="Service Inquiry">Service Inquiry</option>
-          <option value="Hiring">Hiring</option>
-          <option value="Partnership">Partnership</option>
-          <option value="General Support">General Support</option>
-          <option value="Other">Other</option>
+          <option value="">{t('contact.form.fields.inquiryType.placeholder')}</option>
+          <option value="Service Inquiry">{t('contact.form.fields.inquiryType.options.serviceInquiry')}</option>
+          <option value="Hiring">{t('contact.form.fields.inquiryType.options.hiring')}</option>
+          <option value="Partnership">{t('contact.form.fields.inquiryType.options.partnership')}</option>
+          <option value="General Support">{t('contact.form.fields.inquiryType.options.generalSupport')}</option>
+          <option value="Other">{t('contact.form.fields.inquiryType.options.other')}</option>
         </select>
       </div>
 
       {/* Full-width message field */}
       <div>
         <label htmlFor="message" className="block text-sm font-semibold text-navy mb-2">
-          Message *
+          {t('contact.form.fields.message.label')}
         </label>
         <textarea
           id="message"
@@ -331,12 +349,12 @@ export default function ContactForm() {
           disabled={formState.isSubmitting}
           rows={6}
           className="form-textarea"
-          placeholder="Tell us about your project or how we can help you..."
+          placeholder={t('contact.form.fields.message.placeholder')}
           maxLength={2000}
           aria-describedby="message-help"
         />
         <div className="mt-1 text-sm text-gray-500 text-right">
-          {formData.message.length}/2000 characters
+          {formData.message.length}/2000 {t('contact.form.fields.message.characterCount')}
         </div>
       </div>
 
@@ -355,16 +373,16 @@ export default function ContactForm() {
             aria-describedby="privacy-help"
           />
           <label htmlFor="privacyConsent" className="ml-3 text-sm text-navy">
-            I agree to the{' '}
+            {t('contact.form.fields.privacyConsent.label')}{' '}
             <a 
               href="/privacy" 
               className="text-teal hover:text-teal/80 underline"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Privacy Policy
+              {t('contact.form.fields.privacyConsent.privacyPolicy')}
             </a>
-            {' '}and consent to the processing of my personal data. *
+            {' '}{t('contact.form.fields.privacyConsent.consentText')}
           </label>
         </div>
       </div>
@@ -392,16 +410,16 @@ export default function ContactForm() {
           {formState.isSubmitting ? (
             <div className="flex items-center justify-center">
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-              Sending Message...
+              {t('contact.form.states.sending')}
             </div>
           ) : (
-            'Send Message'
+            t('contact.form.states.submit')
           )}
         </button>
       </div>
 
       <div className="text-base lg:text-lg text-gray-500 text-center">
-        <p>We respect your privacy. Your information will not be shared with third parties.</p>
+        <p>{t('contact.form.privacy.message')}</p>
       </div>
     </form>
   );

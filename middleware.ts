@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { 
+  locales, 
+  defaultLocale, 
+  type Locale,
+  isValidLocale,
+  parseAcceptLanguage,
+  LOCALE_COOKIE_NAME,
+  cookieConfig
+} from './i18n.config'
 
-// Supported locales
-export const locales = ['en', 'ja'] as const
-export const defaultLocale = 'en' as const
-
-export type Locale = typeof locales[number]
-
-// Helper function to check if a locale is supported
-export function isValidLocale(locale: string): locale is Locale {
-  return locales.includes(locale as Locale)
-}
-
-// Get the preferred locale from the request
+// Three-tier locale detection priority system
 function getLocale(request: NextRequest): Locale {
   // Check if there's a locale in the URL (for explicit /ja routes)
   const pathname = request.nextUrl.pathname
@@ -25,15 +23,22 @@ function getLocale(request: NextRequest): Locale {
     return locales.includes(locale) ? locale : defaultLocale
   }
 
-  // Check Accept-Language header for automatic detection
+  // PRIORITY 1: Check for NEXT_LOCALE cookie
+  const localeCookie = request.cookies.get(LOCALE_COOKIE_NAME)
+  if (localeCookie?.value && isValidLocale(localeCookie.value)) {
+    return localeCookie.value
+  }
+
+  // PRIORITY 2: Parse Accept-Language header for user preference
   const acceptLanguage = request.headers.get('accept-language')
   if (acceptLanguage) {
-    // Simple language detection - check if Japanese is preferred
-    if (acceptLanguage.includes('ja')) {
-      return 'ja'
+    const detectedLocale = parseAcceptLanguage(acceptLanguage)
+    if (detectedLocale) {
+      return detectedLocale
     }
   }
 
+  // PRIORITY 3: Fallback to Japanese (default)
   return defaultLocale
 }
 
@@ -62,20 +67,64 @@ export function middleware(request: NextRequest) {
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
     
-    // For Japanese, redirect to /ja/path
+    // For Japanese (default), keep the path as-is
     if (locale === 'ja') {
-      const redirectPath = pathname === '/' ? '/ja' : `/ja${pathname}`
-      return NextResponse.redirect(new URL(redirectPath, request.url))
+      const response = NextResponse.next()
+      
+      // Set cookie if detected locale differs from cookie or no cookie exists
+      const existingCookie = request.cookies.get(LOCALE_COOKIE_NAME)
+      if (!existingCookie || existingCookie.value !== locale) {
+        response.cookies.set({
+          name: cookieConfig.name,
+          value: locale,
+          maxAge: cookieConfig.maxAge,
+          httpOnly: cookieConfig.httpOnly,
+          secure: cookieConfig.secure,
+          sameSite: cookieConfig.sameSite,
+          path: cookieConfig.path
+        })
+      }
+      
+      return response
     }
     
-    // For English (default), keep the path as-is
-    return NextResponse.next()
+    // For English, redirect to /en/path
+    if (locale === 'en') {
+      const redirectPath = pathname === '/' ? '/en' : `/en${pathname}`
+      const response = NextResponse.redirect(new URL(redirectPath, request.url))
+      
+      // Set cookie for English preference
+      response.cookies.set({
+        name: cookieConfig.name,
+        value: locale,
+        maxAge: cookieConfig.maxAge,
+        httpOnly: cookieConfig.httpOnly,
+        secure: cookieConfig.secure,
+        sameSite: cookieConfig.sameSite,
+        path: cookieConfig.path
+      })
+      
+      return response
+    }
   }
 
   // If the path has a locale but it's the default locale, redirect to clean URL
-  if (pathname.startsWith('/en/') || pathname === '/en') {
-    const cleanPath = pathname === '/en' ? '/' : pathname.slice(3)
-    return NextResponse.redirect(new URL(cleanPath, request.url))
+  if (pathname.startsWith('/ja/') || pathname === '/ja') {
+    const cleanPath = pathname === '/ja' ? '/' : pathname.slice(3)
+    const response = NextResponse.redirect(new URL(cleanPath, request.url))
+    
+    // Ensure Japanese cookie is set
+    response.cookies.set({
+      name: cookieConfig.name,
+      value: 'ja',
+      maxAge: cookieConfig.maxAge,
+      httpOnly: cookieConfig.httpOnly,
+      secure: cookieConfig.secure,
+      sameSite: cookieConfig.sameSite,
+      path: cookieConfig.path
+    })
+    
+    return response
   }
 
   return NextResponse.next()
