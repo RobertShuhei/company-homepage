@@ -38,7 +38,7 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
   const t = await getServerTranslations(locale);
 
   // Generate locale-aware URLs
-  const baseURL = locale === defaultLocale ? '' : `/${locale}`;
+  const baseURL = `/${locale}`;
 
   // Services with localized content
   const services = [

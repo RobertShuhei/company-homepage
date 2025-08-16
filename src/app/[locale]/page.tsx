@@ -22,7 +22,7 @@ export async function generateMetadata({
   
   return generateLocalizedMetadata({
     locale,
-    pathname: locale === defaultLocale ? '/' : `/${locale}`,
+    pathname: '/',
     page: 'home'
   });
 }
@@ -92,7 +92,7 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
   ]
 
   // Generate locale-aware URLs
-  const baseURL = locale === defaultLocale ? '' : `/${locale}`;
+  const baseURL = `/${locale}`;
   
   return (
     <div className="min-h-screen flex flex-col">

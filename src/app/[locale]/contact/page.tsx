@@ -36,7 +36,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
   const t = await getServerTranslations(locale);
 
   // Generate locale-aware URLs
-  const baseURL = locale === defaultLocale ? '' : `/${locale}`;
+  const baseURL = `/${locale}`;
 
   return (
     <div className="min-h-screen flex flex-col">
