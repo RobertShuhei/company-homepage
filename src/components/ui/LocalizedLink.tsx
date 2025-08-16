@@ -93,14 +93,16 @@ export default function LocalizedLink({
 }: LocalizedLinkProps) {
   const pathname = usePathname()
   
+  // Memoize current locale extraction for stability
+  const currentLocale = useMemo(() => {
+    return locale || getLocaleFromPathname(pathname)
+  }, [locale, pathname])
+  
   // Memoize locale-aware href calculation for performance
   const localizedHref = useMemo(() => {
-    // Use provided locale or extract from current pathname
-    const currentLocale = locale || getLocaleFromPathname(pathname)
-    
     // Add locale prefix to the href
     return addLocaleToPathname(href, currentLocale)
-  }, [href, locale, pathname])
+  }, [href, currentLocale])
   
   return (
     <Link
