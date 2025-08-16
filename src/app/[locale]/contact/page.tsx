@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 import ContactForm from '@/components/ContactForm'
 import LocalizedLink from '@/components/ui/LocalizedLink'
 import { getServerTranslations } from '@/lib/translations'
@@ -40,7 +38,6 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       
       <main className="flex-1">
         {/* Hero Section */}
@@ -218,7 +215,6 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
         </section>
       </main>
 
-      <Footer />
     </div>
   )
 }

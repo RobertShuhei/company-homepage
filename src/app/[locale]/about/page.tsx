@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
@@ -236,7 +234,6 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
           ])
         }}
       />
-      <Header />
 
       <main>
         {/* Hero */}
@@ -347,7 +344,6 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
         />
       </main>
 
-      <Footer />
     </div>
   )
 }

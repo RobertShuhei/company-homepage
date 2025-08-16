@@ -90,6 +90,59 @@ export function useTypedTranslations(translations: Translations) {
   }
 }
 
+// Navigation-specific translations interface for Header component
+export interface NavigationTranslations {
+  nav: {
+    home: string
+    services: string
+    about: string
+    contact: string
+    getStarted: string
+    companyName: string
+    homeAriaLabel: string
+    menuAriaLabel: string
+    openMenu: string
+    closeMenu: string
+  }
+  common: {
+    learnMore: string
+    readMore: string
+    getStarted: string
+    contactUs: string
+  }
+}
+
+// Extract navigation-specific translations for Header component
+export async function extractNavigationTranslations(locale: Locale): Promise<NavigationTranslations> {
+  try {
+    const fullTranslations = await getServerTranslations(locale)
+    
+    return {
+      nav: fullTranslations.nav,
+      common: {
+        learnMore: fullTranslations.common.learnMore,
+        readMore: fullTranslations.common.readMore,
+        getStarted: fullTranslations.common.getStarted,
+        contactUs: fullTranslations.common.contactUs,
+      }
+    }
+  } catch (error) {
+    console.error(`Error extracting navigation translations for locale ${locale}:`, error)
+    
+    // Fallback to default locale
+    if (locale !== defaultLocale) {
+      try {
+        return await extractNavigationTranslations(defaultLocale)
+      } catch (fallbackError) {
+        console.error(`Error extracting fallback navigation translations:`, fallbackError)
+        throw new Error('Failed to load any navigation translations')
+      }
+    }
+    
+    throw error
+  }
+}
+
 // Clear translation cache (useful for development)
 export function clearServerTranslationCache(): void {
   serverTranslationCache = {

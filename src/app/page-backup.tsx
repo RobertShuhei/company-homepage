@@ -221,7 +221,29 @@ export default function Home() {
           ])
         }}
       />
-      <Header />
+      <Header 
+        navigationTranslations={{
+          nav: {
+            home: 'Home',
+            services: 'Services', 
+            about: 'About',
+            contact: 'Contact',
+            getStarted: 'Get Started',
+            companyName: 'Global Genex Inc.',
+            homeAriaLabel: 'Global Genex Inc. - Home',
+            menuAriaLabel: 'Main navigation',
+            openMenu: 'Open main menu',
+            closeMenu: 'Close menu'
+          },
+          common: {
+            learnMore: 'Learn More',
+            readMore: 'Read More',
+            getStarted: 'Get Started',
+            contactUs: 'Contact Us'
+          }
+        }}
+        locale="en"
+      />
 
       <main>
         {/* ③ Hero 文言を“実態”に寄せる */}

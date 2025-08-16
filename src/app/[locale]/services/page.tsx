@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import CTA from '@/components/ui/CTA'
 import Script from 'next/script'
@@ -186,7 +184,6 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
           ])
         }}
       />
-      <Header />
 
       <main>
         {/* Hero Section */}
@@ -316,7 +313,6 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
         />
       </main>
 
-      <Footer />
     </div>
   )
 }

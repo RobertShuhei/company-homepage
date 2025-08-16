@@ -3,29 +3,64 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
+import { type NavigationTranslations } from '@/lib/translations'
+import { type Locale } from '@/lib/i18n'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
 import LocalizedLink from '../ui/LocalizedLink'
 import {
-  getLocaleFromPathname,
   removeLocaleFromPathname
 } from '../../../i18n.config'
 
-const Header = () => {
+interface HeaderProps {
+  navigationTranslations: NavigationTranslations
+  locale: Locale
+}
+
+const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const { t: translations } = useTranslations()
   const mountId = useRef(Math.random().toString(36).substr(2, 9))
   
-  // Helper function to get translations safely
-  const t = (path: string, fallback?: string) => {
-    if (!translations) return fallback || path;
-    return getNestedTranslation(translations, path, fallback);
+  // Helper function to get nested value safely from any object
+  const getNestedValue = (obj: NavigationTranslations | Record<string, unknown>, path: string): string | null => {
+    try {
+      const keys = path.split('.')
+      let value: unknown = obj
+      
+      for (const key of keys) {
+        if (value && typeof value === 'object' && value !== null && key in value) {
+          value = (value as Record<string, unknown>)[key]
+        } else {
+          return null
+        }
+      }
+      
+      return typeof value === 'string' ? value : null
+    } catch {
+      return null
+    }
   }
 
-  // Memoize current locale for stable comparison and hydration consistency
-  const currentLocale = useMemo(() => {
-    return getLocaleFromPathname(pathname)
-  }, [pathname])
+  // Helper function to get translations safely with server-side priority
+  const t = (path: string, fallback?: string) => {
+    // First try to get from server translations (SSR)
+    const serverValue = getNestedValue(navigationTranslations, path);
+    if (serverValue) {
+      return serverValue;
+    }
+
+    // Fallback to client translations (hydration/client-side)
+    if (translations) {
+      return getNestedTranslation(translations, path, fallback);
+    }
+
+    // Final fallback
+    return fallback || path;
+  }
+
+  // Use server-provided locale for hydration consistency
+  const currentLocale = locale
 
   // DEBUG: Component lifecycle tracking
   useEffect(() => {
@@ -53,8 +88,11 @@ const Header = () => {
     mountId: mountId.current,
     pathname,
     currentLocale,
-    translations: !!translations,
-    isMenuOpen
+    serverTranslations: !!navigationTranslations,
+    clientTranslations: !!translations,
+    isMenuOpen,
+    serverNavHome: navigationTranslations?.nav?.home,
+    serverNavServices: navigationTranslations?.nav?.services
   })
   
   const navItems = [
