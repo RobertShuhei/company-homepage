@@ -4,7 +4,6 @@ import Footer from '@/components/layout/Footer'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
-import Script from 'next/script'
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
 import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config'
@@ -91,88 +90,8 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
     }
   ]
 
-  // Generate locale-aware URLs
-  const baseURL = `/${locale}`;
-  
   return (
     <div className="min-h-screen flex flex-col">
-      <Script
-        id="homepage-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "@id": "https://global-genex.com/#website",
-              url: "https://global-genex.com",
-              name: locale === 'ja' ? "株式会社グローバルジェネックス" : "Global Genex Inc.",
-              description: locale === 'ja' 
-                ? "日本とグローバルな小売・製造業向けの専門コンサルティング。AIを活用したデータ分析、市場参入支援、デジタル変革サービス。"
-                : "Expert consulting for retail & manufacturing companies in Japan and globally. AI-driven data analytics, market entry support, and digital transformation services.",
-              publisher: {
-                "@id": "https://global-genex.com/#organization"
-              },
-              potentialAction: [
-                {
-                  "@type": "SearchAction",
-                  target: {
-                    "@type": "EntryPoint",
-                    urlTemplate: `https://global-genex.com${baseURL}/services?search={search_term_string}`
-                  },
-                  "query-input": "required name=search_term_string"
-                }
-              ],
-              inLanguage: locale,
-              copyrightYear: 2025,
-              copyrightHolder: {
-                "@id": "https://global-genex.com/#organization"
-              }
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              "@id": `https://global-genex.com${baseURL}#webpage`,
-              url: `https://global-genex.com${baseURL}`,
-              name: locale === 'ja' 
-                ? "株式会社グローバルジェネックス - 小売・製造業コンサルティングの専門家"
-                : "Global Genex Inc. - Expert Retail & Manufacturing Consulting",
-              isPartOf: {
-                "@id": "https://global-genex.com/#website"
-              },
-              about: {
-                "@id": "https://global-genex.com/#organization"
-              },
-              description: locale === 'ja'
-                ? "AIを活用した実践的コンサルティングで業務変革を実現。小売・製造業向けのプロフェッショナルコンサルティングサービス。"
-                : "Transform your operations with AI-driven, hands-on consulting. Professional consulting services for retail & manufacturing companies with practical execution.",
-              breadcrumb: {
-                "@id": `https://global-genex.com${baseURL}#breadcrumb`
-              },
-              inLanguage: locale,
-              potentialAction: [
-                {
-                  "@type": "ReadAction",
-                  target: [`https://global-genex.com${baseURL}`]
-                }
-              ]
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              "@id": `https://global-genex.com${baseURL}#breadcrumb`,
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: locale === 'ja' ? "ホーム" : "Home",
-                  item: `https://global-genex.com${baseURL}`
-                }
-              ]
-            }
-          ])
-        }}
-      />
       <Header />
 
       <main>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
@@ -14,6 +14,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const { t: translations } = useTranslations()
+  const mountId = useRef(Math.random().toString(36).substr(2, 9))
   
   // Helper function to get translations safely
   const t = (path: string, fallback?: string) => {
@@ -25,6 +26,36 @@ const Header = () => {
   const currentLocale = useMemo(() => {
     return getLocaleFromPathname(pathname)
   }, [pathname])
+
+  // DEBUG: Component lifecycle tracking
+  useEffect(() => {
+    console.log('🚀 HEADER MOUNT:', {
+      timestamp: new Date().toISOString(),
+      mountId: mountId.current,
+      pathname,
+      currentLocale
+    })
+
+    return () => {
+      console.log('💀 HEADER UNMOUNT:', {
+        timestamp: new Date().toISOString(),
+        mountId: mountId.current,
+        pathname,
+        currentLocale
+      })
+    }
+  }, [])
+
+  // DEBUG: Add comprehensive logging for navigation remounting investigation
+  console.log('🔍 HEADER RENDER DEBUG:', {
+    timestamp: new Date().toISOString(),
+    component: 'Header',
+    mountId: mountId.current,
+    pathname,
+    currentLocale,
+    translations: !!translations,
+    isMenuOpen
+  })
   
   const navItems = [
     { href: '/', label: t('nav.home', 'Home') },
