@@ -3,7 +3,6 @@ import { generateLocalizedMetadata } from '@/lib/metadata';
 import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config';
 import { notFound } from 'next/navigation';
 import StructuredData from '@/components/StructuredData';
-import HtmlLangProvider from '@/components/HtmlLangProvider';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -41,7 +40,6 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <HtmlLangProvider />
       <StructuredData locale={locale} />
       {children}
     </>
