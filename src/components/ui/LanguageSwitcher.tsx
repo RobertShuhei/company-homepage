@@ -10,7 +10,7 @@ import {
   cookieConfig,
   isValidLocale
 } from '../../../i18n.config'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 interface LanguageSwitcherProps {
   className?: string
@@ -51,9 +51,13 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     router.push(targetUrl)
   }
 
+  // Memoize clean path for stable URL generation
+  const cleanPath = useMemo(() => {
+    return removeLocaleFromPathname(pathname, detectedLocale)
+  }, [pathname, detectedLocale])
+
   // Generate URLs for language switching
   const getLocalizedUrl = (targetLocale: Locale): string => {
-    const cleanPath = removeLocaleFromPathname(pathname, detectedLocale)
     return addLocaleToPathname(cleanPath, targetLocale)
   }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
@@ -21,8 +21,10 @@ const Header = () => {
     return getNestedTranslation(translations, path, fallback);
   }
 
-  // Get current locale for clean URL comparison
-  const currentLocale = getLocaleFromPathname(pathname)
+  // Memoize current locale for stable comparison and hydration consistency
+  const currentLocale = useMemo(() => {
+    return getLocaleFromPathname(pathname)
+  }, [pathname])
   
   const navItems = [
     { href: '/', label: t('nav.home', 'Home') },
@@ -31,10 +33,12 @@ const Header = () => {
     { href: '/contact', label: t('nav.contact', 'Contact') },
   ]
 
+  // Memoize clean pathname for performance
+  const cleanPathname = useMemo(() => {
+    return removeLocaleFromPathname(pathname, currentLocale)
+  }, [pathname, currentLocale])
+
   const isActiveHref = (href: string) => {
-    // Remove locale from current pathname for comparison
-    const cleanPathname = removeLocaleFromPathname(pathname, currentLocale)
-    
     // "/" は完全一致、それ以外は「完全一致 or 配下パス」で判定
     if (href === '/') return cleanPathname === '/'
     return cleanPathname === href || cleanPathname.startsWith(href + '/')
