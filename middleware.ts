@@ -44,27 +44,31 @@ function getLocale(request: NextRequest): Locale {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  console.log(`[MIDDLEWARE] Processing pathname: ${pathname}`)
 
-  // a. Initial Exclusion: Skip Next.js internals, API routes, and static files
+  // Exclusion logic moved to middleware function
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
-    pathname.includes('.')
+    /\.(.*)$/.test(pathname)
   ) {
+    console.log(`[MIDDLEWARE] Excluding pathname: ${pathname}`)
     return NextResponse.next()
   }
 
-  // b. Locale Prefix Check: If already prefixed with supported locale, pass through
+  // Check if path already has a supported locale prefix
   const hasLocalePrefix = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
   
   if (hasLocalePrefix) {
+    console.log(`[MIDDLEWARE] Has locale prefix, passing through: ${pathname}`)
     return NextResponse.next()
   }
 
-  // c. Redirect Logic: Non-prefixed paths get redirected to /ja (default locale)
+  // Redirect non-prefixed paths to default locale (Japanese)
   const redirectPath = pathname === '/' ? '/ja' : `/ja${pathname}`
+  console.log(`[MIDDLEWARE] Redirecting ${pathname} -> ${redirectPath}`)
   const response = NextResponse.redirect(new URL(redirectPath, request.url))
   
   // Set cookie for Japanese preference
@@ -82,14 +86,14 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Match all paths except Next.js internals, API routes, and static files
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - _next (Next.js internal files)
-     * - api (API routes)  
-     * - Any path containing a file extension (e.g. .png, .ico, .css)
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
      */
-    '/((?!_next|api|.*\\.).*)'
-  ]
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 }
