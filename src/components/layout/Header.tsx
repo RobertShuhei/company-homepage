@@ -52,7 +52,6 @@ const Header = () => {
           <div className="company-logo-stable">
             <LocalizedLink
               href="/"
-              className="text-2xl font-bold text-navy hover:text-teal transition-colors duration-200"
               aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
             >
               {t('nav.companyName', 'Global Genex Inc.')}

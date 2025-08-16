@@ -1,0 +1,203 @@
+{
+  "organization": {
+    "name": "Global Genex Inc.",
+    "alternateName": "株式会社グローバルジェネックス",
+    "description": "A professional consulting company based in Fukuoka, Japan. We help retail and manufacturing companies improve operations, leverage data, and expand internationally. Providing practical solutions to drive business growth.",
+    "founder": {
+      "name": "Shuhei Nakahara",
+      "alternateName": "中原 修平",
+      "jobTitle": "Representative Director",
+      "description": "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+      "skills": [
+        "Retail Operations",
+        "Manufacturing Operations",
+        "Data Analytics", 
+        "Cross-border Business",
+        "Project Management",
+        "Digital Transformation"
+      ]
+    },
+    "services": [
+      {
+        "name": "Retail Operations Consulting",
+        "description": "Building efficient retail operations and improving sales through data utilization"
+      },
+      {
+        "name": "Manufacturing Operations Consulting",
+        "description": "Optimizing production processes and improving supply chain management"
+      },
+      {
+        "name": "Cross-border Business Support",
+        "description": "Strategic planning and execution support for Japan market entry and international expansion"
+      },
+      {
+        "name": "Data Analytics & AI Utilization",
+        "description": "Business data analysis and operational efficiency improvement using AI technology"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "metadata": {
+        "title": "Global Genex Inc. | Professional Consulting Services",
+        "description": "Professional consulting company based in Fukuoka, Japan. We help retail and manufacturing companies improve operations, leverage data, and expand internationally with practical solutions.",
+        "keywords": [
+          "Global Genex",
+          "consulting",
+          "retail",
+          "manufacturing",
+          "data analytics",
+          "international expansion",
+          "Japan market entry",
+          "Fukuoka",
+          "bilingual consultant",
+          "DX consulting"
+        ]
+      },
+      "openGraph": {
+        "title": "Global Genex Inc. | Professional Consulting Services",
+        "description": "Professional consulting company based in Fukuoka, Japan. We help retail and manufacturing companies improve operations, leverage data, and expand internationally.",
+        "imageAlt": "Global Genex Inc. - Professional Business Consulting Services"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "Global Genex Inc. | Professional Consulting Services",
+          "description": "Homepage of Global Genex Inc., a professional consulting company based in Fukuoka, Japan. Introducing our services for retail and manufacturing operations improvement, data utilization, and international expansion."
+        },
+        "breadcrumb": {
+          "home": "Home"
+        }
+      }
+    },
+    "about": {
+      "metadata": {
+        "title": "About Global Genex Inc. - Company Profile & Leadership",
+        "description": "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. Meet our leadership team and discover our mission to help retailers and manufacturers improve operations.",
+        "keywords": [
+          "Global Genex",
+          "about us",
+          "founder",
+          "background",
+          "experience",
+          "mission",
+          "vision",
+          "core values",
+          "Shuhei Nakahara",
+          "bilingual consultant"
+        ]
+      },
+      "openGraph": {
+        "title": "About Global Genex Inc. - Company Profile & Leadership",
+        "description": "Learn about our consulting company, leadership team, mission, and vision for helping businesses improve operations.",
+        "imageAlt": "About Global Genex Inc."
+      },
+      "schemas": {
+        "webpage": {
+          "name": "About Global Genex Inc. - Company Profile & Leadership",
+          "description": "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. Meet our leadership team and discover our mission to help retailers and manufacturers improve operations."
+        },
+        "aboutPage": {
+          "name": "About Global Genex Inc.",
+          "description": "Company profile, leadership team, mission, vision, and core values of Global Genex Inc., a professional consulting firm specializing in retail and manufacturing operations."
+        },
+        "breadcrumb": {
+          "home": "Home",
+          "about": "About"
+        }
+      }
+    },
+    "services": {
+      "metadata": {
+        "title": "Services - Professional Consulting Solutions",
+        "description": "Global Genex Inc.'s professional consulting services. We provide practical solutions in retail operations, manufacturing operations, international expansion, and data analytics & AI utilization.",
+        "keywords": [
+          "consulting services",
+          "retail",
+          "manufacturing",
+          "IT system development",
+          "market development",
+          "data analytics",
+          "AI utilization",
+          "international expansion",
+          "Japan market entry",
+          "operations improvement"
+        ]
+      },
+      "openGraph": {
+        "title": "Services - Professional Consulting Solutions",
+        "description": "We provide practical solutions in retail operations, manufacturing operations, international expansion, and data analytics & AI utilization.",
+        "imageAlt": "Global Genex Inc. Services"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "Services - Professional Consulting Solutions",
+          "description": "Global Genex Inc.'s professional consulting services page. Introducing our solutions in retail operations, manufacturing operations, international expansion, and data analytics & AI utilization."
+        },
+        "breadcrumb": {
+          "home": "Home",
+          "services": "Services"
+        }
+      }
+    },
+    "contact": {
+      "metadata": {
+        "title": "Contact Us - Global Genex Inc.",
+        "description": "Contact Global Genex Inc. for consulting services. Reach out for consultations, quotes, and inquiries about our professional services.",
+        "keywords": [
+          "contact",
+          "consultation",
+          "contact information",
+          "quote",
+          "consulting inquiry",
+          "free consultation",
+          "Global Genex",
+          "Fukuoka"
+        ]
+      },
+      "openGraph": {
+        "title": "Contact Us - Global Genex Inc.",
+        "description": "Reach out for consultations, quotes, and inquiries about our professional consulting services.",
+        "imageAlt": "Contact Global Genex Inc."
+      },
+      "schemas": {
+        "webpage": {
+          "name": "Contact Us - Global Genex Inc.",
+          "description": "Contact page for Global Genex Inc. We welcome consultations and inquiries about our consulting services and provide quotes for your business needs."
+        },
+        "breadcrumb": {
+          "home": "Home",
+          "contact": "Contact"
+        }
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "Privacy Policy - Global Genex Inc.",
+        "description": "Global Genex Inc.'s privacy policy. Our practices for handling and protecting personal information and data privacy.",
+        "keywords": [
+          "privacy policy",
+          "data protection",
+          "terms of service",
+          "data privacy",
+          "information security",
+          "Global Genex"
+        ]
+      },
+      "openGraph": {
+        "title": "Privacy Policy - Global Genex Inc.",
+        "description": "Our practices for handling and protecting personal information and data privacy.",
+        "imageAlt": "Global Genex Inc. Privacy Policy"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "Privacy Policy - Global Genex Inc.",
+          "description": "Global Genex Inc.'s privacy policy page. Detailed explanation of our practices for handling and protecting personal information."
+        },
+        "breadcrumb": {
+          "home": "Home",
+          "privacy": "Privacy Policy"
+        }
+      }
+    }
+  }
+}

@@ -6,8 +6,7 @@ import {
   removeLocaleFromPathname,
   addLocaleToPathname,
   getAlternateUrls,
-  generateHreflangLinks,
-  isValidLocale,
+  generateHreflangLinks
 } from '../../i18n.config'
 
 // Re-export types and utilities for easier importing
@@ -32,11 +31,6 @@ export interface Translations {
     about: string
     contact: string
     getStarted: string
-    companyName: string
-    homeAriaLabel: string
-    menuAriaLabel: string
-    openMenu: string
-    closeMenu: string
   }
   
   // Homepage
@@ -370,15 +364,10 @@ export interface Translations {
   
   // Footer
   footer: {
-    companyName: string
     tagline: string
     quickLinks: string
     contact: string
     copyright: string
-    social: {
-      linkedin: string
-      twitter: string
-    }
     pages: {
       home: string
       services: string
