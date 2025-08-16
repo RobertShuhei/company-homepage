@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { generateLocalizedMetadata } from '@/lib/metadata';
-import { type Locale, isValidLocale, defaultLocale } from '../../../middleware';
+import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config';
 import { notFound } from 'next/navigation';
 
 const inter = Inter({
@@ -103,7 +103,7 @@ export default async function LocaleLayout({
               founder: {
                 "@type": "Person",
                 "@id": "https://global-genex.com/about#shuhei-nakahara",
-                name: locale === 'ja' ? "中原 秀平" : "Shuhei Nakahara",
+                name: locale === 'ja' ? "中原 修平" : "Shuhei Nakahara",
                 givenName: "Shuhei",
                 familyName: "Nakahara",
                 jobTitle: locale === 'ja' ? "代表取締役" : "Representative Director",

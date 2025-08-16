@@ -1,7 +1,26 @@
-import { locales, defaultLocale, type Locale } from '../../middleware'
+import { 
+  locales, 
+  defaultLocale, 
+  type Locale,
+  getLocaleFromPathname,
+  removeLocaleFromPathname,
+  addLocaleToPathname,
+  getAlternateUrls,
+  generateHreflangLinks
+} from '../../i18n.config'
 
-// Re-export types for easier importing
-export { type Locale, defaultLocale } from '../../middleware'
+// Re-export types and utilities for easier importing
+export { 
+  type Locale, 
+  defaultLocale, 
+  locales,
+  getLocaleFromPathname,
+  removeLocaleFromPathname,
+  addLocaleToPathname,
+  getAlternateUrls,
+  generateHreflangLinks,
+  isValidLocale
+} from '../../i18n.config'
 
 // Translation interface for type safety
 export interface Translations {
@@ -410,80 +429,9 @@ export interface Translations {
   }
 }
 
-// i18n configuration
+// i18n configuration - imported from centralized config
 export const i18nConfig = {
   locales,
   defaultLocale,
   localeDetection: true,
 } as const
-
-// Helper function to check if a locale is supported
-export function isValidLocale(locale: string): locale is Locale {
-  return locales.includes(locale as Locale)
-}
-
-// Helper function to get locale from pathname
-export function getLocaleFromPathname(pathname: string): Locale {
-  const segments = pathname.split('/')
-  const potentialLocale = segments[1]
-  
-  if (potentialLocale && isValidLocale(potentialLocale)) {
-    return potentialLocale
-  }
-  
-  return defaultLocale
-}
-
-// Helper function to remove locale from pathname
-export function removeLocaleFromPathname(pathname: string, locale: Locale): string {
-  if (locale === defaultLocale) {
-    return pathname
-  }
-  
-  if (pathname.startsWith(`/${locale}`)) {
-    const newPathname = pathname.slice(`/${locale}`.length)
-    return newPathname || '/'
-  }
-  
-  return pathname
-}
-
-// Helper function to add locale to pathname
-export function addLocaleToPathname(pathname: string, locale: Locale): string {
-  if (locale === defaultLocale) {
-    return pathname
-  }
-  
-  return `/${locale}${pathname === '/' ? '' : pathname}`
-}
-
-// Helper function to get alternate URLs for hreflang
-export function getAlternateUrls(pathname: string): Array<{ locale: Locale; url: string }> {
-  const baseUrl = 'https://global-genex.com'
-  
-  // Remove any existing locale from pathname to get clean path
-  const cleanPath = removeLocaleFromPathname(pathname, getLocaleFromPathname(pathname))
-  
-  return locales.map(locale => ({
-    locale,
-    url: `${baseUrl}${addLocaleToPathname(cleanPath, locale)}`
-  }))
-}
-
-// Helper function for metadata generation
-export function generateHreflangLinks(pathname: string): Array<{ hrefLang: string; href: string }> {
-  const alternates = getAlternateUrls(pathname)
-  
-  return [
-    // Add x-default for English
-    {
-      hrefLang: 'x-default',
-      href: alternates.find(alt => alt.locale === defaultLocale)?.url || 'https://global-genex.com'
-    },
-    // Add each locale
-    ...alternates.map(alt => ({
-      hrefLang: alt.locale,
-      href: alt.url
-    }))
-  ]
-}
