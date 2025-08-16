@@ -1,10 +1,16 @@
 'use client' // ← 追加して年号を毎年自動更新に
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
+import {
+  getLocaleFromPathname,
+  addLocaleToPathname
+} from '../../../i18n.config'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const pathname = usePathname()
   const { t: translations, isLoading } = useTranslations()
   
   // Helper function to get translations safely
@@ -13,24 +19,27 @@ const Footer = () => {
     return getNestedTranslation(translations, path, fallback);
   }
 
+  // Get current locale for locale-aware links
+  const currentLocale = getLocaleFromPathname(pathname)
+
   const footerSections = [
     {
       title: t('footer.sections.services.title', 'Services'),
       links: [
-        { href: '/services', label: t('footer.sections.services.links.consulting', 'Business Consulting') },
+        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.consulting', 'Business Consulting') },
         // それぞれのURLができたら差し替え:
-        { href: '/services', label: t('footer.sections.services.links.planning', 'Strategic Planning') },
-        { href: '/services', label: t('footer.sections.services.links.optimization', 'Process Optimization') },
-        { href: '/services', label: t('footer.sections.services.links.transformation', 'Digital Transformation') },
+        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.planning', 'Strategic Planning') },
+        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.optimization', 'Process Optimization') },
+        { href: addLocaleToPathname('/services', currentLocale), label: t('footer.sections.services.links.transformation', 'Digital Transformation') },
       ]
     },
     {
       title: t('footer.sections.company.title', 'Company'),
       links: [
-        { href: '/about', label: t('footer.sections.company.links.about', 'About Us') },
-        { href: '/about', label: t('footer.sections.company.links.team', 'Our Team') },
-        { href: '/about', label: t('footer.sections.company.links.careers', 'Careers') },
-        { href: '/contact', label: t('footer.sections.company.links.contact', 'Contact') },
+        { href: addLocaleToPathname('/about', currentLocale), label: t('footer.sections.company.links.about', 'About Us') },
+        { href: addLocaleToPathname('/about', currentLocale), label: t('footer.sections.company.links.team', 'Our Team') },
+        { href: addLocaleToPathname('/about', currentLocale), label: t('footer.sections.company.links.careers', 'Careers') },
+        { href: addLocaleToPathname('/contact', currentLocale), label: t('footer.sections.company.links.contact', 'Contact') },
       ]
     },
     {
@@ -53,7 +62,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="mb-4">
               <Link
-                href="/"
+                href={addLocaleToPathname('/', currentLocale)}
                 className="text-2xl font-bold hover:text-teal transition-colors duration-200"
                 aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
               >
@@ -119,7 +128,7 @@ const Footer = () => {
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
-                href="/privacy"
+                href={addLocaleToPathname('/privacy', currentLocale)}
                 className="text-slate-300 hover:text-white text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
               >
                 {t('footer.legal.privacy', 'Privacy Policy')}

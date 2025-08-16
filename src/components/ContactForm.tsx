@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { usePathname } from 'next/navigation';
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations';
+import {
+  getLocaleFromPathname,
+  addLocaleToPathname
+} from '../../i18n.config';
 
 interface FormResponse {
   success: boolean;
@@ -27,6 +32,7 @@ interface FormState {
 }
 
 export default function ContactForm() {
+  const pathname = usePathname();
   const { t: translations, isLoading } = useTranslations();
   
   // Helper function to get translations safely
@@ -34,6 +40,9 @@ export default function ContactForm() {
     if (!translations) return fallback || path;
     return getNestedTranslation(translations, path, fallback);
   };
+
+  // Get current locale for locale-aware links
+  const currentLocale = getLocaleFromPathname(pathname);
   
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -375,7 +384,7 @@ export default function ContactForm() {
           <label htmlFor="privacyConsent" className="ml-3 text-sm text-navy">
             {t('contact.form.fields.privacyConsent.label')}{' '}
             <a 
-              href="/privacy" 
+              href={addLocaleToPathname('/privacy', currentLocale)} 
               className="text-teal hover:text-teal/80 underline"
               target="_blank"
               rel="noopener noreferrer"
