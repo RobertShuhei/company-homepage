@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ContactForm from '@/components/ContactForm'
+import LocalizedLink from '@/components/ui/LocalizedLink'
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
 import { type Locale, isValidLocale, defaultLocale } from '../../../../i18n.config'
@@ -35,8 +36,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
   const locale = resolvedParams.locale as Locale;
   const t = await getServerTranslations(locale);
 
-  // Generate locale-aware URLs
-  const baseURL = `/${locale}`;
+  // Clean URLs will be handled by LocalizedLink component
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -204,15 +204,15 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
             </div>
 
             <div className="text-center mt-12">
-              <a
-                href={`${baseURL}/services`}
+              <LocalizedLink
+                href="/services"
                 className="inline-flex items-center bg-teal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
               >
                 {t.contact.services.exploreAll}
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </a>
+              </LocalizedLink>
             </div>
           </div>
         </section>

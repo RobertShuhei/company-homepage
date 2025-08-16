@@ -181,8 +181,8 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
           title={t.homepage.hero.title}
           subtitle={t.homepage.hero.subtitle}
           description={t.homepage.hero.description}
-          primaryCTA={{ text: t.homepage.hero.primaryCTA, href: `${baseURL}/contact` }}
-          secondaryCTA={{ text: t.homepage.hero.secondaryCTA, href: `${baseURL}/services` }}
+          primaryCTA={{ text: t.homepage.hero.primaryCTA, href: "/contact" }}
+          secondaryCTA={{ text: t.homepage.hero.secondaryCTA, href: "/services" }}
         />
 
         {/* Services Section */}
@@ -204,7 +204,7 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
                   title={service.title}
                   description={service.description}
                   icon={service.icon}
-                  href={`${baseURL}/services`}
+                  href="/services"
                 />
               ))}
             </div>
@@ -244,8 +244,8 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
         <CTA
           title={t.homepage.cta.title}
           description={t.homepage.cta.description}
-          primaryButton={{ text: t.homepage.cta.primaryButton, href: `${baseURL}/contact` }}
-          secondaryButton={{ text: t.homepage.cta.secondaryButton, href: `${baseURL}/about` }}
+          primaryButton={{ text: t.homepage.cta.primaryButton, href: "/contact" }}
+          secondaryButton={{ text: t.homepage.cta.secondaryButton, href: "/about" }}
           variant="light"
         />
       </main>

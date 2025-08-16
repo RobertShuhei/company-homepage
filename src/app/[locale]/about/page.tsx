@@ -244,8 +244,8 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
           title={t.about.hero.title}
           subtitle={t.about.hero.subtitle}
           description={t.about.hero.description}
-          primaryCTA={{ text: t.nav.contact, href: `${baseURL}/contact` }}
-          secondaryCTA={{ text: t.nav.services, href: `${baseURL}/services` }}
+          primaryCTA={{ text: t.nav.contact, href: "/contact" }}
+          secondaryCTA={{ text: t.nav.services, href: "/services" }}
         />
 
         {/* Mission & Vision */}
@@ -341,8 +341,8 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
         <CTA
           title={t.about.cta.title}
           description={t.about.cta.description}
-          primaryButton={{ text: t.about.cta.primaryButton, href: `${baseURL}/contact` }}
-          secondaryButton={{ text: t.about.cta.secondaryButton, href: `${baseURL}/services` }}
+          primaryButton={{ text: t.about.cta.primaryButton, href: "/contact" }}
+          secondaryButton={{ text: t.about.cta.secondaryButton, href: "/services" }}
           variant="default"
         />
       </main>

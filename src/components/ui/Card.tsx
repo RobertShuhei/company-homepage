@@ -1,3 +1,5 @@
+import LocalizedLink from './LocalizedLink'
+
 interface CardProps {
   title: string
   description: string
@@ -52,13 +54,13 @@ const Card: React.FC<CardProps> = ({
 
   if (href) {
     return (
-      <a
+      <LocalizedLink
         href={href}
         className={`${baseClasses} group cursor-pointer transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2`}
         role="article"
       >
         {cardContent}
-      </a>
+      </LocalizedLink>
     )
   }
 

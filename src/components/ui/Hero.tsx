@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import LocalizedLink from './LocalizedLink'
 
 interface HeroProps {
   title: string
@@ -63,20 +63,20 @@ const Hero: React.FC<HeroProps> = ({
           {(primaryCTA || secondaryCTA) && (
             <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
               {primaryCTA && (
-                <Link
+                <LocalizedLink
                   href={primaryCTA.href}
                   className="btn-primary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
                 >
                   {primaryCTA.text}
-                </Link>
+                </LocalizedLink>
               )}
               {secondaryCTA && (
-                <Link
+                <LocalizedLink
                   href={secondaryCTA.href}
                   className="btn-secondary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
                 >
                   {secondaryCTA.text}
-                </Link>
+                </LocalizedLink>
               )}
             </div>
           )}
