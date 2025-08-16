@@ -22,7 +22,7 @@ export async function generateMetadata({
   
   return generateLocalizedMetadata({
     locale,
-    pathname: locale === defaultLocale ? '/about' : `/${locale}/about`,
+    pathname: '/about',
     page: 'about'
   });
 }
@@ -39,7 +39,7 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
   const t = await getServerTranslations(locale);
 
   // Generate locale-aware URLs
-  const baseURL = locale === defaultLocale ? '' : `/${locale}`;
+  const baseURL = `/${locale}`;
 
   // Values with localized content
   const values = [

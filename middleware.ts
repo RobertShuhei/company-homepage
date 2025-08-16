@@ -63,27 +63,25 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   )
 
-  // If pathname is missing locale and it's not the root path for default locale
+  // If pathname is missing locale, redirect to localized route
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
     
-    // For Japanese (default), keep the path as-is
+    // For Japanese (default), redirect to /ja/path
     if (locale === 'ja') {
-      const response = NextResponse.next()
+      const redirectPath = pathname === '/' ? '/ja' : `/ja${pathname}`
+      const response = NextResponse.redirect(new URL(redirectPath, request.url))
       
-      // Set cookie if detected locale differs from cookie or no cookie exists
-      const existingCookie = request.cookies.get(LOCALE_COOKIE_NAME)
-      if (!existingCookie || existingCookie.value !== locale) {
-        response.cookies.set({
-          name: cookieConfig.name,
-          value: locale,
-          maxAge: cookieConfig.maxAge,
-          httpOnly: cookieConfig.httpOnly,
-          secure: cookieConfig.secure,
-          sameSite: cookieConfig.sameSite,
-          path: cookieConfig.path
-        })
-      }
+      // Set cookie for Japanese preference
+      response.cookies.set({
+        name: cookieConfig.name,
+        value: locale,
+        maxAge: cookieConfig.maxAge,
+        httpOnly: cookieConfig.httpOnly,
+        secure: cookieConfig.secure,
+        sameSite: cookieConfig.sameSite,
+        path: cookieConfig.path
+      })
       
       return response
     }
@@ -108,24 +106,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // If the path has a locale but it's the default locale, redirect to clean URL
-  if (pathname.startsWith('/ja/') || pathname === '/ja') {
-    const cleanPath = pathname === '/ja' ? '/' : pathname.slice(3)
-    const response = NextResponse.redirect(new URL(cleanPath, request.url))
-    
-    // Ensure Japanese cookie is set
-    response.cookies.set({
-      name: cookieConfig.name,
-      value: 'ja',
-      maxAge: cookieConfig.maxAge,
-      httpOnly: cookieConfig.httpOnly,
-      secure: cookieConfig.secure,
-      sameSite: cookieConfig.sameSite,
-      path: cookieConfig.path
-    })
-    
-    return response
-  }
+  // All localized routes are now handled through [locale] directory
 
   return NextResponse.next()
 }

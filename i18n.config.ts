@@ -114,10 +114,6 @@ export function getLocaleFromPathname(pathname: string): Locale {
 }
 
 export function removeLocaleFromPathname(pathname: string, locale: Locale): string {
-  if (locale === defaultLocale) {
-    return pathname
-  }
-  
   if (pathname.startsWith(`/${locale}`)) {
     const newPathname = pathname.slice(`/${locale}`.length)
     return newPathname || '/'
@@ -127,10 +123,6 @@ export function removeLocaleFromPathname(pathname: string, locale: Locale): stri
 }
 
 export function addLocaleToPathname(pathname: string, locale: Locale): string {
-  if (locale === defaultLocale) {
-    return pathname
-  }
-  
   return `/${locale}${pathname === '/' ? '' : pathname}`
 }
 
