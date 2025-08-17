@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
 interface GoogleAnalyticsProps {
@@ -18,15 +19,29 @@ declare global {
   }
 }
 
-export default function GoogleAnalytics({ 
-  measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID 
+export default function GoogleAnalytics({
+  measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
 }: GoogleAnalyticsProps) {
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !window.dataLayer) {
-      window.dataLayer = [];
-    }
-  }, []);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
+  // クライアントサイドでのページ遷移を処理する
+  useEffect(() => {
+    // 測定IDがない、またはブラウザ環境でない場合は終了
+    if (!measurementId || typeof window === 'undefined' || !window.gtag) {
+      return;
+    }
+
+    // パス名とクエリパラメータからページパスを作成
+    const pagePath = `${pathname}${searchParams ? `?${searchParams.toString()}` : ''}`;
+
+    // ページビューイベントを手動で送信
+    window.gtag('config', measurementId, {
+      page_path: pagePath,
+    });
+  }, [measurementId, pathname, searchParams]);
+
+  // 初期スクリプトの読み込み
   if (!measurementId) {
     if (process.env.NODE_ENV === 'development') {
       console.warn('Google Analytics: No measurement ID provided');
@@ -50,8 +65,7 @@ export default function GoogleAnalytics({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${measurementId}', {
-              page_title: document.title,
-              page_location: window.location.href,
+              send_page_view: false, // 自動ページビュー送信を無効化
               anonymize_ip: true,
               allow_google_signals: false,
               cookie_flags: 'SameSite=None;Secure'
