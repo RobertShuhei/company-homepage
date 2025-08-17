@@ -84,7 +84,7 @@
       "title": "ビジョン",
       "description": "日本およびグローバル市場での実践的変革における信頼できるパートナーとなる。"
     },
-    "values": {
+    "values_ja": {
       "title": "コアバリュー",
       "subtitle": "私たちの働き方を導く原則",
       "excellence": {
@@ -104,7 +104,7 @@
         "description": "持続可能な変化のためにクライアントチームと密接に連携します。"
       }
     },
-    "leadership": {
+    "leadership_ja": {
       "title": "経営陣",
       "subtitle": "プロフィール",
       "founder": {
@@ -120,7 +120,7 @@
         ]
       }
     },
-    "timeline": {
+    "timeline_ja": {
       "title": "私たちの歩み",
       "subtitle": "設立から現在までの主要なステップ",
       "milestones": [

@@ -97,8 +97,8 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   
   const navItems = [
     { href: '/', label: t('nav.home', 'Home') },
-    { href: '/services', label: t('nav.services', 'Services') },
     { href: '/about', label: t('nav.about', 'About') },
+    { href: '/services', label: t('nav.services', 'Services') },
     { href: '/contact', label: t('nav.contact', 'Contact') },
   ]
 
@@ -132,8 +132,8 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
             {navItems.map((item) => {
               const active = isActiveHref(item.href)
               const stableClass = item.href === '/' ? 'nav-item-home' : 
-                                 item.href === '/services' ? 'nav-item-services' :
                                  item.href === '/about' ? 'nav-item-about' :
+                                 item.href === '/services' ? 'nav-item-services' :
                                  item.href === '/contact' ? 'nav-item-contact' : ''
               return (
                 <LocalizedLink
@@ -155,7 +155,8 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
             <LanguageSwitcher variant="desktop" />
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - Commented out for future features */}
+          {/* 
           <div className="hidden md:flex">
             <LocalizedLink
               href="/contact"
@@ -164,6 +165,7 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
               {t('nav.getStarted', 'Get Started')}
             </LocalizedLink>
           </div>
+          */}
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -213,6 +215,8 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
                   </LocalizedLink>
                 )
               })}
+              {/* CTA Button - Commented out for future features */}
+              {/* 
               <LocalizedLink
                 href="/contact"
                 className="bg-teal text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 mt-4"
@@ -220,6 +224,7 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
               >
                 {t('nav.getStarted', 'Get Started')}
               </LocalizedLink>
+              */}
               
               {/* Language Switcher (Mobile) */}
               <div className="mt-4 pt-4 border-t border-gray-200">
