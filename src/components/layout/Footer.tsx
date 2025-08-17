@@ -1,16 +1,31 @@
-'use client' // ← 追加して年号を毎年自動更新に
-
-import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import LocalizedLink from '../ui/LocalizedLink'
+import { type FooterTranslations } from '@/lib/translations'
 
-const Footer = () => {
+interface FooterProps {
+  translations: FooterTranslations
+}
+
+const Footer = ({ translations }: FooterProps) => {
   const currentYear = new Date().getFullYear()
-  const { t: translations } = useTranslations()
   
   // Helper function to get translations safely
   const t = (path: string, fallback?: string) => {
-    if (!translations) return fallback || path;
-    return getNestedTranslation(translations, path, fallback);
+    try {
+      const keys = path.split('.')
+      let value: unknown = translations
+      
+      for (const key of keys) {
+        if (value && typeof value === 'object' && key in value) {
+          value = (value as Record<string, unknown>)[key]
+        } else {
+          return fallback || path
+        }
+      }
+      
+      return typeof value === 'string' ? value : fallback || path
+    } catch {
+      return fallback || path
+    }
   }
 
   // LocalizedLink component will handle locale prefixing automatically
