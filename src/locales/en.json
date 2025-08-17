@@ -84,7 +84,7 @@
       "title": "Our Vision",
       "description": "Be a trusted partner for practical transformation across Japan and global markets."
     },
-    "values": {
+    "values_en": {
       "title": "Our Core Values",
       "subtitle": "Principles that guide how we work",
       "excellence": {
@@ -104,7 +104,7 @@
         "description": "Work closely with client teams for sustainable change."
       }
     },
-    "leadership": {
+    "leadership_en": {
       "title": "Leadership",
       "subtitle": "Profile",
       "founder": {
@@ -120,7 +120,7 @@
         ]
       }
     },
-    "timeline": {
+    "timeline_en": {
       "title": "Our Story",
       "subtitle": "Key steps from launch to today",
       "milestones": [
