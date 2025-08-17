@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import StructuredData from '@/components/StructuredData';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -46,6 +47,7 @@ export default async function LocaleLayout({
 
   return (
     <>
+      <GoogleAnalytics />
       <StructuredData locale={locale} />
       <Header navigationTranslations={navigationTranslations} locale={locale} />
       <main>
