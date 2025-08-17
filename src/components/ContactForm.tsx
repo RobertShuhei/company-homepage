@@ -82,14 +82,14 @@ export default function ContactForm() {
   const validateForm = (): string | null => {
     if (!formData.name.trim()) return t('contact.form.validation.nameRequired');
     if (formData.name.trim().length < 2) return t('contact.form.validation.nameMinLength');
-    if (formData.name.trim().length > 100) return t('contact.form.validation.nameMaxLength');
+    if (formData.name.trim().length > 60) return t('contact.form.validation.nameMaxLength');
 
     if (!formData.email.trim()) return t('contact.form.validation.emailRequired');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) return t('contact.form.validation.emailInvalid');
 
     // Optional company name validation
-    if (formData.companyName.trim() && formData.companyName.trim().length > 100) {
+    if (formData.companyName.trim() && formData.companyName.trim().length > 80) {
       return t('contact.form.validation.companyNameMaxLength');
     }
 
@@ -261,7 +261,7 @@ export default function ContactForm() {
             disabled={formState.isSubmitting}
             className="form-input"
             placeholder={t('contact.form.fields.name.placeholder')}
-            maxLength={100}
+            maxLength={60}
             aria-describedby="name-help"
           />
         </div>
@@ -279,7 +279,7 @@ export default function ContactForm() {
             disabled={formState.isSubmitting}
             className="form-input"
             placeholder={t('contact.form.fields.companyName.placeholder')}
-            maxLength={100}
+            maxLength={80}
           />
         </div>
 
