@@ -113,18 +113,14 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
               "@type": "WebPage",
               "@id": `https://global-genex.com${baseURL}/services#webpage`,
               url: `https://global-genex.com${baseURL}/services`,
-              name: locale === 'ja' 
-                ? "プロフェッショナルコンサルティングサービス - 株式会社グローバルジェネックス"
-                : "Professional Consulting Services - Global Genex Inc.",
+              name: t.structuredData.services.webPage.name,
               isPartOf: {
                 "@id": "https://global-genex.com/#website"
               },
               about: {
                 "@id": "https://global-genex.com/#organization"
               },
-              description: locale === 'ja'
-                ? "小売・製造業向けの包括的コンサルティングソリューション。業務改善、データ分析、市場参入の専門知識。"
-                : "Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise.",
+              description: t.structuredData.services.webPage.description,
               breadcrumb: {
                 "@id": `https://global-genex.com${baseURL}/services#breadcrumb`
               },
@@ -138,13 +134,13 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
                 {
                   "@type": "ListItem",
                   position: 1,
-                  name: locale === 'ja' ? "ホーム" : "Home",
+                  name: t.structuredData.services.breadcrumb.home,
                   item: `https://global-genex.com${baseURL}`
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: locale === 'ja' ? "サービス" : "Services",
+                  name: t.structuredData.services.breadcrumb.services,
                   item: `https://global-genex.com${baseURL}/services`
                 }
               ]
@@ -163,7 +159,7 @@ export default async function LocalizedServicesPage({ params }: ServicesPageProp
               category: "Operations Consulting",
               audience: {
                 "@type": "Audience",
-                audienceType: locale === 'ja' ? "小売・製造業企業" : "Retail & Manufacturing Companies"
+                audienceType: t.structuredData.services.audience
               },
               areaServed: ["Japan", "Global"],
               availableLanguage: ["Japanese", "English"],

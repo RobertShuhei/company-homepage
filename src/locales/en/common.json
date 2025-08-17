@@ -608,5 +608,48 @@
     "contactUs": "Contact Us",
     "typicalWork": "Typical Work:",
     "specializations": "Specializations:"
+  },
+  "structuredData": {
+    "about": {
+      "webPage": {
+        "name": "About Global Genex Inc. - Company Profile & Leadership",
+        "description": "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. Meet our leadership team and discover our mission to help retailers and manufacturers improve operations."
+      },
+      "breadcrumb": {
+        "home": "Home",
+        "about": "About"
+      },
+      "person": {
+        "name": "Shuhei Nakahara",
+        "alternateName": "中原 修平",
+        "jobTitle": "Representative Director",
+        "description": "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+        "companyName": "Global Genex Inc.",
+        "occupation": "Business Consultant",
+        "skills": [
+          "Retail Operations",
+          "Manufacturing Operations",
+          "Data Analytics",
+          "Cross-border Business",
+          "Project Management",
+          "Digital Transformation"
+        ]
+      },
+      "aboutPage": {
+        "name": "About Global Genex Inc.",
+        "description": "Company profile, leadership team, mission, vision, and core values of Global Genex Inc., a professional consulting firm specializing in retail and manufacturing operations."
+      }
+    },
+    "services": {
+      "webPage": {
+        "name": "Professional Consulting Services - Global Genex Inc.",
+        "description": "Comprehensive consulting solutions for retail & manufacturing. Operations improvement, data analytics, and market entry expertise."
+      },
+      "breadcrumb": {
+        "home": "Home",
+        "services": "Services"
+      },
+      "audience": "Retail & Manufacturing Companies"
+    }
   }
 }

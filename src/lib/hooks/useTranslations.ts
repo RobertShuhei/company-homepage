@@ -18,7 +18,7 @@ async function loadClientTranslations(locale: Locale): Promise<Translations> {
   }
 
   try {
-    const translations = await import(`../../locales/${locale}.json`)
+    const translations = await import(`../../locales/${locale}/common.json`)
     clientTranslationCache[locale] = translations.default || translations
     return clientTranslationCache[locale]!
   } catch (error) {

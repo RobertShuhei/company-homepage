@@ -104,18 +104,14 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
               "@type": "WebPage",
               "@id": `https://global-genex.com${baseURL}/about#webpage`,
               url: `https://global-genex.com${baseURL}/about`,
-              name: locale === 'ja' 
-                ? "株式会社グローバルジェネックスについて - 企業プロフィール・経営陣"
-                : "About Global Genex Inc. - Company Profile & Leadership",
+              name: t.structuredData.about.webPage.name,
               isPartOf: {
                 "@id": "https://global-genex.com/#website"
               },
               about: {
                 "@id": "https://global-genex.com/#organization"
               },
-              description: locale === 'ja'
-                ? "福岡を拠点とするコンサルティング会社、株式会社グローバルジェネックスについて。経営陣紹介と小売業者・製造業者の業務改善支援ミッションをご紹介。"
-                : "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. Meet our leadership team and discover our mission to help retailers and manufacturers improve operations.",
+              description: t.structuredData.about.webPage.description,
               breadcrumb: {
                 "@id": `https://global-genex.com${baseURL}/about#breadcrumb`
               },
@@ -135,13 +131,13 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
                 {
                   "@type": "ListItem",
                   position: 1,
-                  name: locale === 'ja' ? "ホーム" : "Home",
+                  name: t.structuredData.about.breadcrumb.home,
                   item: `https://global-genex.com${baseURL}`
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: locale === 'ja' ? "会社概要" : "About",
+                  name: t.structuredData.about.breadcrumb.about,
                   item: `https://global-genex.com${baseURL}/about`
                 }
               ]
@@ -150,18 +146,16 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
               "@context": "https://schema.org",
               "@type": "Person",
               "@id": "https://global-genex.com/about#shuhei-nakahara",
-              name: locale === 'ja' ? "中原 修平" : "Shuhei Nakahara",
+              name: t.structuredData.about.person.name,
               givenName: "Shuhei",
               familyName: "Nakahara",
-              alternateName: locale === 'ja' ? "Shuhei Nakahara" : "中原 修平",
-              jobTitle: locale === 'ja' ? "代表取締役" : "Representative Director",
-              description: locale === 'ja'
-                ? "福岡を拠点とするバイリンガル（日本語・英語）コンサルタント。小売・製造業務、データ活用、国際展開支援に特化。実践的な現場実行と具体的な対策を提供。"
-                : "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+              alternateName: t.structuredData.about.person.alternateName,
+              jobTitle: t.structuredData.about.person.jobTitle,
+              description: t.structuredData.about.person.description,
               worksFor: {
                 "@type": "Organization",
                 "@id": "https://global-genex.com/#organization",
-                name: locale === 'ja' ? "株式会社グローバルジェネックス" : "Global Genex Inc."
+                name: t.structuredData.about.person.companyName
               },
               address: {
                 "@type": "PostalAddress",
@@ -192,28 +186,12 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
               },
               hasOccupation: {
                 "@type": "Occupation",
-                name: locale === 'ja' ? "ビジネスコンサルタント" : "Business Consultant",
+                name: t.structuredData.about.person.occupation,
                 occupationLocation: {
                   "@type": "Country",
                   name: "Japan"
                 },
-                skills: locale === 'ja'
-                  ? [
-                      "小売業務",
-                      "製造業務",
-                      "データ分析",
-                      "国際ビジネス",
-                      "プロジェクト管理",
-                      "デジタル変革"
-                    ]
-                  : [
-                      "Retail Operations",
-                      "Manufacturing Operations", 
-                      "Data Analytics",
-                      "Cross-border Business",
-                      "Project Management",
-                      "Digital Transformation"
-                    ]
+                skills: t.structuredData.about.person.skills
               },
               inLanguage: locale
             },
@@ -225,10 +203,8 @@ export default async function LocalizedAboutPage({ params }: AboutPageProps) {
                 "@id": "https://global-genex.com/#organization"
               },
               url: `https://global-genex.com${baseURL}/about`,
-              name: locale === 'ja' ? "株式会社グローバルジェネックスについて" : "About Global Genex Inc.",
-              description: locale === 'ja'
-                ? "小売・製造業に特化したプロフェッショナルコンサルティング会社、株式会社グローバルジェネックスの企業プロフィール、経営陣、ミッション、ビジョン、コアバリュー。"
-                : "Company profile, leadership team, mission, vision, and core values of Global Genex Inc., a professional consulting firm specializing in retail and manufacturing operations.",
+              name: t.structuredData.about.aboutPage.name,
+              description: t.structuredData.about.aboutPage.description,
               inLanguage: locale
             }
           ])

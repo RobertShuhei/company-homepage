@@ -438,6 +438,44 @@ export interface Translations {
     typicalWork: string
     specializations: string
   }
+
+  // Structured Data
+  structuredData: {
+    about: {
+      webPage: {
+        name: string
+        description: string
+      }
+      breadcrumb: {
+        home: string
+        about: string
+      }
+      person: {
+        name: string
+        alternateName: string
+        jobTitle: string
+        description: string
+        companyName: string
+        occupation: string
+        skills: string[]
+      }
+      aboutPage: {
+        name: string
+        description: string
+      }
+    }
+    services: {
+      webPage: {
+        name: string
+        description: string
+      }
+      breadcrumb: {
+        home: string
+        services: string
+      }
+      audience: string
+    }
+  }
 }
 
 // i18n configuration - imported from centralized config
