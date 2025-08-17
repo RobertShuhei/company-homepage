@@ -50,18 +50,18 @@ const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10 [text-wrap:balance] [line-break:strict]">
             {title}
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 mb-12 lg:mb-16 leading-relaxed max-w-4xl">
+          <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 mb-12 lg:mb-16 leading-relaxed max-w-prose">
             {description}
           </p>
 
           {/* CTA Buttons */}
           {(primaryCTA || secondaryCTA) && (
-            <div className="flex flex-col sm:flex-row gap-6 lg:gap-8">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8">
               {primaryCTA && (
                 <LocalizedLink
                   href={primaryCTA.href}

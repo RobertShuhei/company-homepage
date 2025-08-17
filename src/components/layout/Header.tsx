@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import { type NavigationTranslations } from '@/lib/translations'
@@ -20,7 +20,6 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const { t: translations } = useTranslations()
-  const mountId = useRef(Math.random().toString(36).substr(2, 9))
   
   // Helper function to get nested value safely from any object
   const getNestedValue = (obj: NavigationTranslations | Record<string, unknown>, path: string): string | null => {
@@ -62,38 +61,6 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   // Use server-provided locale for hydration consistency
   const currentLocale = locale
 
-  // DEBUG: Component lifecycle tracking
-  useEffect(() => {
-    console.log('🚀 HEADER MOUNT:', {
-      timestamp: new Date().toISOString(),
-      mountId: mountId.current,
-      pathname,
-      currentLocale
-    })
-
-    return () => {
-      console.log('💀 HEADER UNMOUNT:', {
-        timestamp: new Date().toISOString(),
-        mountId: mountId.current,
-        pathname,
-        currentLocale
-      })
-    }
-  }, [])
-
-  // DEBUG: Add comprehensive logging for navigation remounting investigation
-  console.log('🔍 HEADER RENDER DEBUG:', {
-    timestamp: new Date().toISOString(),
-    component: 'Header',
-    mountId: mountId.current,
-    pathname,
-    currentLocale,
-    serverTranslations: !!navigationTranslations,
-    clientTranslations: !!translations,
-    isMenuOpen,
-    serverNavHome: navigationTranslations?.nav?.home,
-    serverNavServices: navigationTranslations?.nav?.services
-  })
   
   const navItems = [
     { href: '/', label: t('nav.home', 'Home') },
@@ -114,7 +81,7 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   }
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

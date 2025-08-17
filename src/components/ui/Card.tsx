@@ -25,11 +25,11 @@ const Card: React.FC<CardProps> = ({
         </div>
       )}
       
-      <h3 className="text-xl lg:text-2xl font-semibold text-navy mb-4 lg:mb-5 group-hover:text-teal transition-colors duration-200">
+      <h3 className="text-xl lg:text-2xl font-semibold text-navy mb-4 lg:mb-5 group-hover:text-teal transition-colors duration-200 text-left">
         {title}
       </h3>
       
-      <p className="text-gray text-base lg:text-lg leading-relaxed flex-grow">
+      <p className="text-gray text-base lg:text-lg leading-relaxed flex-grow text-left">
         {description}
       </p>
 
@@ -50,7 +50,7 @@ const Card: React.FC<CardProps> = ({
     </>
   )
 
-  const baseClasses = `card-enhanced p-8 lg:p-10 h-full flex flex-col ${className}`
+  const baseClasses = `card-enhanced p-6 lg:p-8 h-full flex flex-col ${className}`
 
   if (href) {
     return (
