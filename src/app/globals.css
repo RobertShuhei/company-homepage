@@ -52,15 +52,15 @@ p {
 
 /* Improved spacing utilities */
 .section-spacing {
-  @apply py-24 lg:py-32;
+  @apply py-20 md:py-24 lg:py-32;
 }
 
 .content-spacing {
-  @apply space-y-8 lg:space-y-12;
+  @apply space-y-6 md:space-y-8 lg:space-y-12;
 }
 
 .grid-gap-enhanced {
-  @apply gap-8 lg:gap-10 xl:gap-12;
+  @apply gap-6 md:gap-8 lg:gap-10 xl:gap-12;
 }
 
 /* Enhanced interactive elements */
@@ -98,9 +98,10 @@ p {
   outline-offset: 2px;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling with fixed header offset */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* 80px for fixed header height + padding */
 }
 
 /* Stable Navigation Layout - Prevents header layout shift between locales */
