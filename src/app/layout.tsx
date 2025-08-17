@@ -25,7 +25,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className={`${inter.variable} ${notoSansJP.variable}`}>
+    <html lang="ja" className={`${inter.variable} ${notoSansJP.variable}`}>
       <body className="font-sans antialiased bg-white text-slate-900">
         {children}
       </body>

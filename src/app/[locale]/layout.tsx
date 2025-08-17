@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { generateLocalizedMetadata } from '@/lib/metadata';
 import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config';
-import { extractNavigationTranslations } from '@/lib/translations';
+import { extractNavigationTranslations, extractFooterTranslations } from '@/lib/translations';
 import { notFound } from 'next/navigation';
 import StructuredData from '@/components/StructuredData';
 import Header from '@/components/layout/Header';
@@ -42,8 +42,9 @@ export default async function LocaleLayout({
 
   const locale = resolvedParams.locale as Locale;
 
-  // Fetch navigation translations for server-side rendering
+  // Fetch navigation and footer translations for server-side rendering
   const navigationTranslations = await extractNavigationTranslations(locale);
+  const footerTranslations = await extractFooterTranslations(locale);
 
   return (
     <>
@@ -53,7 +54,7 @@ export default async function LocaleLayout({
       <main>
         {children}
       </main>
-      <Footer />
+      <Footer translations={footerTranslations} />
     </>
   );
 }

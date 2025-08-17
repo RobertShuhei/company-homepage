@@ -112,6 +112,55 @@ export interface NavigationTranslations {
   }
 }
 
+// Footer-specific translations interface for Footer component
+export interface FooterTranslations {
+  footer: {
+    companyName: string
+    tagline: string
+    copyright: string
+    social: {
+      linkedin: string
+      twitter: string
+    }
+    sections: {
+      services: {
+        title: string
+        links: {
+          consulting: string
+          planning: string
+          optimization: string
+          transformation: string
+        }
+      }
+      company: {
+        title: string
+        links: {
+          about: string
+          team: string
+          careers: string
+          contact: string
+        }
+      }
+      resources: {
+        title: string
+        links: {
+          cases: string
+          papers: string
+          insights: string
+          blog: string
+        }
+      }
+    }
+    legal: {
+      privacy: string
+      terms: string
+    }
+  }
+  nav: {
+    homeAriaLabel: string
+  }
+}
+
 // Extract navigation-specific translations for Header component
 export async function extractNavigationTranslations(locale: Locale): Promise<NavigationTranslations> {
   try {
@@ -136,6 +185,34 @@ export async function extractNavigationTranslations(locale: Locale): Promise<Nav
       } catch (fallbackError) {
         console.error(`Error extracting fallback navigation translations:`, fallbackError)
         throw new Error('Failed to load any navigation translations')
+      }
+    }
+    
+    throw error
+  }
+}
+
+// Extract footer-specific translations for Footer component
+export async function extractFooterTranslations(locale: Locale): Promise<FooterTranslations> {
+  try {
+    const fullTranslations = await getServerTranslations(locale)
+    
+    return {
+      footer: fullTranslations.footer,
+      nav: {
+        homeAriaLabel: fullTranslations.nav.homeAriaLabel,
+      }
+    }
+  } catch (error) {
+    console.error(`Error extracting footer translations for locale ${locale}:`, error)
+    
+    // Fallback to default locale
+    if (locale !== defaultLocale) {
+      try {
+        return await extractFooterTranslations(defaultLocale)
+      } catch (fallbackError) {
+        console.error(`Error extracting fallback footer translations:`, fallbackError)
+        throw new Error('Failed to load any footer translations')
       }
     }
     

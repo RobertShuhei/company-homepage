@@ -6,6 +6,7 @@ interface CardProps {
   icon?: React.ReactNode
   href?: string
   className?: string
+  learnMoreText?: string
 }
 
 const Card: React.FC<CardProps> = ({
@@ -13,7 +14,8 @@ const Card: React.FC<CardProps> = ({
   description,
   icon,
   href,
-  className = ""
+  className = "",
+  learnMoreText = "Learn more"
 }) => {
   const cardContent = (
     <>
@@ -35,7 +37,7 @@ const Card: React.FC<CardProps> = ({
 
       {href && (
         <div className="mt-6 lg:mt-8 flex items-center text-teal font-semibold group-hover:text-navy transition-colors duration-200">
-          Learn more
+          {learnMoreText}
           <svg 
             className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" 
             fill="none" 

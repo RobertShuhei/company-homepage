@@ -119,6 +119,7 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
                   description={service.description}
                   icon={service.icon}
                   href="/services"
+                  learnMoreText={t.common.learnMore}
                 />
               ))}
             </div>
