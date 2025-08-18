@@ -13,14 +13,14 @@
   },
   "homepage": {
     "meta": {
-      "title": "Global Genex Inc. - Expert Retail & Manufacturing Consulting | Japan Market Entry",
-      "description": "Professional consulting services for retail & manufacturing companies. AI-driven data analytics, Japan market entry support, and digital transformation expertise. Based in Fukuoka, serving global clients."
+      "title": "Global Genex Inc. - Expert Retail & Manufacturing Consulting | Japan & Overseas Market Entry",
+      "description": "Professional consulting services for retail & manufacturing industries. AI-driven data analytics, Japan & Overseas market entry support, and digital transformation expertise. Based in Fukuoka, serving global clients."
     },
     "hero": {
-      "title": "Transform Your Operations with AI-Driven, Hands-On Consulting",
+      "title": "Transform Your Operations and Improve Efficiency with AI-Driven, Hands-On Consulting",
       "subtitle": "Professional Consulting for Retail & Manufacturing",
       "description": "We help manufacturers and retailers improve productivity and quality through on-site consulting, data analytics, and digital transformation. We also support market development in Japan and overseas.",
-      "primaryCTA": "Get Started Today",
+      "primaryCTA": "Book a Free Consultation",
       "secondaryCTA": "Explore Services"
     },
     "services": {
@@ -28,7 +28,7 @@
       "subtitle": "Practical consulting to raise productivity, quality, and sales performance",
       "manufacturing": {
         "title": "Manufacturing Consulting",
-        "description": "Hands-on support to visualize processes, train teams, and improve productivity and quality at the shop floor."
+        "description": "Hands-on support to visualize processes, train teams, and improve productivity and quality at the workplace."
       },
       "it": {
         "title": "IT Implementation / System Development",
@@ -36,27 +36,27 @@
       },
       "market": {
         "title": "Support for Market Development",
-        "description": "Hands-on support to open and expand sales channels in Japan and overseas, leveraging bilingual, on-the-ground execution."
+        "description": "Hands-on support to open and expand sales channels in Japan and overseas, leveraging multilingual capabilities (Japanese, English, Chinese) and global networks."
       }
     },
     "features": {
-      "title": "Why Choose Global Genex Inc.",
-      "subtitle": "Practical, bilingual, and execution-focused support",
+      "title": "The Global Genex Advantage",
+      "subtitle": "Practical Approach with On-Site Support, Global Strategy, and AI Utilization",
       "dataExecution": {
-        "title": "Data-Driven Execution",
-        "description": "Diagnose, prioritize, and implement improvements backed by facts."
+        "title": "Business Optimization through Data and Analytics",
+        "description": "We leverage data and analytics to propose optimal strategies and deliver measurable business improvements."
       },
       "handsOn": {
-        "title": "Hands-On & On-Site",
-        "description": "We work at the site with your team to visualize issues and implement practical countermeasures."
+        "title": "Hands-On and On-Site Approach",
+        "description": "We work closely with your teams on the ground, from visualizing challenges to implementing concrete solutions."
       },
       "bilingual": {
-        "title": "Bilingual & Cross-Border",
-        "description": "Japanese–English support for supply chains and sales channels across Japan and overseas."
+        "title": "Global Strategy",
+        "description": "With support in Japanese, English, and Chinese, we help expand supply chains and sales channels both domestically and internationally."
       },
       "practical": {
-        "title": "Practical, Phased Delivery",
-        "description": "Small wins first, then scale. We avoid overengineering and focus on measurable improvements."
+        "title": "AI Utilization and Digital Transformation",
+        "description": "We support operational efficiency and revenue growth through AI adoption and digital transformation."
       }
     },
     "cta": {
@@ -66,135 +66,79 @@
       "secondaryButton": "About the Founder"
     }
   },
-  "about": {
-    "meta": {
-      "title": "About Us - Company Profile & Leadership",
-      "description": "Learn about Global Genex Inc., a consulting company based in Fukuoka, Japan. We help retailers and manufacturers improve operations with practical, data-driven execution and bilingual support."
-    },
-    "hero": {
-      "title": "About Global Genex Inc.",
-      "subtitle": "Company Profile",
-      "description": "Consulting company in Fukuoka, Japan. We help retailers and manufacturers improve operations with data-driven, on-site execution in Japanese and English."
-    },
-    "mission": {
-      "title": "Our Mission",
-      "description": "Help clients visualize issues on site, prioritize with data, and execute pragmatic improvements that stick."
-    },
-    "vision": {
-      "title": "Our Vision",
-      "description": "Be a trusted partner for practical transformation across Japan and global markets."
-    },
-    "values_en": {
-      "title": "Our Core Values",
-      "subtitle": "Principles that guide how we work",
-      "excellence": {
-        "title": "Excellence",
-        "description": "We pursue practical, high-quality outcomes on every engagement."
+    "about": {
+      "meta": {
+        "title": "About Us - Company Profile & Leadership",
+        "description": "Introducing Global Genex Inc., a consulting firm based in Fukuoka, Japan. We support operational improvement, market entry, and business expansion for retailers and manufacturers through AI utilization, data analytics, and global strategies."
       },
-      "integrity": {
-        "title": "Integrity",
-        "description": "Transparent, honest communication and responsible delivery."
+      "hero": {
+        "title": "About Global Genex Inc.",
+        "subtitle": "Company Profile",
+        "description": "We help retailers and manufacturers enhance operations and expand markets through AI utilization, data analytics, and global strategies."
       },
-      "innovation": {
-        "title": "Innovation",
-        "description": "Use data and technology pragmatically to solve on-site issues."
+      "mission": {
+        "title": "MISSION",
+        "description": "We support businesses in visualizing challenges, prioritizing with data, and executing sustainable improvements to optimize operations, increase efficiency, and drive revenue growth through AI, data analytics, and global strategies."
       },
-      "collaboration": {
-        "title": "Collaboration",
-        "description": "Work closely with client teams for sustainable change."
-      }
-    },
-    "leadership_en": {
-      "title": "Leadership",
-      "subtitle": "Profile",
-      "founder": {
-        "name": "Shuhei Nakahara",
-        "position": "Representative Director / Consultant",
-        "bio": "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
-        "expertiseTitle": "Areas of Expertise",
-        "expertise": [
-          "Retail & Manufacturing Ops",
-          "Data & Analytics",
-          "Cross-border (JP⇄Global)",
-          "Project Delivery"
-        ]
-      }
-    },
-    "timeline_en": {
-      "title": "Our Story",
-      "subtitle": "Key steps from launch to today",
-      "milestones": [
-        {
-          "year": "2024",
-          "title": "Founded in Fukuoka",
-          "description": "Incorporated in October 2024 as an independent consulting company."
+      "vision": {
+        "title": "VISION",
+        "description": "To serve as a trusted partner driving practical transformation and bridging Japanese and global businesses."
+      },
+      "values": {
+        "title": "CORE VALUES",
+        "subtitle": "Principles that guide how we work",
+        "excellence": {
+          "title": "Excellence",
+          "description": "We strive for practical, high-quality outcomes in every project."
         },
-        {
-          "year": "2025",
-          "title": "Services Launched",
-          "description": "Started consulting for retail and manufacturing operations, data & analytics, and cross-border support."
+        "integrity": {
+          "title": "Integrity",
+          "description": "We are committed to transparent communication and responsible actions."
         },
-        {
-          "year": "2025",
-          "title": "Reusable Assets",
-          "description": "Began publishing templates, checklists, and simple tools for clients."
+        "innovation": {
+          "title": "Innovation",
+          "description": "We leverage data and technology in practical ways to solve on-site challenges."
+        },
+        "collaboration": {
+          "title": "Trust & Collaboration",
+          "description": "We build trust and work closely with client teams to achieve sustainable change and business growth."
         }
-      ]
-    },
-    "values": {
-      "title": "Our Core Values",
-      "subtitle": "Principles that guide how we work",
-      "excellence": {
-        "title": "Excellence",
-        "description": "We pursue practical, high-quality outcomes on every engagement."
       },
-      "integrity": {
-        "title": "Integrity",
-        "description": "Transparent, honest communication and responsible delivery."
-      },
-      "innovation": {
-        "title": "Innovation",
-        "description": "Use data and technology pragmatically to solve on-site issues."
-      },
-      "collaboration": {
-        "title": "Collaboration",
-        "description": "Work closely with client teams for sustainable change."
-      }
-    },
-    "leadership": {
+      "leadership": {
       "title": "Leadership",
       "subtitle": "Profile",
       "founder": {
         "name": "Shuhei Nakahara",
-        "position": "Representative Director / Consultant",
-        "bio": "Bilingual (JP/EN) consultant based in Fukuoka. Focused on retail & manufacturing operations, data utilization, and cross-border enablement. Provides hands-on, on-site execution and practical countermeasures.",
+        "position": "Founder & CEO, Global Consultant, Data Scientist",
+        "bio": "A global consultant based in Fukuoka, specializing in supporting retailers and manufacturers with operational efficiency, sales channel development, and market expansion through AI utilization, data analytics, and global strategies. Leveraging hands-on experience across China, Southeast Asia (Vietnam, Cambodia, Myanmar), and Europe (UK, Italy, France), he provides globally minded and practical support that drives measurable results.",
         "expertiseTitle": "Areas of Expertise",
         "expertise": [
-          "Retail & Manufacturing Ops",
-          "Data & Analytics",
-          "Cross-border (JP⇄Global)",
-          "Project Delivery"
+          "Retail & Manufacturing Operations Management",
+          "Data Analytics",
+          "AI Utilization",
+          "Global Strategy & Expansion",
+          "Hands-on Project Execution"
         ]
       }
     },
     "timeline": {
-      "title": "Our Story",
-      "subtitle": "Key steps from launch to today",
+      "title": "Our Journey",
+      "subtitle": "Key milestones: leadership experience, company foundation, and future vision",
       "milestones": [
         {
-          "year": "2024",
-          "title": "Founded in Fukuoka",
-          "description": "Incorporated in October 2024 as an independent consulting company."
+          "year": "2013 – 2024",
+          "title": "Graduated from Bunka Fashion College / Professional Experience in Asia & Europe",
+          "description": "After graduating from the Production System Course at Bunka Fashion College, engaged in production management, quality control, and factory operations for major SPA brands in China, Myanmar, Vietnam, and Cambodia. Later, as an independent consultant, managed sales representation for a UK luxury apparel company and conducted market research on emerging trends and consumer needs at fashion exhibitions and collections in Italy and France."
+        },
+        {
+          "year": "October 2024",
+          "title": "Incorporation of Global Genex Inc.",
+          "description": "Established as a consulting firm supporting operational improvement, sales channel development, and market expansion for retailers and manufacturers through AI utilization, data analytics, and global strategies."
         },
         {
           "year": "2025",
-          "title": "Services Launched",
-          "description": "Started consulting for retail and manufacturing operations, data & analytics, and cross-border support."
-        },
-        {
-          "year": "2025",
-          "title": "Reusable Assets",
-          "description": "Began publishing templates, checklists, and simple tools for clients."
+          "title": "Service Launch",
+          "description": "Began providing consulting services for the retail and manufacturing sectors, leveraging AI utilization, data analytics, and global strategies."
         }
       ]
     },
