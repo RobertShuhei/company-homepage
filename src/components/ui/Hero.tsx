@@ -50,7 +50,7 @@ const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10 [text-wrap:balance] [line-break:strict]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10 [text-wrap:balance] [line-break:strict] whitespace-pre-line">
             {title}
           </h1>
 
