@@ -339,19 +339,10 @@
     },
     "info": {
       "title": "お問い合わせ先",
-      "phone": {
-        "title": "電話",
-        "number": "+81 (0)70-8361-4870",
-        "hours": "月〜金曜日 10:00〜17:00（JST）"
-      },
       "email": {
         "title": "メール",
         "address": "info@global-genex.com",
         "response": "通常24〜48時間以内にご返信いたします"
-      },
-      "office": {
-        "title": "オフィス",
-        "address": "〒812-0011\n福岡県福岡市博多区博多駅前1-23-2\nParkFront 5F-B"
       },
       "hours": {
         "title": "営業時間",

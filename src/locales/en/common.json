@@ -339,19 +339,10 @@
     },
     "info": {
       "title": "Get in Touch",
-      "phone": {
-        "title": "Phone",
-        "number": "+81 (0)70-8361-4870",
-        "hours": "Monday - Friday, 10:00 AM - 5:00 PM (JST)"
-      },
       "email": {
         "title": "Email",
         "address": "info@global-genex.com",
         "response": "We typically respond within 24–48 hours"
-      },
-      "office": {
-        "title": "Office",
-        "address": "5F-B, ParkFront\n1-23-2 Hakata Ekimae\nHakata ward, Fukuoka, Japan"
       },
       "hours": {
         "title": "Business Hours",
