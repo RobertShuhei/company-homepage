@@ -1,0 +1,590 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "services": "服务",
+    "contact": "联系我们",
+    "getStarted": "开始",
+    "companyName": "Global Genex株式会社",
+    "homeAriaLabel": "Global Genex株式会社 - 首页",
+    "menuAriaLabel": "主导航",
+    "openMenu": "打开主菜单",
+    "closeMenu": "关闭主菜单"
+  },
+  "homepage": {
+    "meta": {
+      "title": "Global Genex株式会社 - 零售制造业专业咨询 | 日本及海外市场进入",
+      "description": "为零售和制造业提供专业咨询服务。AI驱动的数据分析，日本及海外市场进入支持，以及数字化转型专业知识。总部位于福冈，服务全球客户。"
+    },
+    "hero": {
+      "title": "通过AI驱动的实践咨询，转变运营并提高效率",
+      "subtitle": "零售制造业专业咨询",
+      "description": "我们通过现场咨询、数据分析和数字化转型，帮助制造商和零售商提高生产力和质量。我们还支持日本和海外的市场开发。",
+      "primaryCTA": "预约免费咨询",
+      "secondaryCTA": "了解服务"
+    },
+    "services": {
+      "title": "我们的核心服务",
+      "subtitle": "实用咨询，提高生产力、质量和销售业绩",
+      "manufacturing": {
+        "title": "制造业咨询",
+        "description": "实践支持，可视化流程，培训团队，在工作现场提高生产力和质量。"
+      },
+      "it": {
+        "title": "IT实施/系统开发",
+        "description": "为您的运营量身定制的销售业绩、运营效率和生产/质量分析的实用系统。"
+      },
+      "market": {
+        "title": "市场开发支持",
+        "description": "利用多语言能力（日语、英语、中文）和全球网络，实践支持在日本和海外开拓和扩展销售渠道。"
+      }
+    },
+    "features": {
+      "title": "Global Genex优势",
+      "subtitle": "结合现场支持、全球战略和AI应用的实用方法",
+      "dataExecution": {
+        "title": "通过数据和分析进行业务优化",
+        "description": "我们利用数据和分析提出最优策略，实现可衡量的业务改进。"
+      },
+      "handsOn": {
+        "title": "实践和现场方法",
+        "description": "我们与您的团队紧密合作，从可视化挑战到实施具体解决方案。"
+      },
+      "bilingual": {
+        "title": "全球战略",
+        "description": "凭借日语、英语和中文支持，我们帮助扩展国内外的供应链和销售渠道。"
+      },
+      "practical": {
+        "title": "AI应用和数字化转型",
+        "description": "我们通过AI采用和数字化转型支持运营效率和收入增长。"
+      }
+    },
+    "cta": {
+      "title": "准备好前进了吗？",
+      "description": "告诉我们您当前的挑战。我们将提出适合您的现场、团队和时间表的分阶段方法。",
+      "primaryButton": "预约咨询",
+      "secondaryButton": "关于创始人"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "关于我们 - 公司简介和领导团队",
+      "description": "介绍Global Genex株式会社，一家位于日本福冈的咨询公司。我们通过AI应用、数据分析和全球战略，为零售商和制造商提供运营改善、市场进入和业务扩展支持。"
+    },
+    "hero": {
+      "title": "关于Global Genex株式会社",
+      "subtitle": "公司简介",
+      "description": "我们通过AI应用、数据分析和全球战略，帮助零售商和制造商提升运营并扩展市场。"
+    },
+    "mission": {
+      "title": "使命",
+      "description": "我们支持企业可视化挑战，用数据优先排序，并执行可持续的改进，通过AI、数据分析和全球战略优化运营，提高效率，推动收入增长。"
+    },
+    "vision": {
+      "title": "愿景",
+      "description": "成为推动实际转型并连接日本与全球业务的可信赖伙伴。"
+    },
+    "values": {
+      "title": "核心价值观",
+      "subtitle": "指导我们工作方式的原则",
+      "excellence": {
+        "title": "卓越",
+        "description": "我们在每个项目中都努力实现实用的高质量成果。"
+      },
+      "integrity": {
+        "title": "诚信",
+        "description": "我们致力于透明沟通和负责任的行动。"
+      },
+      "innovation": {
+        "title": "创新",
+        "description": "我们以实用的方式利用数据和技术解决现场挑战。"
+      },
+      "collaboration": {
+        "title": "信任与协作",
+        "description": "我们建立信任并与客户团队紧密合作，实现可持续的变革和业务增长。"
+      }
+    },
+    "leadership": {
+      "title": "领导层",
+      "subtitle": "简介",
+      "founder": {
+        "name": "中原修平",
+        "position": "创始人兼首席执行官、全球顾问、数据科学家",
+        "bio": "总部位于福冈的全球顾问，专门通过AI应用、数据分析和全球战略支持零售商和制造商的运营效率、销售渠道开发和市场扩展。凭借在中国、东南亚（越南、柬埔寨、缅甸）和欧洲（英国、意大利、法国）的实践经验，提供全球化思维和实用支持，实现可衡量的结果。",
+        "expertiseTitle": "专长领域",
+        "expertise": [
+          "零售制造业运营管理",
+          "数据分析",
+          "AI应用",
+          "全球战略与扩展",
+          "实践项目执行"
+        ]
+      }
+    },
+    "timeline": {
+      "title": "我们的历程",
+      "subtitle": "重要里程碑：领导经验、公司成立和未来愿景",
+      "milestones": [
+        {
+          "year": "2013 – 2024",
+          "title": "毕业于文化服装学院 / 亚欧专业经验",
+          "description": "从文化服装学院生产系统课程毕业后，在中国、缅甸、越南和柬埔寨为主要SPA品牌从事生产管理、质量控制和工厂运营。后来，作为独立顾问，管理英国奢侈服装公司的销售代理，并在意大利和法国的时尚展览和时装秀上进行新兴趋势和消费者需求的市场研究。"
+        },
+        {
+          "year": "2024年10月",
+          "title": "Global Genex株式会社成立",
+          "description": "成立为咨询公司，通过AI应用、数据分析和全球战略支持零售商和制造商的运营改善、销售渠道开发和市场扩展。"
+        },
+        {
+          "year": "2025年",
+          "title": "服务启动",
+          "description": "开始为零售和制造业提供咨询服务，利用AI应用、数据分析和全球战略。"
+        }
+      ]
+    },
+    "cta": {
+      "title": "准备好讨论您的挑战了吗？",
+      "description": "告诉我们您的现场、数据和目标。我们将提出实用的分阶段方法。",
+      "primaryButton": "联系我们",
+      "secondaryButton": "服务"
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "业务服务 - 零售制造业咨询解决方案",
+      "description": "为零售和制造公司提供专业咨询服务。运营改善、库存和需求规划、数据分析仪表板，以及日本市场进入支持。"
+    },
+    "hero": {
+      "title": "零售制造业实用咨询",
+      "subtitle": "服务",
+      "description": "运营改善、库存和需求规划、数据仪表板，以及市场进入/本地化 — 通过实践执行交付。"
+    },
+    "overview": {
+      "title": "服务内容",
+      "subtitle": "专注的服务，您可以小规模开始，根据需要扩展"
+    },
+    "retail": {
+      "title": "零售运营改善",
+      "description": "对门店和后台运营的实践改善，提高生产力和服务质量。",
+      "features": [
+        "现状评估和KPI设置（销售、库存、人工）",
+        "SOP和工作流程文档化",
+        "布局/商品展示和工作路径改善",
+        "员工培训和PDCA采用"
+      ]
+    },
+    "inventory": {
+      "title": "库存和需求规划",
+      "description": "通过务实的需求规划和补货规则，减少断货和积压。",
+      "features": [
+        "简单预测设置",
+        "审查再订购点和批量",
+        "品类和补货规则优化",
+        "WMS/ERP和电子表格流程改善"
+      ]
+    },
+    "analytics": {
+      "title": "数据分析和仪表板",
+      "description": "通过轻量级BI仪表板将运营数据转换为清晰的每周/每月洞察。",
+      "features": [
+        "定义KPI和报告",
+        "构建仪表板（BI或电子表格）",
+        "数据准备和自动化",
+        "定期审查和建议"
+      ]
+    },
+    "market": {
+      "title": "市场进入和本地化",
+      "description": "为扩展到日本/从日本扩展的公司提供支持：研究、合作伙伴外联和本地化。",
+      "features": [
+        "市场和竞争对手扫描，工作假设",
+        "合作伙伴前景研究和外联",
+        "本地化（术语/UX/材料，轻度翻译）",
+        "会议支持和双语沟通"
+      ]
+    },
+    "industries": {
+      "title": "行业重点",
+      "subtitle": "在影响立竿见影的行业中的实用、领域感知执行",
+      "retail": {
+        "name": "零售和电子商务",
+        "description": "食品、服装、专业、D2C/市场、全渠道运营",
+        "expertise": ["门店运营", "商品销售和库存", "客户体验和电子商务", "供应链"]
+      },
+      "manufacturing": {
+        "name": "制造和物流",
+        "description": "离散/流程制造和仓库运营",
+        "expertise": ["精益/改善", "生产和物流KPI", "库存和需求规划", "质量和标准化"]
+      },
+      "smes": {
+        "name": "中小企业和初创公司",
+        "description": "基于日本或海外团队扩展到日本/从日本扩展",
+        "expertise": ["市场验证", "市场进入", "本地化", "合作伙伴开发"]
+      }
+    },
+    "process": {
+      "title": "流程",
+      "subtitle": "保持动力和责任的简单透明方法",
+      "steps": [
+        {
+          "step": "01",
+          "title": "发现",
+          "description": "现状、约束和目标"
+        },
+        {
+          "step": "02",
+          "title": "计划",
+          "description": "优先路线图和快速获胜"
+        },
+        {
+          "step": "03",
+          "title": "执行",
+          "description": "实践交付和审查"
+        },
+        {
+          "step": "04",
+          "title": "优化",
+          "description": "衡量、学习和迭代"
+        }
+      ]
+    },
+    "cta": {
+      "title": "讨论您的优先事项",
+      "description": "告诉我您首先需要影响的地方。我们将为您规划一个可以快速开始的实用项目。",
+      "primaryButton": "联系我们",
+      "secondaryButton": "关于Global Genex"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "联系我们 - 开始专业咨询服务",
+      "description": "联系Global Genex株式会社讨论您的零售制造业咨询需求。预约日语或英语咨询，了解我们如何帮助改善您的运营。"
+    },
+    "hero": {
+      "title": "让我们一起转变您的业务",
+      "subtitle": "联系我们",
+      "description": "准备好释放您组织的潜力了吗？立即联系我们预约咨询，了解我们如何帮助您实现卓越成果。"
+    },
+    "form": {
+      "title": "向我们发送消息",
+      "fields": {
+        "name": {
+          "label": "全名 *",
+          "placeholder": "请输入您的全名"
+        },
+        "companyName": {
+          "label": "公司名称",
+          "placeholder": "请输入您的公司名称（可选）"
+        },
+        "email": {
+          "label": "电子邮箱 *",
+          "placeholder": "请输入您的电子邮箱地址"
+        },
+        "phoneNumber": {
+          "label": "电话号码",
+          "placeholder": "请输入您的电话号码（可选）"
+        },
+        "inquiryType": {
+          "label": "咨询类型 *",
+          "placeholder": "请选择咨询类型",
+          "options": {
+            "serviceInquiry": "服务咨询",
+            "hiring": "招聘",
+            "partnership": "合作伙伴",
+            "generalSupport": "一般支持",
+            "other": "其他"
+          }
+        },
+        "message": {
+          "label": "消息 *",
+          "placeholder": "告诉我们您的项目或我们如何帮助您...",
+          "characterCount": "字符"
+        },
+        "privacyConsent": {
+          "label": "我同意",
+          "privacyPolicy": "隐私政策",
+          "consentText": "并同意处理我的个人数据。*"
+        }
+      },
+      "validation": {
+        "nameRequired": "姓名是必需的",
+        "nameMinLength": "姓名必须至少2个字符",
+        "nameMaxLength": "姓名必须少于60个字符",
+        "emailRequired": "电子邮箱是必需的",
+        "emailInvalid": "请输入有效的电子邮箱地址",
+        "companyNameMaxLength": "公司名称必须少于80个字符",
+        "phoneInvalid": "请输入有效的电话号码",
+        "inquiryTypeRequired": "请选择咨询类型",
+        "messageRequired": "消息是必需的",
+        "messageMinLength": "消息必须至少10个字符",
+        "messageMaxLength": "消息必须少于2000个字符",
+        "privacyConsentRequired": "您必须同意我们的隐私政策才能继续"
+      },
+      "states": {
+        "submit": "发送消息",
+        "sending": "发送消息中...",
+        "sendAnother": "发送另一条消息"
+      },
+      "success": {
+        "title": "消息发送成功！",
+        "message": "感谢您的联系。我们已收到您的消息，将在24-48小时内回复。您也应该很快收到确认邮件。"
+      },
+      "error": {
+        "generic": "发送消息失败。请重试。",
+        "tooFast": "发送消息失败。请重试。"
+      },
+      "privacy": {
+        "message": "我们尊重您的隐私。您的信息不会与第三方共享。"
+      }
+    },
+    "info": {
+      "title": "联系方式",
+      "email": {
+        "title": "电子邮箱",
+        "address": "info@global-genex.com",
+        "response": "我们通常在24-48小时内回复"
+      },
+      "hours": {
+        "title": "营业时间",
+        "weekdays": "周一至周五：上午9:00 - 下午6:00",
+        "saturday": "周六：休息",
+        "sunday": "周日：休息"
+      }
+    },
+    "services": {
+      "title": "我们如何帮助您",
+      "subtitle": "了解我们专为推动您业务发展而设计的综合咨询服务",
+      "manufacturing": {
+        "title": "制造业咨询",
+        "description": "实践支持，可视化流程，培训团队，提高生产力和质量。"
+      },
+      "it": {
+        "title": "IT实施/系统开发",
+        "description": "销售业绩、运营效率和生产/质量分析系统。"
+      },
+      "market": {
+        "title": "市场开发支持",
+        "description": "在日本和海外开拓和扩展销售渠道的实用支持。"
+      },
+      "exploreAll": "探索所有服务"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "隐私政策 - 数据保护和信息安全",
+      "description": "Global Genex株式会社隐私政策，说明我们如何收集、使用、保护和管理个人信息。了解我们对数据安全和隐私保护的承诺。"
+    },
+    "title": "隐私政策",
+    "lastUpdated": "最后更新：2025年8月14日",
+    "sections": {
+      "overview": {
+        "title": "介绍",
+        "content": [
+          "Global Genex株式会社（\"我们\"、\"我们的\"或\"我们\"）致力于保护您的隐私。本隐私政策说明当您访问我们的网站或使用我们的服务时，我们如何收集、使用、披露和保护您的信息。",
+          "通过使用我们的服务，您同意本政策。如果您不同意，请不要使用我们的服务。"
+        ]
+      },
+      "collection": {
+        "title": "我们收集的信息",
+        "personalInfo": {
+          "title": "个人信息",
+          "description": "当您进行以下活动时，我们可能会收集您自愿提供的个人信息：",
+          "items": [
+            "通过网站表单联系我们",
+            "订阅我们的通讯",
+            "请求有关我们服务的信息",
+            "预约咨询",
+            "参与调查或反馈"
+          ]
+        },
+        "usage": {
+          "title": "使用和Cookie",
+          "description": "我们可能收集使用数据（如访问页面、浏览器类型）并使用Cookie或类似技术来改善我们的服务。您可以在浏览器中控制Cookie设置，但禁用Cookie可能会限制某些功能。"
+        }
+      },
+      "usage": {
+        "title": "我们如何使用信息",
+        "content": [
+          "提供、维护和改善我们的服务",
+          "响应询问和支持请求",
+          "发送管理或营销通讯（经同意）",
+          "分析使用情况以增强用户体验和安全性",
+          "遵守法律义务"
+        ]
+      },
+      "sharing": {
+        "title": "共享和披露",
+        "content": [
+          "我们不出售您的个人信息。我们可能与协助我们运营的服务提供商、在业务转让中或法律要求时共享。我们采取合理措施确保适当的保障措施。"
+        ]
+      },
+      "security": {
+        "title": "数据安全和保留",
+        "content": [
+          "我们实施技术和组织措施保护信息。我们仅在本政策描述的目的或法律要求的时间内保留个人信息，之后我们将删除或匿名化处理。"
+        ]
+      },
+      "transfers": {
+        "title": "国际传输",
+        "content": [
+          "您的信息可能在您所在国家以外的国家进行处理。我们确保此类传输符合适用的数据保护法律并包含适当的保障措施。"
+        ]
+      },
+      "rights": {
+        "title": "您的权利",
+        "items": [
+          {
+            "title": "访问",
+            "description": "请求访问您的个人信息"
+          },
+          {
+            "title": "更正",
+            "description": "请求更正不准确的信息"
+          },
+          {
+            "title": "删除",
+            "description": "请求删除您的个人信息"
+          },
+          {
+            "title": "可携带性",
+            "description": "请求结构化格式的副本"
+          },
+          {
+            "title": "限制/反对",
+            "description": "请求限制或反对处理"
+          }
+        ],
+        "contact": "要行使这些权利，请使用下面的详细信息联系我们。我们将根据适用法律在合理时间内回复。"
+      },
+      "children": {
+        "title": "儿童隐私",
+        "content": [
+          "我们的服务不适用于18岁以下的个人。如果我们发现收集了18岁以下儿童的信息，我们将立即删除。"
+        ]
+      },
+      "contact": {
+        "title": "联系我们",
+        "description": "如果您对本隐私政策或我们的数据实践有任何问题、疑虑或请求，请联系：",
+        "email": "info@global-genex.com",
+        "phone": "+81 (0)70-8361-4870",
+        "address": "Global Genex株式会社\n1-23-2 博多站前\n博多区\n福冈，日本"
+      },
+      "updates": {
+        "title": "本政策的更新",
+        "content": [
+          "我们可能不时更新本政策。我们将发布更新后的政策并修订上述\"最后更新\"日期。您的继续使用构成对更新政策的接受。"
+        ]
+      }
+    }
+  },
+  "footer": {
+    "companyName": "Global Genex株式会社",
+    "tagline": "零售制造业 × AI数据分析 × 全球扩张。我们通过AI驱动的咨询连接日本与全球市场。",
+    "quickLinks": "快速链接",
+    "contact": "联系信息",
+    "copyright": "版权所有。",
+    "social": {
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter"
+    },
+    "pages": {
+      "home": "首页",
+      "services": "服务",
+      "about": "关于我们",
+      "contact": "联系我们",
+      "privacy": "隐私政策"
+    },
+    "sections": {
+      "services": {
+        "title": "服务",
+        "links": {
+          "consulting": "业务咨询",
+          "planning": "战略规划",
+          "optimization": "流程优化",
+          "transformation": "数字化转型"
+        }
+      },
+      "company": {
+        "title": "公司",
+        "links": {
+          "about": "关于我们",
+          "team": "我们的团队",
+          "careers": "职业机会",
+          "contact": "联系我们"
+        }
+      },
+      "resources": {
+        "title": "资源",
+        "links": {
+          "cases": "案例研究",
+          "papers": "白皮书",
+          "insights": "行业洞察",
+          "blog": "博客"
+        }
+      }
+    },
+    "legal": {
+      "privacy": "隐私政策",
+      "terms": "服务条款"
+    }
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "readMore": "阅读更多",
+    "backToTop": "回到顶部",
+    "loading": "加载中...",
+    "error": "发生错误",
+    "language": "语言",
+    "japanese": "日语",
+    "english": "英语",
+    "exploreServices": "探索服务",
+    "scheduleConsultation": "预约咨询",
+    "getStarted": "开始",
+    "contactUs": "联系我们",
+    "typicalWork": "典型工作：",
+    "specializations": "专业："
+  },
+  "structuredData": {
+    "about": {
+      "webPage": {
+        "name": "关于Global Genex株式会社 - 公司简介和领导层",
+        "description": "了解Global Genex株式会社，一家位于日本福冈的咨询公司。认识我们的领导团队，了解我们帮助零售商和制造商改善运营的使命。"
+      },
+      "breadcrumb": {
+        "home": "首页",
+        "about": "关于我们"
+      },
+      "person": {
+        "name": "中原修平",
+        "alternateName": "Shuhei Nakahara",
+        "jobTitle": "代表董事",
+        "description": "总部位于福冈的双语（日/英）顾问。专注于零售制造业运营、数据应用和跨境赋能。提供实践的现场执行和实用对策。",
+        "companyName": "Global Genex株式会社",
+        "occupation": "业务顾问",
+        "skills": [
+          "零售运营",
+          "制造业运营",
+          "数据分析",
+          "跨境业务",
+          "项目管理",
+          "数字化转型"
+        ]
+      },
+      "aboutPage": {
+        "name": "关于Global Genex株式会社",
+        "description": "Global Genex株式会社的公司简介、领导团队、使命、愿景和核心价值观，专业的零售制造业运营咨询公司。"
+      }
+    },
+    "services": {
+      "webPage": {
+        "name": "专业咨询服务 - Global Genex株式会社",
+        "description": "零售制造业综合咨询解决方案。运营改善、数据分析和市场进入专业知识。"
+      },
+      "breadcrumb": {
+        "home": "首页",
+        "services": "服务"
+      },
+      "audience": "零售制造业公司"
+    }
+  }
+}

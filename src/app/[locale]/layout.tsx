@@ -4,6 +4,7 @@ import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config'
 import { extractNavigationTranslations, extractFooterTranslations } from '@/lib/translations';
 import { notFound } from 'next/navigation';
 import StructuredData from '@/components/StructuredData';
+import BreadcrumbStructuredData from '@/components/BreadcrumbStructuredData';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
@@ -50,6 +51,7 @@ export default async function LocaleLayout({
     <>
       <GoogleAnalytics />
       <StructuredData locale={locale} />
+      <BreadcrumbStructuredData locale={locale} />
       <Header navigationTranslations={navigationTranslations} locale={locale} />
       <main>
         {children}
