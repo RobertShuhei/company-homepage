@@ -34,14 +34,15 @@ export default async function LocalizedPrivacyPage({ params }: PrivacyPageProps)
 
   return (
     <div className="min-h-screen flex flex-col">
-      <section className="bg-navy text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.privacy.title}</h1>
-          <p className="text-slate-300 text-lg">{t.privacy.lastUpdated}</p>
-        </div>
-      </section>
+      <main>
+        <section className="bg-navy text-white py-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.privacy.title}</h1>
+            <p className="text-slate-300 text-lg">{t.privacy.lastUpdated}</p>
+          </div>
+        </section>
 
-      <section className="py-16 bg-white">
+        <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg max-w-none">
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-navy mb-4">{t.privacy.sections.overview.title}</h2>
@@ -152,6 +153,7 @@ export default async function LocalizedPrivacyPage({ params }: PrivacyPageProps)
           </div>
         </div>
       </section>
+      </main>
     </div>
   );
 }

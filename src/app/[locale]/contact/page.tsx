@@ -68,7 +68,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 bg-teal/10 rounded-lg flex items-center justify-center text-teal">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8" aria-label="Email">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       </div>
@@ -83,7 +83,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
                   <div className="flex items-start">
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 bg-teal/10 rounded-lg flex items-center justify-center text-teal">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-8 h-8" aria-label="Business hours">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
@@ -132,7 +132,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
                   title: t.contact.services.manufacturing.title,
                   description: t.contact.services.manufacturing.description,
                   icon: (
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   )
@@ -141,7 +141,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
                   title: t.contact.services.it.title,
                   description: t.contact.services.it.description,
                   icon: (
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   )
@@ -150,7 +150,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
                   title: t.contact.services.market.title,
                   description: t.contact.services.market.description,
                   icon: (
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                   )
@@ -176,7 +176,7 @@ export default async function LocalizedContactPage({ params }: ContactPageProps)
                 className="inline-flex items-center bg-teal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2"
               >
                 {t.contact.services.exploreAll}
-                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </LocalizedLink>

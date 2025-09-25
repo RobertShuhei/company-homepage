@@ -56,23 +56,21 @@ const Card: React.FC<CardProps> = ({
 
   if (href) {
     return (
-      <LocalizedLink
-        href={href}
-        className={`${baseClasses} group cursor-pointer transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2`}
-        role="article"
-      >
-        {cardContent}
-      </LocalizedLink>
+      <article className={baseClasses}>
+        <LocalizedLink
+          href={href}
+          className="group cursor-pointer transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 h-full flex flex-col"
+        >
+          {cardContent}
+        </LocalizedLink>
+      </article>
     )
   }
 
   return (
-    <div 
-      className={baseClasses}
-      role="article"
-    >
+    <article className={baseClasses}>
       {cardContent}
-    </div>
+    </article>
   )
 }
 

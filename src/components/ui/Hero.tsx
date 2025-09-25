@@ -29,7 +29,7 @@ const Hero: React.FC<HeroProps> = ({
       {backgroundPattern && (
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-gradient-to-br from-teal/20 to-transparent"></div>
-          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
                 <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.1"/>
@@ -91,6 +91,7 @@ const Hero: React.FC<HeroProps> = ({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
+          aria-hidden="true"
         >
           <path
             d="M0,0 C240,120 480,120 720,80 C960,40 1200,40 1440,80 L1440,120 L0,120 Z"
