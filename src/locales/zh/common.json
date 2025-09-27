@@ -606,6 +606,9 @@
         "instructionsHelper": "为AI提供关于语调、风格、目标受众或内容要求的具体指导。",
         "modelLabel": "AI模型选择",
         "modelHelper": "根据您的质量和速度要求选择AI模型。",
+        "modelNanoLabel": "(默认 - 最快最便宜)",
+        "modelMiniLabel": "(平衡)",
+        "modelFullLabel": "(最高质量)",
         "generateButton": "生成博客文章",
         "generating": "正在生成博客文章..."
       },
@@ -629,7 +632,12 @@
         "default": "生成博客文章时出错。请重试。",
         "apiKey": "OpenAI API未配置。请联系管理员。",
         "quota": "API配额已超出。请稍后重试。",
-        "network": "网络错误。请检查您的连接并重试。"
+        "network": "网络错误。请检查您的连接并重试。",
+        "fallbackGeneration": "生成博客文章失败",
+        "fallbackResponse": "API响应无效",
+        "errorTitle": "错误",
+        "debugInfo": "调试信息",
+        "unknownError": "未知错误"
       }
     }
   }

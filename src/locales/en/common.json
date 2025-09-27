@@ -605,6 +605,9 @@
           "instructionsHelper": "Provide specific guidance for the AI regarding tone, style, target audience, or content requirements.",
           "modelLabel": "AI Model Selection",
           "modelHelper": "Choose the AI model based on your quality and speed requirements.",
+          "modelNanoLabel": "(Default - Fastest & Cheapest)",
+          "modelMiniLabel": "(Balanced)",
+          "modelFullLabel": "(Highest Quality)",
           "generateButton": "Generate Blog Post",
           "generating": "Generating Blog Post..."
         },
@@ -628,7 +631,12 @@
           "default": "Error generating blog post. Please try again.",
           "apiKey": "OpenAI API is not configured. Please contact the administrator.",
           "quota": "API quota exceeded. Please try again later.",
-          "network": "Network error. Please check your connection and try again."
+          "network": "Network error. Please check your connection and try again.",
+          "fallbackGeneration": "Failed to generate blog post",
+          "fallbackResponse": "Invalid response from API",
+          "errorTitle": "Error",
+          "debugInfo": "Debug Info",
+          "unknownError": "Unknown error"
         }
       }
     }

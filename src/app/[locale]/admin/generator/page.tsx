@@ -65,13 +65,13 @@ export default function BlogGeneratorPage() {
       }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to generate blog post')
+        throw new Error(data.error || getText('admin.generator.errors.fallbackGeneration', 'Failed to generate blog post'))
       }
 
       if (data.success && data.content) {
         setGeneratedContent(data.content)
       } else {
-        throw new Error('Invalid response from API')
+        throw new Error(getText('admin.generator.errors.fallbackResponse', 'Invalid response from API'))
       }
     } catch (error) {
       console.error('Error generating blog post:', error)
@@ -89,11 +89,11 @@ export default function BlogGeneratorPage() {
         }
       }
 
-      setGeneratedContent(`# Error
+      setGeneratedContent(`# ${getText('admin.generator.errors.errorTitle', 'Error')}
 
 ${errorMessage}
 
-**Debug Info**: ${error instanceof Error ? error.message : 'Unknown error'}`)
+**${getText('admin.generator.errors.debugInfo', 'Debug Info')}**: ${error instanceof Error ? error.message : getText('admin.generator.errors.unknownError', 'Unknown error')}`)
     } finally {
       setIsGenerating(false)
     }
@@ -238,7 +238,7 @@ ${errorMessage}
                     />
                     <label htmlFor="gpt-5-nano" className="ml-3 block text-sm text-gray-700">
                       <span className="font-medium">GPT-5 nano</span>
-                      <span className="text-teal ml-2">(デフォルト - 最安・高速)</span>
+                      <span className="text-teal ml-2">{getText('admin.generator.form.modelNanoLabel', '(Default - Fastest & Cheapest)')}</span>
                     </label>
                   </div>
                   <div className="flex items-center">
@@ -253,7 +253,7 @@ ${errorMessage}
                     />
                     <label htmlFor="gpt-5-mini" className="ml-3 block text-sm text-gray-700">
                       <span className="font-medium">GPT-5 mini</span>
-                      <span className="text-blue-600 ml-2">(バランス)</span>
+                      <span className="text-blue-600 ml-2">{getText('admin.generator.form.modelMiniLabel', '(Balanced)')}</span>
                     </label>
                   </div>
                   <div className="flex items-center">
@@ -268,7 +268,7 @@ ${errorMessage}
                     />
                     <label htmlFor="gpt-5" className="ml-3 block text-sm text-gray-700">
                       <span className="font-medium">GPT-5</span>
-                      <span className="text-purple-600 ml-2">(最高品質)</span>
+                      <span className="text-purple-600 ml-2">{getText('admin.generator.form.modelFullLabel', '(Highest Quality)')}</span>
                     </label>
                   </div>
                 </div>
