@@ -598,6 +598,8 @@
         "keywordsLabel": "关键词",
         "keywordsPlaceholder": "制造业, 咨询, AI, 日本市场进入...",
         "keywordsHelper": "用逗号分隔的关键词，以便在博客文章中包含用于SEO优化。",
+        "modelLabel": "AI模型选择",
+        "modelHelper": "根据您的质量和速度要求选择AI模型。",
         "generateButton": "生成博客文章",
         "generating": "正在生成博客文章..."
       },
@@ -616,6 +618,12 @@
           "点击\"生成博客文章\"根据您的输入创建AI驱动的内容",
           "查看并复制生成的内容用于您的博客文章"
         ]
+      },
+      "errors": {
+        "default": "生成博客文章时出错。请重试。",
+        "apiKey": "OpenAI API未配置。请联系管理员。",
+        "quota": "API配额已超出。请稍后重试。",
+        "network": "网络错误。请检查您的连接并重试。"
       }
     }
   }

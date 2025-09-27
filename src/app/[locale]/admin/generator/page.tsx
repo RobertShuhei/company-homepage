@@ -73,15 +73,15 @@ export default function BlogGeneratorPage() {
       console.error('Error generating blog post:', error)
 
       // Provide user-friendly error messages
-      let errorMessage = 'Error generating blog post. Please try again.'
+      let errorMessage = getText('admin.generator.errors.default', 'Error generating blog post. Please try again.')
 
       if (error instanceof Error) {
         if (error.message.includes('API key')) {
-          errorMessage = 'OpenAI API is not configured. Please contact the administrator.'
+          errorMessage = getText('admin.generator.errors.apiKey', 'OpenAI API is not configured. Please contact the administrator.')
         } else if (error.message.includes('quota')) {
-          errorMessage = 'API quota exceeded. Please try again later.'
+          errorMessage = getText('admin.generator.errors.quota', 'API quota exceeded. Please try again later.')
         } else if (error.message.includes('network') || error.message.includes('fetch')) {
-          errorMessage = 'Network error. Please check your connection and try again.'
+          errorMessage = getText('admin.generator.errors.network', 'Network error. Please check your connection and try again.')
         }
       }
 
@@ -175,7 +175,7 @@ ${errorMessage}
               {/* Model Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  AI Model Selection
+                  {getText('admin.generator.form.modelLabel', 'AI Model Selection')}
                 </label>
                 <div className="space-y-3">
                   <div className="flex items-center">
@@ -225,7 +225,7 @@ ${errorMessage}
                   </div>
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
-                  Choose the AI model based on your quality and speed requirements.
+                  {getText('admin.generator.form.modelHelper', 'Choose the AI model based on your quality and speed requirements.')}
                 </p>
               </div>
 
@@ -338,10 +338,10 @@ ${errorMessage}
           </h3>
           <ul className="space-y-2 text-blue-800">
             {(t?.admin?.generator?.instructions?.items || [
-              'Enter a detailed topic and outline in the textarea to guide the AI generation',
-              'Add relevant keywords to improve SEO optimization of the generated content',
-              'Click "Generate Blog Post" to create AI-powered content based on your inputs',
-              'Review and copy the generated content for use in your blog posts'
+              getText('admin.generator.instructions.items.0', 'Enter a detailed topic and outline in the textarea to guide the AI generation'),
+              getText('admin.generator.instructions.items.1', 'Add relevant keywords to improve SEO optimization of the generated content'),
+              getText('admin.generator.instructions.items.2', 'Click "Generate Blog Post" to create AI-powered content based on your inputs'),
+              getText('admin.generator.instructions.items.3', 'Review and copy the generated content for use in your blog posts')
             ]).map((item: string, index: number) => (
               <li key={index} className="flex items-start">
                 <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>

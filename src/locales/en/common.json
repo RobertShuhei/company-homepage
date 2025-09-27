@@ -597,6 +597,8 @@
           "keywordsLabel": "Keywords",
           "keywordsPlaceholder": "manufacturing, consulting, AI, Japan market entry...",
           "keywordsHelper": "Comma-separated keywords to include in the blog post for SEO optimization.",
+          "modelLabel": "AI Model Selection",
+          "modelHelper": "Choose the AI model based on your quality and speed requirements.",
           "generateButton": "Generate Blog Post",
           "generating": "Generating Blog Post..."
         },
@@ -615,6 +617,12 @@
             "Click \"Generate Blog Post\" to create AI-powered content based on your inputs",
             "Review and copy the generated content for use in your blog posts"
           ]
+        },
+        "errors": {
+          "default": "Error generating blog post. Please try again.",
+          "apiKey": "OpenAI API is not configured. Please contact the administrator.",
+          "quota": "API quota exceeded. Please try again later.",
+          "network": "Network error. Please check your connection and try again."
         }
       }
     }
