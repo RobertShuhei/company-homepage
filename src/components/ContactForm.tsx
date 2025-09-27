@@ -383,8 +383,13 @@ export default function ContactForm() {
           />
           <label htmlFor="privacyConsent" className="ml-3 text-sm text-navy">
             {t('contact.form.fields.privacyConsent.label')}{' '}
+<<<<<<< HEAD
             <a
               href={addLocaleToPathname('/privacy', currentLocale)}
+=======
+            <a 
+              href={addLocaleToPathname('/privacy', currentLocale)} 
+>>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
               className="text-teal hover:text-teal/80 underline"
               target="_blank"
               rel="noopener noreferrer"

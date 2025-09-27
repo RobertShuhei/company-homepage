@@ -1,16 +1,25 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
+<<<<<<< HEAD
 import {
   type Locale,
   locales,
   defaultLocale,
   getLocaleFromPathname,
   removeLocaleFromPathname,
+=======
+import { 
+  type Locale, 
+  defaultLocale,
+  getLocaleFromPathname, 
+  removeLocaleFromPathname, 
+>>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
   addLocaleToPathname,
   cookieConfig,
   isValidLocale
 } from '../../../i18n.config'
+<<<<<<< HEAD
 import { Fragment, useState, useEffect, useMemo } from 'react'
 
 const languageLabels: Record<Locale, { label: string; mobileLabel: string; ariaLabel: string }> = {
@@ -30,6 +39,9 @@ const languageLabels: Record<Locale, { label: string; mobileLabel: string; ariaL
     ariaLabel: '切换到简体中文'
   }
 }
+=======
+import { useState, useEffect, useMemo } from 'react'
+>>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
 
 interface LanguageSwitcherProps {
   className?: string
@@ -75,6 +87,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     return removeLocaleFromPathname(pathname, detectedLocale)
   }, [pathname, detectedLocale])
 
+<<<<<<< HEAD
   const languageOptions = useMemo(() => {
     return locales.map(locale => ({
       locale,
@@ -85,12 +98,46 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   }, [cleanPath, detectedLocale])
 
   if (!languageOptions.length) {
+=======
+  // Generate URLs for language switching
+  const getLocalizedUrl = (targetLocale: Locale): string => {
+    return addLocaleToPathname(cleanPath, targetLocale)
+  }
+
+  // Only show the inactive language - hide the currently active one
+  const getInactiveLanguage = (): { locale: Locale; url: string; label: string; mobileLabel: string; ariaLabel: string } | null => {
+    if (detectedLocale === 'ja') {
+      return {
+        locale: 'en',
+        url: getLocalizedUrl('en'),
+        label: 'EN',
+        mobileLabel: 'English',
+        ariaLabel: 'Switch to English'
+      }
+    } else if (detectedLocale === 'en') {
+      return {
+        locale: 'ja',
+        url: getLocalizedUrl('ja'),
+        label: 'JP',
+        mobileLabel: '日本語',
+        ariaLabel: '日本語に切り替え'
+      }
+    }
+    return null
+  }
+
+  const inactiveLanguage = getInactiveLanguage()
+
+  // If no inactive language to show, don't render anything
+  if (!inactiveLanguage) {
+>>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
     return null
   }
 
   // Desktop variant - simple text link without container
   if (variant === 'desktop') {
     return (
+<<<<<<< HEAD
       <div
         className={`flex items-center gap-2 text-sm font-medium ${className}`}
         role="group"
@@ -116,11 +163,22 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           </Fragment>
         ))}
       </div>
+=======
+      <button
+        onClick={() => handleLanguageSwitch(inactiveLanguage.locale, inactiveLanguage.url)}
+        className={`px-2 py-1 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 text-gray hover:text-navy ${className}`}
+        aria-label={inactiveLanguage.ariaLabel}
+        type="button"
+      >
+        {inactiveLanguage.label}
+      </button>
+>>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
     )
   }
 
   // Mobile variant - clean integration in mobile menu
   return (
+<<<<<<< HEAD
     <div
       className={`flex flex-col gap-1 ${className}`}
       role="group"
@@ -148,3 +206,17 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 }
 
 export default LanguageSwitcher
+=======
+    <button
+      onClick={() => handleLanguageSwitch(inactiveLanguage.locale, inactiveLanguage.url)}
+      className={`w-full text-left block px-3 py-2 text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 text-gray hover:text-navy hover:bg-gray-50 ${className}`}
+      aria-label={inactiveLanguage.ariaLabel}
+      type="button"
+    >
+      {inactiveLanguage.mobileLabel}
+    </button>
+  )
+}
+
+export default LanguageSwitcher
+>>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
