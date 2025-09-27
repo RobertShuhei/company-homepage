@@ -8,7 +8,8 @@ export default function BlogGeneratorPage() {
   const { t, locale, isLoading } = useTranslations()
   const [formData, setFormData] = useState({
     topic: '',
-    keywords: ''
+    keywords: '',
+    model: 'gpt-5-nano' // Default to most cost-effective model
   })
   const [generatedContent, setGeneratedContent] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
@@ -27,6 +28,13 @@ export default function BlogGeneratorPage() {
     }))
   }
 
+  const handleModelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      model: e.target.value
+    }))
+  }
+
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsGenerating(true)
@@ -41,6 +49,7 @@ export default function BlogGeneratorPage() {
         body: JSON.stringify({
           topic: formData.topic,
           keywords: formData.keywords,
+          model: formData.model,
           currentLocale: locale // Use the locale from useTranslations hook
         })
       })
@@ -165,6 +174,63 @@ ${errorMessage}
                 />
                 <p className="mt-1 text-sm text-gray-500">
                   {getText('admin.generator.form.keywordsHelper', 'Comma-separated keywords to include in the blog post for SEO optimization.')}
+                </p>
+              </div>
+
+              {/* Model Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  AI Model Selection
+                </label>
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <input
+                      id="gpt-5-nano"
+                      name="model"
+                      type="radio"
+                      value="gpt-5-nano"
+                      checked={formData.model === 'gpt-5-nano'}
+                      onChange={handleModelChange}
+                      className="h-4 w-4 text-teal focus:ring-teal border-gray-300"
+                    />
+                    <label htmlFor="gpt-5-nano" className="ml-3 block text-sm text-gray-700">
+                      <span className="font-medium">GPT-5 nano</span>
+                      <span className="text-teal ml-2">(デフォルト - 最安・高速)</span>
+                    </label>
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      id="gpt-5-mini"
+                      name="model"
+                      type="radio"
+                      value="gpt-5-mini"
+                      checked={formData.model === 'gpt-5-mini'}
+                      onChange={handleModelChange}
+                      className="h-4 w-4 text-teal focus:ring-teal border-gray-300"
+                    />
+                    <label htmlFor="gpt-5-mini" className="ml-3 block text-sm text-gray-700">
+                      <span className="font-medium">GPT-5 mini</span>
+                      <span className="text-blue-600 ml-2">(バランス)</span>
+                    </label>
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      id="gpt-5"
+                      name="model"
+                      type="radio"
+                      value="gpt-5"
+                      checked={formData.model === 'gpt-5'}
+                      onChange={handleModelChange}
+                      className="h-4 w-4 text-teal focus:ring-teal border-gray-300"
+                    />
+                    <label htmlFor="gpt-5" className="ml-3 block text-sm text-gray-700">
+                      <span className="font-medium">GPT-5</span>
+                      <span className="text-purple-600 ml-2">(最高品質)</span>
+                    </label>
+                  </div>
+                </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Choose the AI model based on your quality and speed requirements.
                 </p>
               </div>
 

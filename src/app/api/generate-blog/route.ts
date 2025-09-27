@@ -68,6 +68,7 @@ Before writing, analyze the given topic thoroughly to identify the most valuable
 interface BlogGenerationRequest {
   topic: string
   keywords?: string
+  model?: 'gpt-5-nano' | 'gpt-5-mini' | 'gpt-5'
   currentLocale: 'ja' | 'en' | 'zh'
 }
 
@@ -81,6 +82,7 @@ function validateRequest(data: unknown): data is BlogGenerationRequest {
     typeof req.topic === 'string' &&
     req.topic.trim().length > 0 &&
     (req.keywords === undefined || typeof req.keywords === 'string') &&
+    (req.model === undefined || ['gpt-5-nano', 'gpt-5-mini', 'gpt-5'].includes(req.model as string)) &&
     typeof req.currentLocale === 'string' &&
     ['ja', 'en', 'zh'].includes(req.currentLocale)
   )
@@ -121,12 +123,12 @@ export async function POST(request: NextRequest) {
 
     if (!validateRequest(data)) {
       return NextResponse.json(
-        { error: 'Invalid request. Required: topic (string), currentLocale (ja|en|zh). Optional: keywords (string)' },
+        { error: 'Invalid request. Required: topic (string), currentLocale (ja|en|zh). Optional: keywords (string), model (gpt-5-nano|gpt-5-mini|gpt-5)' },
         { status: 400 }
       )
     }
 
-    const { topic, keywords = '', currentLocale } = data
+    const { topic, keywords = '', model = 'gpt-5-nano', currentLocale } = data
 
     // Create language-specific prompt
     const prompt = createPrompt(topic, keywords, currentLocale)
@@ -134,7 +136,7 @@ export async function POST(request: NextRequest) {
     // Get OpenAI client and call API
     const openai = getOpenAIClient()
     const completion = await openai.chat.completions.create({
-      model: 'gpt-5', // Use advanced GPT-5 model for superior blog generation
+      model: model, // Use dynamically selected model
       messages: [
         {
           role: 'user',
@@ -163,6 +165,7 @@ export async function POST(request: NextRequest) {
       content: generatedContent,
       metadata: {
         locale: currentLocale,
+        model: model,
         topic,
         keywords: keywords || null,
         wordCount: generatedContent.length,
