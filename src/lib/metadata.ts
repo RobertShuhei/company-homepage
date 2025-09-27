@@ -27,20 +27,8 @@ const commonMetadata = {
       "max-snippet": -1,
     },
   },
-<<<<<<< HEAD
   // Icons removed to prevent 404 errors - no icon files exist in public directory
   // icons: {},
-=======
-  icons: {
-    icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
   manifest: "/site.webmanifest",
 }
 

@@ -4,12 +4,8 @@ import { type Locale, defaultLocale, type Translations } from './i18n'
 // Translation data cache for server-side rendering
 let serverTranslationCache: Record<Locale, Translations | null> = {
   en: null,
-<<<<<<< HEAD
   ja: null,
   zh: null
-=======
-  ja: null
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
 }
 
 // Load translations for a specific locale (server-side only)
@@ -229,13 +225,7 @@ export async function extractFooterTranslations(locale: Locale): Promise<FooterT
 export function clearServerTranslationCache(): void {
   serverTranslationCache = {
     en: null,
-<<<<<<< HEAD
     ja: null,
     zh: null
   }
 }
-=======
-    ja: null
-  }
-}
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6

@@ -56,7 +56,6 @@ const Card: React.FC<CardProps> = ({
 
   if (href) {
     return (
-<<<<<<< HEAD
       <article className={baseClasses}>
         <LocalizedLink
           href={href}
@@ -65,15 +64,6 @@ const Card: React.FC<CardProps> = ({
           {cardContent}
         </LocalizedLink>
       </article>
-=======
-      <LocalizedLink
-        href={href}
-        className={`${baseClasses} group cursor-pointer transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2`}
-        role="article"
-      >
-        {cardContent}
-      </LocalizedLink>
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
     )
   }
 

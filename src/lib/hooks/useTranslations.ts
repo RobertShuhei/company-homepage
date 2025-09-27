@@ -7,12 +7,8 @@ import { type Locale, defaultLocale, isValidLocale, type Translations, getLocale
 // Translation data cache for client-side
 let clientTranslationCache: Record<Locale, Translations | null> = {
   en: null,
-<<<<<<< HEAD
   ja: null,
   zh: null
-=======
-  ja: null
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
 }
 
 // Load translations for client-side use
@@ -142,13 +138,7 @@ export function useTypedTranslations(translations: Translations) {
 export function clearClientTranslationCache(): void {
   clientTranslationCache = {
     en: null,
-<<<<<<< HEAD
     ja: null,
     zh: null
   }
 }
-=======
-    ja: null
-  }
-}
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6

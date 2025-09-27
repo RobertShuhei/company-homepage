@@ -30,10 +30,6 @@ export default function StructuredData({ locale }: StructuredDataProps) {
       streetAddress: "5F-B, ParkFront, 1-23-2 Hakata Ekimae",
       addressLocality: "Fukuoka",
       addressRegion: "Fukuoka Prefecture",
-<<<<<<< HEAD
-=======
-      postalCode: "812-0011",
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
       addressCountry: "JP",
     },
     geo: {
@@ -45,10 +41,6 @@ export default function StructuredData({ locale }: StructuredDataProps) {
       {
         "@type": "ContactPoint",
         contactType: "customer service",
-<<<<<<< HEAD
-=======
-        telephone: "+81-70-8361-4870",
->>>>>>> 3ece5cf0d13f509e5ff38ea068119ea095de1ca6
         email: "info@global-genex.com",
         availableLanguage: ["English", "Japanese"],
         hoursAvailable: {
