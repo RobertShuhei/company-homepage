@@ -135,7 +135,6 @@ export default async function LocalizedPrivacyPage({ params }: PrivacyPageProps)
             </p>
             <div className="text-gray space-y-2">
               <p><strong>{locale === 'ja' ? 'メール' : 'Email'}:</strong> {t.privacy.sections.contact.email}</p>
-              <p><strong>{locale === 'ja' ? '電話' : 'Phone'}:</strong> {t.privacy.sections.contact.phone}</p>
               <div className="leading-relaxed">
                 <strong>{locale === 'ja' ? '住所' : 'Address'}:</strong><br />
                 <div className="whitespace-pre-line">{t.privacy.sections.contact.address}</div>
