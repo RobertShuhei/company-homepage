@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
-import { type Locale, isValidLocale, defaultLocale } from '../../../../i18n.config'
+import { type Locale, isValidLocale, defaultLocale } from '@/lib/i18n'
 import { notFound } from 'next/navigation'
 
 interface PrivacyPageProps {

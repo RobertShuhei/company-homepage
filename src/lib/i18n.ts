@@ -1,6 +1,6 @@
-import { 
-  locales, 
-  defaultLocale, 
+import {
+  locales,
+  defaultLocale,
   type Locale,
   getLocaleFromPathname,
   removeLocaleFromPathname,
@@ -11,9 +11,9 @@ import {
 } from '../../i18n.config'
 
 // Re-export types and utilities for easier importing
-export { 
-  type Locale, 
-  defaultLocale, 
+export {
+  type Locale,
+  defaultLocale,
   locales,
   getLocaleFromPathname,
   removeLocaleFromPathname,
@@ -21,7 +21,7 @@ export {
   getAlternateUrls,
   generateHreflangLinks,
   isValidLocale
-} from '../../i18n.config'
+}
 
 // Translation interface for type safety
 export interface Translations {

@@ -15,7 +15,6 @@ export function buildSchemas({
   seoData,
   baseURL = DEFAULT_BASE_URL
 }: SchemaBuilderParams): StructuredDataSchema[] {
-  const baseUrl = `${baseURL}/${locale}`
   const pageUrl = `${baseURL}${pathname === '/' ? `/${locale}` : `/${locale}${pathname}`}`
   const schemas: StructuredDataSchema[] = []
 
@@ -23,7 +22,7 @@ export function buildSchemas({
   schemas.push(buildWebPageSchema({ locale, page, seoData, pageUrl }))
 
   // Always include BreadcrumbList schema
-  schemas.push(buildBreadcrumbSchema({ locale, page, seoData, pageUrl }))
+  schemas.push(buildBreadcrumbSchema({ page, seoData, pageUrl }))
 
   // Include Organization schema for home page
   if (page === 'home') {
@@ -90,12 +89,10 @@ function buildWebPageSchema({
  * Build BreadcrumbList schema
  */
 function buildBreadcrumbSchema({
-  locale,
   page,
   seoData,
   pageUrl
 }: {
-  locale: string
   page: keyof SEOTranslations['pages']
   seoData: SEOTranslations
   pageUrl: string

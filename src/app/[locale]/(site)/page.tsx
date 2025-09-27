@@ -4,7 +4,7 @@ import Card from '@/components/ui/Card'
 import CTA from '@/components/ui/CTA'
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
-import { type Locale, isValidLocale, defaultLocale } from '../../../i18n.config'
+import { type Locale, isValidLocale, defaultLocale } from '@/lib/i18n'
 import { notFound } from 'next/navigation'
 
 interface HomePageProps {

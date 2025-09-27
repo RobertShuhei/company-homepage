@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { type Locale, isValidLocale, defaultLocale } from '../../../../i18n.config';
 import { notFound } from 'next/navigation';
-import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
-import StructuredData from '@/components/StructuredData';
-import BreadcrumbStructuredData from '@/components/BreadcrumbStructuredData';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
+import BreadcrumbStructuredData from '@/components/BreadcrumbStructuredData';
+import StructuredData from '@/components/StructuredData';
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import { defaultLocale, isValidLocale, type Locale } from '@/lib/i18n';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -19,11 +19,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+  const adminPath = locale === defaultLocale ? '/admin/generator' : `/${locale}/admin/generator`;
 
   return {
     title: 'Admin Panel - Global Genex Inc.',
     description: 'Administrative panel for Global Genex Inc. blog content generation',
     robots: 'noindex, nofollow', // Prevent admin pages from being indexed
+    alternates: {
+      canonical: adminPath,
+    },
   };
 }
 
