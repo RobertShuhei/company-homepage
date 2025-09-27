@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -19,7 +20,19 @@ export default function AdminLayout({
 }: AdminLayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Minimal admin layout without Header/Footer */}
+      {/* Admin header with language switcher */}
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="text-lg font-semibold text-navy">
+              Admin Panel - Global Genex Inc.
+            </div>
+            <LanguageSwitcher />
+          </div>
+        </div>
+      </div>
+
+      {/* Main content */}
       <div className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Admin breadcrumb */}
