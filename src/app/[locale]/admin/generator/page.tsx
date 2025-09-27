@@ -5,7 +5,7 @@ import { useTranslations } from '@/lib/hooks/useTranslations'
 import { getNestedTranslation } from '@/lib/translations'
 
 export default function BlogGeneratorPage() {
-  const { t, isLoading } = useTranslations()
+  const { t, locale, isLoading } = useTranslations()
   const [formData, setFormData] = useState({
     topic: '',
     keywords: ''
@@ -31,33 +31,56 @@ export default function BlogGeneratorPage() {
     e.preventDefault()
     setIsGenerating(true)
 
-    // Placeholder for AI API call - will be implemented in next step
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      // Call our AI API with current locale
+      const response = await fetch('/api/generate-blog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          topic: formData.topic,
+          keywords: formData.keywords,
+          currentLocale: locale // Use the locale from useTranslations hook
+        })
+      })
 
-      // Mock generated content for now
-      setGeneratedContent(`# Generated Blog Post
+      const data = await response.json() as {
+        success?: boolean
+        content?: string
+        error?: string
+      }
 
-## Topic: ${formData.topic}
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to generate blog post')
+      }
 
-This is a placeholder for the AI-generated blog content. The actual API integration will be implemented in the next phase.
-
-**Keywords**: ${formData.keywords}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-### Section 1
-Content related to ${formData.topic}...
-
-### Section 2
-More detailed analysis incorporating ${formData.keywords}...
-
-### Conclusion
-Summary of the blog post content.`)
+      if (data.success && data.content) {
+        setGeneratedContent(data.content)
+      } else {
+        throw new Error('Invalid response from API')
+      }
     } catch (error) {
       console.error('Error generating blog post:', error)
-      setGeneratedContent('Error generating blog post. Please try again.')
+
+      // Provide user-friendly error messages
+      let errorMessage = 'Error generating blog post. Please try again.'
+
+      if (error instanceof Error) {
+        if (error.message.includes('API key')) {
+          errorMessage = 'OpenAI API is not configured. Please contact the administrator.'
+        } else if (error.message.includes('quota')) {
+          errorMessage = 'API quota exceeded. Please try again later.'
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+          errorMessage = 'Network error. Please check your connection and try again.'
+        }
+      }
+
+      setGeneratedContent(`# Error
+
+${errorMessage}
+
+**Debug Info**: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {
       setIsGenerating(false)
     }
