@@ -1,25 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
-import { type Locale, isValidLocale, defaultLocale, getLocaleFromPathname } from '../../../../i18n.config'
+import { useState } from 'react'
+import { useTranslations } from '@/lib/hooks/useTranslations'
 import { getNestedTranslation } from '@/lib/translations'
 
-// Import translation files directly
-import enTranslations from '@/locales/en/common.json'
-import jaTranslations from '@/locales/ja/common.json'
-import zhTranslations from '@/locales/zh/common.json'
-
-const translations = {
-  en: enTranslations,
-  ja: jaTranslations,
-  zh: zhTranslations
-} as const
-
 export default function BlogGeneratorPage() {
-  const pathname = usePathname()
-  const [currentLocale, setCurrentLocale] = useState<Locale>(defaultLocale)
-  const [isLoading, setIsLoading] = useState(true)
+  const { t, locale, isLoading } = useTranslations()
   const [formData, setFormData] = useState({
     topic: '',
     referenceUrl: '',
@@ -29,31 +15,6 @@ export default function BlogGeneratorPage() {
   })
   const [generatedContent, setGeneratedContent] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
-
-  // Detect locale from current URL or cookies
-  useEffect(() => {
-    const detectLocale = () => {
-      // Check for locale cookie first
-      if (typeof document !== 'undefined') {
-        const cookieMatch = document.cookie.match(/NEXT_LOCALE=([^;]+)/)
-        if (cookieMatch && isValidLocale(cookieMatch[1])) {
-          setCurrentLocale(cookieMatch[1] as Locale)
-          setIsLoading(false)
-          return
-        }
-      }
-
-      // Fall back to URL detection or default
-      const urlLocale = getLocaleFromPathname(pathname)
-      setCurrentLocale(urlLocale || defaultLocale)
-      setIsLoading(false)
-    }
-
-    detectLocale()
-  }, [pathname])
-
-  // Get current translations
-  const t = translations[currentLocale]
 
   // Helper function to get translations safely
   const getText = (path: string, fallback: string) => {
@@ -93,7 +54,7 @@ export default function BlogGeneratorPage() {
           keywords: formData.keywords,
           instructions: formData.instructions,
           model: formData.model,
-          currentLocale: currentLocale // Use the detected locale
+          currentLocale: locale // Use the locale from useTranslations hook
         })
       })
 

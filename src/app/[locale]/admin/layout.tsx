@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { type Locale, isValidLocale, defaultLocale } from '../../../../i18n.config';
+import { notFound } from 'next/navigation';
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }
 
 // Generate metadata for admin routes
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+
   return {
     title: 'Admin Panel - Global Genex Inc.',
     description: 'Administrative panel for Global Genex Inc. blog content generation',
@@ -15,12 +24,22 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
+  params,
 }: AdminLayoutProps) {
+  const resolvedParams = await params;
+
+  // Validate locale
+  if (!isValidLocale(resolvedParams.locale)) {
+    notFound();
+  }
+
+  const locale = resolvedParams.locale as Locale;
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Admin header with language switcher */}
+      {/* Admin header with language switcher - NO main site Header/Footer */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -41,12 +60,12 @@ export default function AdminLayout({
               <ol className="flex items-center space-x-4">
                 <li>
                   <div>
-                    <Link href="/ja" className="text-gray-400 hover:text-gray-500">
+                    <a href={`/${locale}`} className="text-gray-400 hover:text-gray-500">
                       <svg className="flex-shrink-0 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 10v8a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H8a1 1 0 00-1 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-8a1 1 0 01.293-.707l7-7z" clipRule="evenodd" />
                       </svg>
                       <span className="sr-only">Home</span>
-                    </Link>
+                    </a>
                   </div>
                 </li>
                 <li>
