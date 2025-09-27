@@ -584,8 +584,9 @@
         "services": "Services"
       },
       "audience": "Retail & Manufacturing Companies"
-    },
-    "admin": {
+    }
+  },
+  "admin": {
       "generator": {
         "title": "Blog Generator Admin Panel",
         "subtitle": "Generate AI-powered blog content for Global Genex Inc.",
@@ -640,5 +641,4 @@
         }
       }
     }
-  }
 }

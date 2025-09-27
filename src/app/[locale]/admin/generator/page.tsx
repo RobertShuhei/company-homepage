@@ -21,10 +21,10 @@ export default async function AdminGeneratorPage({
   try {
     const translations = await getServerTranslations(locale);
 
-    // Debug: Check if admin translations are loaded
-    if (!translations.admin) {
-      console.error('Admin translations missing for locale:', locale);
-      console.error('Available translation keys:', Object.keys(translations));
+    // Validate admin translations are loaded (only warn in development)
+    if (!translations.admin && process.env.NODE_ENV === 'development') {
+      console.warn('Admin translations missing for locale:', locale);
+      console.warn('Available translation keys:', Object.keys(translations));
     }
 
     return (

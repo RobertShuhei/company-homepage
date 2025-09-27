@@ -23,9 +23,16 @@ export default function AdminGeneratorClient({
   const [generatedContent, setGeneratedContent] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
 
-  // Debug: Check if translations are loaded properly
+  // Check if translations are loaded properly
   if (!translations || !translations.admin) {
-    console.error('Translations not loaded properly:', { translations, locale })
+    // Only log in development mode to avoid console noise in production
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Admin translations not available:', {
+        hasTranslations: !!translations,
+        hasAdmin: !!(translations?.admin),
+        locale
+      })
+    }
     return (
       <div className="text-center py-12">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal mx-auto"></div>
