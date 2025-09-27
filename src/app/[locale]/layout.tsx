@@ -35,7 +35,7 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   const resolvedParams = await params;
-  
+
   // Validate locale
   if (!isValidLocale(resolvedParams.locale)) {
     notFound();
