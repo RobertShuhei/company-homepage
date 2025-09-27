@@ -8,7 +8,9 @@ export default function BlogGeneratorPage() {
   const { t, locale, isLoading } = useTranslations()
   const [formData, setFormData] = useState({
     topic: '',
+    referenceUrl: '',
     keywords: '',
+    instructions: '',
     model: 'gpt-5-nano' // Default to most cost-effective model
   })
   const [generatedContent, setGeneratedContent] = useState('')
@@ -48,7 +50,9 @@ export default function BlogGeneratorPage() {
         },
         body: JSON.stringify({
           topic: formData.topic,
+          referenceUrl: formData.referenceUrl,
           keywords: formData.keywords,
+          instructions: formData.instructions,
           model: formData.model,
           currentLocale: locale // Use the locale from useTranslations hook
         })
@@ -150,6 +154,28 @@ ${errorMessage}
                 </p>
               </div>
 
+              {/* Reference URL Input */}
+              <div>
+                <label
+                  htmlFor="referenceUrl"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  {getText('admin.generator.form.referenceUrlLabel', 'Reference URL')}
+                </label>
+                <input
+                  type="url"
+                  id="referenceUrl"
+                  name="referenceUrl"
+                  value={formData.referenceUrl}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+                  placeholder={getText('admin.generator.form.referenceUrlPlaceholder', 'https://example.com/reference-article')}
+                />
+                <p className="mt-1 text-sm text-gray-500">
+                  {getText('admin.generator.form.referenceUrlHelper', 'Optional URL to reference for context and inspiration when generating the blog post.')}
+                </p>
+              </div>
+
               {/* Keywords Input */}
               <div>
                 <label
@@ -169,6 +195,28 @@ ${errorMessage}
                 />
                 <p className="mt-1 text-sm text-gray-500">
                   {getText('admin.generator.form.keywordsHelper', 'Comma-separated keywords to include in the blog post for SEO optimization.')}
+                </p>
+              </div>
+
+              {/* Instructions for AI */}
+              <div>
+                <label
+                  htmlFor="instructions"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  {getText('admin.generator.form.instructionsLabel', 'Instructions for AI')}
+                </label>
+                <textarea
+                  id="instructions"
+                  name="instructions"
+                  value={formData.instructions}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent resize-vertical"
+                  placeholder={getText('admin.generator.form.instructionsPlaceholder', 'Specify tone, style, target audience, or any specific instructions for the AI. E.g., "Write in a professional tone for manufacturing executives" or "Include technical details and case studies"...')}
+                />
+                <p className="mt-1 text-sm text-gray-500">
+                  {getText('admin.generator.form.instructionsHelper', 'Provide specific guidance for the AI regarding tone, style, target audience, or content requirements.')}
                 </p>
               </div>
 

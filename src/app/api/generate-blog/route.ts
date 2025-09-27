@@ -67,7 +67,9 @@ Before writing, analyze the given topic thoroughly to identify the most valuable
 // Request validation interface
 interface BlogGenerationRequest {
   topic: string
+  referenceUrl?: string
   keywords?: string
+  instructions?: string
   model?: 'gpt-5-nano' | 'gpt-5-mini' | 'gpt-5'
   currentLocale: 'ja' | 'en' | 'zh'
 }
@@ -81,7 +83,9 @@ function validateRequest(data: unknown): data is BlogGenerationRequest {
   return (
     typeof req.topic === 'string' &&
     req.topic.trim().length > 0 &&
+    (req.referenceUrl === undefined || typeof req.referenceUrl === 'string') &&
     (req.keywords === undefined || typeof req.keywords === 'string') &&
+    (req.instructions === undefined || typeof req.instructions === 'string') &&
     (req.model === undefined || ['gpt-5-nano', 'gpt-5-mini', 'gpt-5'].includes(req.model as string)) &&
     typeof req.currentLocale === 'string' &&
     ['ja', 'en', 'zh'].includes(req.currentLocale)
@@ -89,16 +93,26 @@ function validateRequest(data: unknown): data is BlogGenerationRequest {
 }
 
 // Create language-specific prompt
-function createPrompt(topic: string, keywords: string, locale: 'ja' | 'en' | 'zh'): string {
+function createPrompt(topic: string, referenceUrl: string, keywords: string, instructions: string, locale: 'ja' | 'en' | 'zh'): string {
   const langConfig = LANGUAGE_PROMPTS[locale]
 
   let prompt = `${langConfig.systemPrompt}
 
 トピック/Topic/主题: ${topic}`
 
+  if (referenceUrl && referenceUrl.trim()) {
+    prompt += `
+参考URL/Reference URL/参考链接: ${referenceUrl}`
+  }
+
   if (keywords && keywords.trim()) {
     prompt += `
 キーワード/Keywords/关键词: ${keywords}`
+  }
+
+  if (instructions && instructions.trim()) {
+    prompt += `
+特別な指示/Special Instructions/特殊说明: ${instructions}`
   }
 
   prompt += `
@@ -123,15 +137,15 @@ export async function POST(request: NextRequest) {
 
     if (!validateRequest(data)) {
       return NextResponse.json(
-        { error: 'Invalid request. Required: topic (string), currentLocale (ja|en|zh). Optional: keywords (string), model (gpt-5-nano|gpt-5-mini|gpt-5)' },
+        { error: 'Invalid request. Required: topic (string), currentLocale (ja|en|zh). Optional: referenceUrl (string), keywords (string), instructions (string), model (gpt-5-nano|gpt-5-mini|gpt-5)' },
         { status: 400 }
       )
     }
 
-    const { topic, keywords = '', model = 'gpt-5-nano', currentLocale } = data
+    const { topic, referenceUrl = '', keywords = '', instructions = '', model = 'gpt-5-nano', currentLocale } = data
 
     // Create language-specific prompt
-    const prompt = createPrompt(topic, keywords, currentLocale)
+    const prompt = createPrompt(topic, referenceUrl, keywords, instructions, currentLocale)
 
     // Get OpenAI client and call API
     const openai = getOpenAIClient()
