@@ -205,7 +205,7 @@ export default function ContactForm() {
     return (
       <div className="bg-green-50 border-2 border-green-200 rounded-xl p-10 lg:p-12 text-center">
         <div className="w-20 h-20 lg:w-24 lg:h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-10 h-10 lg:w-12 lg:h-12 text-green-600">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-10 h-10 lg:w-12 lg:h-12 text-green-600" aria-label="Success">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -234,7 +234,7 @@ export default function ContactForm() {
         <div className="bg-red-50 border border-red-200 rounded-xl p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <svg className="h-6 w-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Error">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -383,11 +383,12 @@ export default function ContactForm() {
           />
           <label htmlFor="privacyConsent" className="ml-3 text-sm text-navy">
             {t('contact.form.fields.privacyConsent.label')}{' '}
-            <a 
-              href={addLocaleToPathname('/privacy', currentLocale)} 
+            <a
+              href={addLocaleToPathname('/privacy', currentLocale)}
               className="text-teal hover:text-teal/80 underline"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${t('contact.form.fields.privacyConsent.privacyPolicy')} (opens in new window)`}
             >
               {t('contact.form.fields.privacyConsent.privacyPolicy')}
             </a>

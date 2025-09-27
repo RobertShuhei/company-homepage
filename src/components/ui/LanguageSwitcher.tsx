@@ -1,16 +1,35 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { 
-  type Locale, 
+import {
+  type Locale,
+  locales,
   defaultLocale,
-  getLocaleFromPathname, 
-  removeLocaleFromPathname, 
+  getLocaleFromPathname,
+  removeLocaleFromPathname,
   addLocaleToPathname,
   cookieConfig,
   isValidLocale
 } from '../../../i18n.config'
-import { useState, useEffect, useMemo } from 'react'
+import { Fragment, useState, useEffect, useMemo } from 'react'
+
+const languageLabels: Record<Locale, { label: string; mobileLabel: string; ariaLabel: string }> = {
+  ja: {
+    label: 'JP',
+    mobileLabel: '日本語',
+    ariaLabel: '日本語に切り替え'
+  },
+  en: {
+    label: 'EN',
+    mobileLabel: 'English',
+    ariaLabel: 'Switch to English'
+  },
+  zh: {
+    label: 'ZH',
+    mobileLabel: '简体中文',
+    ariaLabel: '切换到简体中文'
+  }
+}
 
 interface LanguageSwitcherProps {
   className?: string
@@ -56,64 +75,75 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     return removeLocaleFromPathname(pathname, detectedLocale)
   }, [pathname, detectedLocale])
 
-  // Generate URLs for language switching
-  const getLocalizedUrl = (targetLocale: Locale): string => {
-    return addLocaleToPathname(cleanPath, targetLocale)
-  }
+  const languageOptions = useMemo(() => {
+    return locales.map(locale => ({
+      locale,
+      url: addLocaleToPathname(cleanPath, locale),
+      isActive: locale === detectedLocale,
+      ...languageLabels[locale]
+    }))
+  }, [cleanPath, detectedLocale])
 
-  // Only show the inactive language - hide the currently active one
-  const getInactiveLanguage = (): { locale: Locale; url: string; label: string; mobileLabel: string; ariaLabel: string } | null => {
-    if (detectedLocale === 'ja') {
-      return {
-        locale: 'en',
-        url: getLocalizedUrl('en'),
-        label: 'EN',
-        mobileLabel: 'English',
-        ariaLabel: 'Switch to English'
-      }
-    } else if (detectedLocale === 'en') {
-      return {
-        locale: 'ja',
-        url: getLocalizedUrl('ja'),
-        label: 'JP',
-        mobileLabel: '日本語',
-        ariaLabel: '日本語に切り替え'
-      }
-    }
-    return null
-  }
-
-  const inactiveLanguage = getInactiveLanguage()
-
-  // If no inactive language to show, don't render anything
-  if (!inactiveLanguage) {
+  if (!languageOptions.length) {
     return null
   }
 
   // Desktop variant - simple text link without container
   if (variant === 'desktop') {
     return (
-      <button
-        onClick={() => handleLanguageSwitch(inactiveLanguage.locale, inactiveLanguage.url)}
-        className={`px-2 py-1 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 text-gray hover:text-navy ${className}`}
-        aria-label={inactiveLanguage.ariaLabel}
-        type="button"
+      <div
+        className={`flex items-center gap-2 text-sm font-medium ${className}`}
+        role="group"
+        aria-label="Language selector"
       >
-        {inactiveLanguage.label}
-      </button>
+        {languageOptions.map((option, index) => (
+          <Fragment key={option.locale}>
+            <button
+              onClick={() => !option.isActive && handleLanguageSwitch(option.locale, option.url)}
+              className={`px-2 py-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
+                option.isActive ? 'text-navy cursor-default' : 'text-gray hover:text-navy'
+              }`}
+              aria-label={option.isActive ? `当前语言：${option.mobileLabel}` : option.ariaLabel}
+              aria-pressed={option.isActive}
+              type="button"
+              disabled={option.isActive}
+            >
+              {option.label}
+            </button>
+            {index < languageOptions.length - 1 && (
+              <span className="text-gray" aria-hidden="true">|</span>
+            )}
+          </Fragment>
+        ))}
+      </div>
     )
   }
 
   // Mobile variant - clean integration in mobile menu
   return (
-    <button
-      onClick={() => handleLanguageSwitch(inactiveLanguage.locale, inactiveLanguage.url)}
-      className={`w-full text-left block px-3 py-2 text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 text-gray hover:text-navy hover:bg-gray-50 ${className}`}
-      aria-label={inactiveLanguage.ariaLabel}
-      type="button"
+    <div
+      className={`flex flex-col gap-1 ${className}`}
+      role="group"
+      aria-label="Language selector"
     >
-      {inactiveLanguage.mobileLabel}
-    </button>
+      {languageOptions.map(option => (
+        <button
+          key={option.locale}
+          onClick={() => !option.isActive && handleLanguageSwitch(option.locale, option.url)}
+          className={`w-full text-left block px-3 py-2 text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
+            option.isActive
+              ? 'text-navy bg-gray-100 cursor-default'
+              : 'text-gray hover:text-navy hover:bg-gray-50'
+          }`}
+          aria-label={option.isActive ? `当前语言：${option.mobileLabel}` : option.ariaLabel}
+          aria-pressed={option.isActive}
+          type="button"
+          disabled={option.isActive}
+        >
+          {option.mobileLabel}
+        </button>
+      ))}
+    </div>
   )
 }
 

@@ -89,7 +89,7 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
   ]
 
   return (
-    <>
+    <main>
       {/* Hero Section */}
       <Hero
           title={t.homepage.hero.title}
@@ -163,6 +163,6 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
         secondaryButton={{ text: t.homepage.cta.secondaryButton, href: "/about" }}
         variant="light"
       />
-    </>
+    </main>
   )
 }

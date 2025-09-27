@@ -1,0 +1,203 @@
+{
+  "organization": {
+    "name": "Global Genex株式会社",
+    "alternateName": "株式会社グローバルジェネックス",
+    "description": "一家总部位于日本福冈的专业咨询公司。我们帮助零售和制造企业改进运营、运用数据并拓展国际市场，提供推动业务增长的实用解决方案。",
+    "founder": {
+      "name": "中原修平",
+      "alternateName": "Shuhei Nakahara",
+      "jobTitle": "代表董事",
+      "description": "驻扎福冈的日英双语顾问，专注于零售与制造运营、数据应用以及跨境业务赋能，提供实践性的现场执行与具体对策。",
+      "skills": [
+        "零售运营",
+        "制造运营",
+        "数据分析",
+        "跨境业务",
+        "项目管理",
+        "数字化转型"
+      ]
+    },
+    "services": [
+      {
+        "name": "零售运营咨询",
+        "description": "通过数据运用构建高效零售运营并提升销售额"
+      },
+      {
+        "name": "制造运营咨询",
+        "description": "优化生产流程并改进供应链管理"
+      },
+      {
+        "name": "跨境业务支持",
+        "description": "为进入日本市场及国际扩张提供战略规划与执行支持"
+      },
+      {
+        "name": "数据分析与AI应用",
+        "description": "利用AI技术进行业务数据分析并提升运营效率"
+      }
+    ]
+  },
+  "pages": {
+    "home": {
+      "metadata": {
+        "title": "Global Genex株式会社｜专业咨询服务",
+        "description": "总部位于日本福冈的专业咨询公司。我们为零售和制造企业提供实用方案，帮助改善运营、利用数据并拓展国际市场。",
+        "keywords": [
+          "Global Genex",
+          "咨询",
+          "零售",
+          "制造",
+          "数据分析",
+          "国际拓展",
+          "进入日本市场",
+          "福冈",
+          "双语顾问",
+          "数字化转型咨询"
+        ]
+      },
+      "openGraph": {
+        "title": "Global Genex株式会社｜专业咨询服务",
+        "description": "总部位于福冈的专业咨询公司，支持零售与制造企业改善运营、利用数据并拓展国际市场。",
+        "imageAlt": "Global Genex株式会社 - 专业商务咨询服务"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "Global Genex株式会社｜专业咨询服务",
+          "description": "Global Genex株式会社官网首页，介绍我们在零售与制造运营改进、数据运用以及国际拓展方面的咨询服务。"
+        },
+        "breadcrumb": {
+          "home": "首页"
+        }
+      }
+    },
+    "about": {
+      "metadata": {
+        "title": "关于Global Genex株式会社 - 公司简介与领导团队",
+        "description": "了解总部位于日本福冈的咨询公司Global Genex株式会社。认识我们的领导团队，了解我们帮助零售和制造企业提升运营的使命。",
+        "keywords": [
+          "Global Genex",
+          "关于我们",
+          "创始人",
+          "背景",
+          "经验",
+          "使命",
+          "愿景",
+          "核心价值",
+          "中原修平",
+          "双语顾问"
+        ]
+      },
+      "openGraph": {
+        "title": "关于Global Genex株式会社 - 公司简介与领导团队",
+        "description": "了解我们的咨询公司、领导团队，以及帮助企业改进运营的使命与愿景。",
+        "imageAlt": "关于Global Genex株式会社"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "关于Global Genex株式会社 - 公司简介与领导团队",
+          "description": "了解总部位于日本福冈的咨询公司Global Genex株式会社。认识我们的领导团队及协助零售、制造企业改善运营的使命。"
+        },
+        "aboutPage": {
+          "name": "关于Global Genex株式会社",
+          "description": "Global Genex株式会社的公司简介、领导团队、使命、愿景及核心价值，专注于零售与制造运营的专业咨询公司。"
+        },
+        "breadcrumb": {
+          "home": "首页",
+          "about": "关于我们"
+        }
+      }
+    },
+    "services": {
+      "metadata": {
+        "title": "服务 - 专业咨询解决方案",
+        "description": "Global Genex株式会社的专业咨询服务。我们在零售运营、制造运营、国际拓展以及数据分析与AI应用方面提供实用方案。",
+        "keywords": [
+          "咨询服务",
+          "零售",
+          "制造",
+          "IT系统开发",
+          "市场拓展",
+          "数据分析",
+          "AI应用",
+          "国际拓展",
+          "进入日本市场",
+          "运营改善"
+        ]
+      },
+      "openGraph": {
+        "title": "服务 - 专业咨询解决方案",
+        "description": "我们在零售运营、制造运营、国际拓展以及数据分析与AI应用方面提供实用解决方案。",
+        "imageAlt": "Global Genex株式会社 服务"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "服务 - 专业咨询解决方案",
+          "description": "Global Genex株式会社咨询服务页面，介绍我们在零售运营、制造运营、国际拓展以及数据分析与AI应用方面的解决方案。"
+        },
+        "breadcrumb": {
+          "home": "首页",
+          "services": "服务"
+        }
+      }
+    },
+    "contact": {
+      "metadata": {
+        "title": "联系我们 - Global Genex株式会社",
+        "description": "联系Global Genex株式会社获取咨询服务。欢迎就咨询、报价及专业服务进行联系。",
+        "keywords": [
+          "联系",
+          "咨询",
+          "联系方式",
+          "报价",
+          "咨询需求",
+          "免费咨询",
+          "Global Genex",
+          "福冈"
+        ]
+      },
+      "openGraph": {
+        "title": "联系我们 - Global Genex株式会社",
+        "description": "欢迎就咨询、报价及专业服务需求与我们联系。",
+        "imageAlt": "联系Global Genex株式会社"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "联系我们 - Global Genex株式会社",
+          "description": "Global Genex株式会社的联系页面。欢迎咨询我们的服务并获取符合贵公司需求的报价。"
+        },
+        "breadcrumb": {
+          "home": "首页",
+          "contact": "联系我们"
+        }
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "隐私政策 - Global Genex株式会社",
+        "description": "Global Genex株式会社的隐私政策。了解我们处理与保护个人信息及数据隐私的方式。",
+        "keywords": [
+          "隐私政策",
+          "数据保护",
+          "服务条款",
+          "数据隐私",
+          "信息安全",
+          "Global Genex"
+        ]
+      },
+      "openGraph": {
+        "title": "隐私政策 - Global Genex株式会社",
+        "description": "了解我们处理与保护个人信息和数据隐私的方式。",
+        "imageAlt": "Global Genex株式会社 隐私政策"
+      },
+      "schemas": {
+        "webpage": {
+          "name": "隐私政策 - Global Genex株式会社",
+          "description": "Global Genex株式会社隐私政策页面，详细说明我们处理和保护个人信息的做法。"
+        },
+        "breadcrumb": {
+          "home": "首页",
+          "privacy": "隐私政策"
+        }
+      }
+    }
+  }
+}

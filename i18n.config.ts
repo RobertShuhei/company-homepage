@@ -4,7 +4,7 @@
  */
 
 // Supported locales configuration
-export const locales = ['ja', 'en'] as const
+export const locales = ['ja', 'en', 'zh'] as const
 export const defaultLocale = 'ja' as const
 
 // Type definitions for locale handling
@@ -57,7 +57,7 @@ export function isValidLocale(locale: string): locale is Locale {
 // Language preference mapping for Accept-Language header parsing
 export const languageMapping: Record<string, Locale> = {
   'ja': 'ja',
-  'ja-JP': 'ja', 
+  'ja-JP': 'ja',
   'ja-jp': 'ja',
   'japanese': 'ja',
   'en': 'en',
@@ -65,7 +65,13 @@ export const languageMapping: Record<string, Locale> = {
   'en-us': 'en',
   'en-GB': 'en',
   'en-gb': 'en',
-  'english': 'en'
+  'english': 'en',
+  'zh': 'zh',
+  'zh-CN': 'zh',
+  'zh-cn': 'zh',
+  'zh-Hans': 'zh',
+  'zh-hans': 'zh',
+  'chinese': 'zh'
 } as const
 
 // Utility function to parse Accept-Language header
