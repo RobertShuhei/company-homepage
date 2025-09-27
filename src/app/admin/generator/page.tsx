@@ -1,14 +1,23 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from '@/lib/hooks/useTranslations'
+import { getNestedTranslation } from '@/lib/translations'
 
 export default function BlogGeneratorPage() {
+  const { t, isLoading } = useTranslations()
   const [formData, setFormData] = useState({
     topic: '',
     keywords: ''
   })
   const [generatedContent, setGeneratedContent] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+
+  // Helper function to get translations safely
+  const getText = (path: string, fallback: string) => {
+    if (!t) return fallback
+    return getNestedTranslation(t, path, fallback)
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target
@@ -56,16 +65,30 @@ Summary of the blog post content.`)
 
   const canGenerate = formData.topic.trim().length > 0
 
+  // Show loading state while translations are loading
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-navy mb-2">
-            Blog Generator Admin Panel
+            {getText('admin.generator.title', 'Blog Generator Admin Panel')}
           </h1>
           <p className="text-gray-600">
-            Generate AI-powered blog content for Global Genex Inc.
+            {getText('admin.generator.subtitle', 'Generate AI-powered blog content for Global Genex Inc.')}
           </p>
         </div>
 
@@ -73,7 +96,7 @@ Summary of the blog post content.`)
           {/* Input Form */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-navy mb-6">
-              Content Generation
+              {getText('admin.generator.form.contentGeneration', 'Content Generation')}
             </h2>
 
             <form onSubmit={handleGenerate} className="space-y-6">
@@ -83,7 +106,7 @@ Summary of the blog post content.`)
                   htmlFor="topic"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  Topic / Outline *
+                  {getText('admin.generator.form.topicLabel', 'Topic / Outline')} *
                 </label>
                 <textarea
                   id="topic"
@@ -92,11 +115,11 @@ Summary of the blog post content.`)
                   onChange={handleInputChange}
                   rows={8}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent resize-vertical"
-                  placeholder="Enter the main topic and outline for your blog post. Include key points you want to cover, target audience, and any specific angles or perspectives..."
+                  placeholder={getText('admin.generator.form.topicPlaceholder', 'Enter the main topic and outline for your blog post. Include key points you want to cover, target audience, and any specific angles or perspectives...')}
                   required
                 />
                 <p className="mt-1 text-sm text-gray-500">
-                  Describe your blog topic and provide an outline of key points to cover.
+                  {getText('admin.generator.form.topicHelper', 'Describe your blog topic and provide an outline of key points to cover.')}
                 </p>
               </div>
 
@@ -106,7 +129,7 @@ Summary of the blog post content.`)
                   htmlFor="keywords"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  Keywords
+                  {getText('admin.generator.form.keywordsLabel', 'Keywords')}
                 </label>
                 <input
                   type="text"
@@ -115,10 +138,10 @@ Summary of the blog post content.`)
                   value={formData.keywords}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
-                  placeholder="manufacturing, consulting, AI, Japan market entry..."
+                  placeholder={getText('admin.generator.form.keywordsPlaceholder', 'manufacturing, consulting, AI, Japan market entry...')}
                 />
                 <p className="mt-1 text-sm text-gray-500">
-                  Comma-separated keywords to include in the blog post for SEO optimization.
+                  {getText('admin.generator.form.keywordsHelper', 'Comma-separated keywords to include in the blog post for SEO optimization.')}
                 </p>
               </div>
 
@@ -155,10 +178,10 @@ Summary of the blog post content.`)
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      Generating Blog Post...
+                      {getText('admin.generator.form.generating', 'Generating Blog Post...')}
                     </div>
                   ) : (
-                    'Generate Blog Post'
+                    getText('admin.generator.form.generateButton', 'Generate Blog Post')
                   )}
                 </button>
               </div>
@@ -168,7 +191,7 @@ Summary of the blog post content.`)
           {/* Generated Content Display */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-navy mb-6">
-              Generated Content
+              {getText('admin.generator.content.title', 'Generated Content')}
             </h2>
 
             {generatedContent ? (
@@ -186,13 +209,13 @@ Summary of the blog post content.`)
                     onClick={() => navigator.clipboard.writeText(generatedContent)}
                     className="px-4 py-2 bg-navy text-white rounded-md hover:bg-navy/90 transition-colors duration-200 text-sm font-medium"
                   >
-                    Copy Content
+                    {getText('admin.generator.content.copyButton', 'Copy Content')}
                   </button>
                   <button
                     onClick={() => setGeneratedContent('')}
                     className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-200 text-sm font-medium"
                   >
-                    Clear
+                    {getText('admin.generator.content.clearButton', 'Clear')}
                   </button>
                 </div>
               </div>
@@ -214,10 +237,10 @@ Summary of the blog post content.`)
                   </svg>
                 </div>
                 <p className="text-gray-500">
-                  Generated blog content will appear here
+                  {getText('admin.generator.content.placeholder', 'Generated blog content will appear here')}
                 </p>
                 <p className="text-sm text-gray-400 mt-2">
-                  Fill out the form and click &quot;Generate Blog Post&quot; to create content
+                  {getText('admin.generator.content.placeholderSubtext', 'Fill out the form and click "Generate Blog Post" to create content')}
                 </p>
               </div>
             )}
@@ -227,25 +250,20 @@ Summary of the blog post content.`)
         {/* Instructions */}
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-blue-900 mb-3">
-            Instructions
+            {getText('admin.generator.instructions.title', 'Instructions')}
           </h3>
           <ul className="space-y-2 text-blue-800">
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
-              Enter a detailed topic and outline in the textarea to guide the AI generation
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
-              Add relevant keywords to improve SEO optimization of the generated content
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
-              Click &quot;Generate Blog Post&quot; to create AI-powered content based on your inputs
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
-              Review and copy the generated content for use in your blog posts
-            </li>
+            {(t?.admin?.generator?.instructions?.items || [
+              'Enter a detailed topic and outline in the textarea to guide the AI generation',
+              'Add relevant keywords to improve SEO optimization of the generated content',
+              'Click "Generate Blog Post" to create AI-powered content based on your inputs',
+              'Review and copy the generated content for use in your blog posts'
+            ]).map((item: string, index: number) => (
+              <li key={index} className="flex items-start">
+                <span className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
       </div>

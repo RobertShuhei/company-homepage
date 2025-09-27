@@ -476,6 +476,36 @@ export interface Translations {
       audience: string
     }
   }
+
+  // Admin panel
+  admin: {
+    generator: {
+      title: string
+      subtitle: string
+      form: {
+        contentGeneration: string
+        topicLabel: string
+        topicPlaceholder: string
+        topicHelper: string
+        keywordsLabel: string
+        keywordsPlaceholder: string
+        keywordsHelper: string
+        generateButton: string
+        generating: string
+      }
+      content: {
+        title: string
+        placeholder: string
+        placeholderSubtext: string
+        copyButton: string
+        clearButton: string
+      }
+      instructions: {
+        title: string
+        items: string[]
+      }
+    }
+  }
 }
 
 // i18n configuration - imported from centralized config
