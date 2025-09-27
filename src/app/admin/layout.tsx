@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -27,12 +28,12 @@ export default function AdminLayout({
               <ol className="flex items-center space-x-4">
                 <li>
                   <div>
-                    <a href="/ja" className="text-gray-400 hover:text-gray-500">
+                    <Link href="/ja" className="text-gray-400 hover:text-gray-500">
                       <svg className="flex-shrink-0 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 10v8a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H8a1 1 0 00-1 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-8a1 1 0 01.293-.707l7-7z" clipRule="evenodd" />
                       </svg>
                       <span className="sr-only">Home</span>
-                    </a>
+                    </Link>
                   </div>
                 </li>
                 <li>
