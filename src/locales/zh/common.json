@@ -585,5 +585,46 @@
       },
       "audience": "零售制造业公司"
     }
+  },
+  "admin": {
+    "generator": {
+      "title": "博客生成管理面板",
+      "subtitle": "为Global Genex株式会社生成AI驱动的博客内容",
+      "form": {
+        "contentGeneration": "内容生成",
+        "topicLabel": "主题 / 大纲",
+        "topicPlaceholder": "请输入您博客文章的主要主题和大纲。包括您想涵盖的关键要点、目标受众以及任何特定角度或观点...",
+        "topicHelper": "描述您的博客主题并提供要涵盖的关键要点大纲。",
+        "keywordsLabel": "关键词",
+        "keywordsPlaceholder": "制造业, 咨询, AI, 日本市场进入...",
+        "keywordsHelper": "用逗号分隔的关键词，以便在博客文章中包含用于SEO优化。",
+        "modelLabel": "AI模型选择",
+        "modelHelper": "根据您的质量和速度要求选择AI模型。",
+        "generateButton": "生成博客文章",
+        "generating": "正在生成博客文章..."
+      },
+      "content": {
+        "title": "生成的内容",
+        "placeholder": "生成的博客内容将显示在这里",
+        "placeholderSubtext": "填写表单并点击\"生成博客文章\"来创建内容",
+        "copyButton": "复制内容",
+        "clearButton": "清除"
+      },
+      "instructions": {
+        "title": "使用说明",
+        "items": [
+          "在文本区域中输入详细的主题和大纲来指导AI生成",
+          "添加相关关键词以改善生成内容的SEO优化",
+          "点击\"生成博客文章\"根据您的输入创建AI驱动的内容",
+          "查看并复制生成的内容用于您的博客文章"
+        ]
+      },
+      "errors": {
+        "default": "生成博客文章时出错。请重试。",
+        "apiKey": "OpenAI API未配置。请联系管理员。",
+        "quota": "API配额已超出。请稍后重试。",
+        "network": "网络错误。请检查您的连接并重试。"
+      }
+    }
   }
 }

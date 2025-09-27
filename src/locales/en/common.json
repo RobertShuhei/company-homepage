@@ -584,6 +584,47 @@
         "services": "Services"
       },
       "audience": "Retail & Manufacturing Companies"
+    },
+    "admin": {
+      "generator": {
+        "title": "Blog Generator Admin Panel",
+        "subtitle": "Generate AI-powered blog content for Global Genex Inc.",
+        "form": {
+          "contentGeneration": "Content Generation",
+          "topicLabel": "Topic / Outline",
+          "topicPlaceholder": "Enter the main topic and outline for your blog post. Include key points you want to cover, target audience, and any specific angles or perspectives...",
+          "topicHelper": "Describe your blog topic and provide an outline of key points to cover.",
+          "keywordsLabel": "Keywords",
+          "keywordsPlaceholder": "manufacturing, consulting, AI, Japan market entry...",
+          "keywordsHelper": "Comma-separated keywords to include in the blog post for SEO optimization.",
+          "modelLabel": "AI Model Selection",
+          "modelHelper": "Choose the AI model based on your quality and speed requirements.",
+          "generateButton": "Generate Blog Post",
+          "generating": "Generating Blog Post..."
+        },
+        "content": {
+          "title": "Generated Content",
+          "placeholder": "Generated blog content will appear here",
+          "placeholderSubtext": "Fill out the form and click \"Generate Blog Post\" to create content",
+          "copyButton": "Copy Content",
+          "clearButton": "Clear"
+        },
+        "instructions": {
+          "title": "Instructions",
+          "items": [
+            "Enter a detailed topic and outline in the textarea to guide the AI generation",
+            "Add relevant keywords to improve SEO optimization of the generated content",
+            "Click \"Generate Blog Post\" to create AI-powered content based on your inputs",
+            "Review and copy the generated content for use in your blog posts"
+          ]
+        },
+        "errors": {
+          "default": "Error generating blog post. Please try again.",
+          "apiKey": "OpenAI API is not configured. Please contact the administrator.",
+          "quota": "API quota exceeded. Please try again later.",
+          "network": "Network error. Please check your connection and try again."
+        }
+      }
     }
   }
 }
