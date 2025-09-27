@@ -23,11 +23,22 @@ export default function AdminGeneratorClient({
   const [generatedContent, setGeneratedContent] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
 
+  // Debug: Check if translations are loaded properly
+  if (!translations || !translations.admin) {
+    console.error('Translations not loaded properly:', { translations, locale })
+    return (
+      <div className="text-center py-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading translations...</p>
+      </div>
+    )
+  }
+
   // Helper function to get translations safely
   const getText = (path: string, fallback: string) =>
     getNestedTranslation(translations, path, fallback)
 
-  const instructionItems = translations.admin.generator.instructions.items.length
+  const instructionItems = translations.admin?.generator?.instructions?.items?.length
     ? translations.admin.generator.instructions.items
     : [
         getText('admin.generator.instructions.items.0', 'Enter a detailed topic and outline in the textarea to guide the AI generation'),
