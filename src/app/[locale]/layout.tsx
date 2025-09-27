@@ -43,7 +43,8 @@ export default async function LocaleLayout({
 
   const locale = resolvedParams.locale as Locale;
 
-  // Fetch navigation and footer translations for server-side rendering
+
+  // Fetch navigation and footer translations for server-side rendering (non-admin only)
   const navigationTranslations = await extractNavigationTranslations(locale);
   const footerTranslations = await extractFooterTranslations(locale);
 

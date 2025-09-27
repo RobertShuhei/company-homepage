@@ -490,6 +490,17 @@ export interface Translations {
         keywordsLabel: string
         keywordsPlaceholder: string
         keywordsHelper: string
+        referenceUrlLabel: string
+        referenceUrlPlaceholder: string
+        referenceUrlHelper: string
+        instructionsLabel: string
+        instructionsPlaceholder: string
+        instructionsHelper: string
+        modelLabel: string
+        modelHelper: string
+        modelNanoLabel: string
+        modelMiniLabel: string
+        modelFullLabel: string
         generateButton: string
         generating: string
       }
@@ -503,6 +514,17 @@ export interface Translations {
       instructions: {
         title: string
         items: string[]
+      }
+      errors: {
+        fallbackGeneration: string
+        fallbackResponse: string
+        default: string
+        apiKey: string
+        quota: string
+        network: string
+        errorTitle: string
+        debugInfo: string
+        unknownError: string
       }
     }
   }
