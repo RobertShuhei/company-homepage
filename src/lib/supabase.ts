@@ -14,6 +14,7 @@ function cleanEnvVar(value: string | undefined): string | undefined {
 
 const supabaseUrl = cleanEnvVar(process.env.NEXT_PUBLIC_SUPABASE_URL)
 const supabaseAnonKey = cleanEnvVar(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+const supabaseServiceRoleKey = cleanEnvVar(process.env.SUPABASE_SERVICE_ROLE_KEY)
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Supabase configuration error:', {
@@ -23,6 +24,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
     keyValue: supabaseAnonKey ? 'defined' : 'undefined'
   })
   throw new Error(`Missing Supabase environment variables: URL=${!!supabaseUrl}, KEY=${!!supabaseAnonKey}`)
+}
+
+// Helper function to detect if we're running on the server
+function isServer(): boolean {
+  return typeof window === 'undefined'
 }
 
 type FetchInput = Parameters<typeof fetch>[0]
@@ -59,12 +65,37 @@ const supabaseFetch: typeof fetch = async (input, init = {}) => {
   return fetch(input, finalInit)
 }
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// Create client-side Supabase client (uses anon key)
+const createClientSideClient = () => createClient(supabaseUrl, supabaseAnonKey, {
   global: {
     fetch: supabaseFetch,
   },
 })
+
+// Create server-side Supabase client (uses service role key)
+const createServerSideClient = () => {
+  if (!supabaseServiceRoleKey) {
+    console.warn('SUPABASE_SERVICE_ROLE_KEY not configured, falling back to anon key')
+    return createClient(supabaseUrl, supabaseAnonKey, {
+      global: {
+        fetch: supabaseFetch,
+      },
+    })
+  }
+
+  return createClient(supabaseUrl, supabaseServiceRoleKey, {
+    global: {
+      fetch: supabaseFetch,
+    },
+  })
+}
+
+// Export the appropriate client based on environment
+export const supabase = isServer() ? createServerSideClient() : createClientSideClient()
+
+// Export specific clients for explicit use cases
+export const supabaseAdmin = createServerSideClient()
+export const supabaseClient = createClientSideClient()
 
 // Database interface for blog posts (Supabase version)
 export interface BlogPost {
