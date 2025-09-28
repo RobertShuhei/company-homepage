@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { revalidateTag } from 'next/cache'
-import { type ResourceCategory } from './resourceCategories'
+import { RESOURCE_CATEGORY_SET, type ResourceCategory } from './resourceCategories'
 
 // Supabase configuration
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -10,8 +10,22 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables')
 }
 
+type FetchInput = Parameters<typeof fetch>[0]
+
+const isRequestWithUrl = (value: FetchInput): value is Request => {
+  return typeof value === 'object' && value !== null && 'url' in value && typeof (value as Request).url === 'string'
+}
+
 const supabaseFetch: typeof fetch = async (input, init = {}) => {
-  const requestUrl = typeof input === 'string' ? input : input.url
+  let requestUrl = ''
+
+  if (typeof input === 'string') {
+    requestUrl = input
+  } else if (input instanceof URL) {
+    requestUrl = input.toString()
+  } else if (isRequestWithUrl(input)) {
+    requestUrl = input.url
+  }
   const isBlogPostsRequest = requestUrl.includes('/rest/v1/blog_posts')
 
   let nextOptions = init.next ?? {}
@@ -22,7 +36,7 @@ const supabaseFetch: typeof fetch = async (input, init = {}) => {
     nextOptions = { ...nextOptions, tags }
   }
 
-  const finalInit: RequestInit & { next?: { revalidate?: number; tags?: string[] } } = {
+  const finalInit: RequestInit & { next?: { revalidate?: number | false; tags?: string[] } } = {
     ...init,
     next: Object.keys(nextOptions).length ? nextOptions : undefined,
   }
@@ -348,6 +362,13 @@ function formatBlogPost(row: unknown): BlogPost {
     return undefined
   }
 
+  const toResourceCategory = (value: unknown): ResourceCategory | undefined => {
+    if (typeof value !== 'string') {
+      return undefined
+    }
+    return RESOURCE_CATEGORY_SET.has(value as ResourceCategory) ? (value as ResourceCategory) : undefined
+  }
+
   const language = toOptionalString(record.language) as BlogPost['language'] | undefined
   const status = toOptionalString(record.status) as BlogPost['status'] | undefined
 
@@ -361,7 +382,7 @@ function formatBlogPost(row: unknown): BlogPost {
     summary: toOptionalString(record.summary),
     language: language ?? 'ja',
     status: status ?? 'draft',
-    resource_category: toOptionalString(record.resource_category) || toOptionalString(record.category) || 'blog',
+    resource_category: toResourceCategory(record.resource_category) || toResourceCategory(record.category) || 'blog',
     tags: parseTags(record.tags),
     meta_description: toOptionalString(record.meta_description),
     featured_image_url: toOptionalString(record.featured_image_url),

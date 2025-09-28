@@ -43,7 +43,7 @@ async function getBlogPost(slug: string, locale: string): Promise<PublicBlogPost
       meta_description: post.meta_description ?? undefined,
       featured_image_url: post.featured_image_url ?? undefined,
       keywords: post.keywords ?? undefined,
-      author: post.author,
+      author: post.author ?? 'Unknown Author',
       published_at: post.published_at ?? post.created_at ?? new Date().toISOString(),
       created_at: post.created_at ?? new Date().toISOString(),
     }
