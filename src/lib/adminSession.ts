@@ -18,6 +18,11 @@ const baseCookieConfig = {
 function getConfiguredAdminToken(): string {
   const adminPassword = process.env.ADMIN_PASSWORD
   if (!adminPassword) {
+    console.error('Admin password configuration error:', {
+      env: process.env.NODE_ENV,
+      hasPassword: !!adminPassword,
+      allEnvKeys: Object.keys(process.env).filter(key => key.includes('ADMIN') || key.includes('PASSWORD'))
+    })
     throw new Error('ADMIN_PASSWORD is not configured')
   }
   return adminPassword
@@ -27,7 +32,13 @@ export function isValidAdminToken(token: string | null | undefined): token is st
   if (!token) {
     return false
   }
-  return token === getConfiguredAdminToken()
+
+  try {
+    return token === getConfiguredAdminToken()
+  } catch (error) {
+    console.error('Error validating admin token:', error)
+    return false
+  }
 }
 
 export function getAdminTokenFromRequest(request: NextRequest): string | null {
