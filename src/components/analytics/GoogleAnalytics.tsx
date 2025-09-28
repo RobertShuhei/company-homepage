@@ -19,42 +19,45 @@ declare global {
   }
 }
 
-export default function GoogleAnalytics({
-  measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
-}: GoogleAnalyticsProps) {
+const envMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
+
+export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const resolvedMeasurementId = (measurementId ?? envMeasurementId)?.trim();
+  const searchParamString = searchParams?.toString() ?? '';
 
   // クライアントサイドでのページ遷移を処理する
   useEffect(() => {
-    // 測定IDがない、またはブラウザ環境でない場合は終了
-    if (!measurementId || typeof window === 'undefined' || !window.gtag) {
+    if (!resolvedMeasurementId) {
       return;
     }
 
-    // パス名とクエリパラメータからページパスを作成
-    const pagePath = `${pathname}${searchParams ? `?${searchParams.toString()}` : ''}`;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
-    // ページビューイベントを手動で送信
-    window.gtag('config', measurementId, {
+    if (typeof window.gtag !== 'function') {
+      return;
+    }
+
+    const pagePath = searchParamString ? `${pathname}?${searchParamString}` : pathname;
+
+    window.gtag('config', resolvedMeasurementId, {
       page_path: pagePath,
     });
-  }, [measurementId, pathname, searchParams]);
+  }, [pathname, resolvedMeasurementId, searchParamString]);
 
-  // 初期スクリプトの読み込み
-  if (!measurementId) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('Google Analytics: No measurement ID provided');
-    }
+  if (!resolvedMeasurementId) {
     return null;
   }
 
   return (
     <>
       <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
         id="google-analytics-script"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${resolvedMeasurementId}`}
       />
       <Script
         id="google-analytics-config"
@@ -64,8 +67,8 @@ export default function GoogleAnalytics({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${measurementId}', {
-              send_page_view: false, // 自動ページビュー送信を無効化
+            gtag('config', '${resolvedMeasurementId}', {
+              send_page_view: false,
               anonymize_ip: true,
               allow_google_signals: false,
               cookie_flags: 'SameSite=None;Secure'

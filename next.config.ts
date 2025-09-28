@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   outputFileTracingExcludes: {
     '*': ['./worker/**/*'],
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     // Ignore the worker directory completely
     config.watchOptions = {
       ...config.watchOptions,
@@ -90,6 +90,27 @@ const nextConfig: NextConfig = {
       {
         source: '/corporate',
         destination: '/',
+        permanent: true,
+      },
+      // Blog to Resources redirects (exclude API paths)
+      {
+        source: '/blog',
+        destination: '/resources',
+        permanent: true,
+      },
+      {
+        source: '/:locale(ja|en|zh)/blog',
+        destination: '/:locale/resources',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug',
+        destination: '/resources/blog/:slug',
+        permanent: true,
+      },
+      {
+        source: '/:locale(ja|en|zh)/blog/:slug',
+        destination: '/:locale/resources/blog/:slug',
         permanent: true,
       },
     ];

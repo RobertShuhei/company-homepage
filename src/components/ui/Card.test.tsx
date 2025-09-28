@@ -61,7 +61,11 @@ describe('Card Component', () => {
   it('renders as a clickable link when href prop is provided', () => {
     render(<Card {...mockCardProps} />)
 
-    const cardLink = screen.getByRole('article')
+    const cardArticle = screen.getByRole('article')
+    expect(cardArticle).toBeInTheDocument()
+
+    // The href is on the LocalizedLink inside the article
+    const cardLink = cardArticle.querySelector('a')
     expect(cardLink).toBeInTheDocument()
     expect(cardLink).toHaveAttribute('href', '/services')
   })
@@ -83,9 +87,13 @@ describe('Card Component', () => {
 
     render(<Card {...staticCardProps} />)
 
-    const cardDiv = screen.getByRole('article')
-    expect(cardDiv).toBeInTheDocument()
-    expect(cardDiv.tagName.toLowerCase()).toBe('div')
+    const cardArticle = screen.getByRole('article')
+    expect(cardArticle).toBeInTheDocument()
+    expect(cardArticle.tagName.toLowerCase()).toBe('article')
+
+    // Should not contain an anchor link when no href
+    const cardLink = cardArticle.querySelector('a')
+    expect(cardLink).not.toBeInTheDocument()
 
     // Should not render learn more link when no href
     expect(screen.queryByText('詳細を見る')).not.toBeInTheDocument()

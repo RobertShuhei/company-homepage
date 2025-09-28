@@ -9,10 +9,10 @@ interface PrivacyPageProps {
 }
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: PrivacyPageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+  const params = await paramsPromise;
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
   
   return generateLocalizedMetadata({
     locale,
@@ -21,15 +21,14 @@ export async function generateMetadata({
   });
 }
 
-export default async function LocalizedPrivacyPage({ params }: PrivacyPageProps) {
-  const resolvedParams = await params;
-  
-  // Validate locale
-  if (!isValidLocale(resolvedParams.locale)) {
+export default async function LocalizedPrivacyPage({ params: paramsPromise }: PrivacyPageProps) {
+  const params = await paramsPromise;
+
+  if (!isValidLocale(params.locale)) {
     notFound();
   }
 
-  const locale = resolvedParams.locale as Locale;
+  const locale = params.locale as Locale;
   const t = await getServerTranslations(locale);
 
   return (

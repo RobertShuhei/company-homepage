@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { getNestedTranslation } from '@/lib/translations'
+// Import removed - using direct translation access instead
 import { type Locale, type Translations } from '@/lib/i18n'
 
 interface AdminGeneratorClientProps {
@@ -18,10 +18,15 @@ export default function AdminGeneratorClient({
     referenceUrl: '',
     keywords: '',
     instructions: '',
+    resourceCategory: 'blog', // Default to blog
     model: 'gpt-5-nano' // Default to most cost-effective model
   })
   const [generatedContent, setGeneratedContent] = useState('')
+  const [editedContent, setEditedContent] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+  const [isPublishing, setIsPublishing] = useState(false)
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
+  const [showPreview, setShowPreview] = useState(false)
 
   // Check if translations are loaded properly
   if (!translations || !translations.admin) {
@@ -41,9 +46,26 @@ export default function AdminGeneratorClient({
     )
   }
 
-  // Helper function to get translations safely
-  const getText = (path: string, fallback: string) =>
-    getNestedTranslation(translations, path, fallback)
+  // Helper function to get translations safely from client-side data
+  const getText = (path: string, fallback: string): string => {
+    try {
+      const keys = path.split('.')
+      let value: unknown = translations
+
+      for (const key of keys) {
+        if (value && typeof value === 'object' && value !== null && key in value) {
+          value = (value as Record<string, unknown>)[key]
+        } else {
+          return fallback
+        }
+      }
+
+      return typeof value === 'string' ? value : fallback
+    } catch (error) {
+      console.warn(`Error getting nested translation for path: ${path}`, error)
+      return fallback
+    }
+  }
 
   const instructionItems = translations.admin?.generator?.instructions?.items?.length
     ? translations.admin.generator.instructions.items
@@ -54,12 +76,54 @@ export default function AdminGeneratorClient({
         getText('admin.generator.instructions.items.3', 'Review and copy the generated content for use in your blog posts'),
       ]
 
+  // Validation function
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {}
+
+    if (!formData.topic.trim()) {
+      errors.topic = getText('admin.generator.validation.topicRequired', 'Topic is required')
+    } else if (formData.topic.trim().length < 10) {
+      errors.topic = getText('admin.generator.validation.topicTooShort', 'Topic must be at least 10 characters')
+    }
+
+    if (formData.referenceUrl && !isValidUrl(formData.referenceUrl)) {
+      errors.referenceUrl = getText('admin.generator.validation.invalidUrl', 'Please enter a valid URL')
+    }
+
+    setValidationErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  // URL validation helper
+  const isValidUrl = (url: string): boolean => {
+    try {
+      new URL(url)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  // Character count helpers
+  const getWordCount = (text: string): number => {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
     }))
+
+    // Clear validation error for this field
+    if (validationErrors[name]) {
+      setValidationErrors(prev => {
+        const newErrors = { ...prev }
+        delete newErrors[name]
+        return newErrors
+      })
+    }
   }
 
   const handleModelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +135,11 @@ export default function AdminGeneratorClient({
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!validateForm()) {
+      return
+    }
+
     setIsGenerating(true)
 
     try {
@@ -85,10 +154,16 @@ export default function AdminGeneratorClient({
           referenceUrl: formData.referenceUrl,
           keywords: formData.keywords,
           instructions: formData.instructions,
+          resourceCategory: formData.resourceCategory,
           model: formData.model,
           currentLocale: locale
         })
       })
+
+      if (response.status === 401 || response.status === 403) {
+        window.location.href = `/${locale}/admin/login?redirectTo=${encodeURIComponent(`/${locale}/admin/generator`)}`
+        return
+      }
 
       const data = await response.json() as {
         success?: boolean
@@ -102,6 +177,7 @@ export default function AdminGeneratorClient({
 
       if (data.success && data.content) {
         setGeneratedContent(data.content)
+        setEditedContent(data.content) // Initialize edited content with generated content
       } else {
         throw new Error(getText('admin.generator.errors.fallbackResponse', 'Invalid response from API'))
       }
@@ -131,7 +207,79 @@ ${errorMessage}
     }
   }
 
+  const handlePublish = async () => {
+    setIsPublishing(true)
+
+    try {
+      const response = await fetch('/api/blog/publish', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: formData.topic.split('\n')[0] || 'Generated Blog Post', // Use first line as title
+          content: editedContent,
+          originalContent: generatedContent,
+          model: formData.model,
+          keywords: formData.keywords,
+          referenceUrl: formData.referenceUrl,
+          instructions: formData.instructions,
+          locale: locale
+        })
+      })
+
+      if (response.status === 401 || response.status === 403) {
+        window.location.href = `/${locale}/admin/login?redirectTo=${encodeURIComponent(`/${locale}/admin/generator`)}`
+        return
+      }
+
+      const data = await response.json() as {
+        success?: boolean
+        id?: string
+        error?: string
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || getText('admin.generator.errors.publishFailed', 'Failed to publish blog post'))
+      }
+
+      if (data.success) {
+        // Show success message or redirect
+        alert(getText('admin.generator.success.published', 'Blog post published successfully!'))
+
+        // Reset form after successful publish
+        setFormData({
+          topic: '',
+          referenceUrl: '',
+          keywords: '',
+          instructions: '',
+          resourceCategory: 'blog',
+          model: 'gpt-5-nano'
+        })
+        setGeneratedContent('')
+        setEditedContent('')
+      } else {
+        throw new Error(getText('admin.generator.errors.publishResponse', 'Invalid response from publish API'))
+      }
+    } catch (error) {
+      console.error('Error publishing blog post:', error)
+
+      let errorMessage = getText('admin.generator.errors.publishDefault', 'Error publishing blog post. Please try again.')
+
+      if (error instanceof Error) {
+        if (error.message.includes('network') || error.message.includes('fetch')) {
+          errorMessage = getText('admin.generator.errors.publishNetwork', 'Network error. Please check your connection and try again.')
+        }
+      }
+
+      alert(errorMessage)
+    } finally {
+      setIsPublishing(false)
+    }
+  }
+
   const canGenerate = formData.topic.trim().length > 0
+  const canPublish = editedContent.trim().length > 0
 
   return (
     <>
@@ -155,22 +303,32 @@ ${errorMessage}
             <form onSubmit={handleGenerate} className="space-y-6">
               {/* Topic/Outline Textarea */}
               <div>
-                <label
-                  htmlFor="topic"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  {getText('admin.generator.form.topicLabel', 'Topic / Outline')} *
-                </label>
+                <div className="flex justify-between items-center mb-2">
+                  <label
+                    htmlFor="topic"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {getText('admin.generator.form.topicLabel', 'Topic / Outline')} *
+                  </label>
+                  <span className="text-xs text-gray-500">
+                    {formData.topic.length} {getText('admin.generator.form.characters', 'characters')} | {getWordCount(formData.topic)} {getText('admin.generator.form.words', 'words')}
+                  </span>
+                </div>
                 <textarea
                   id="topic"
                   name="topic"
                   value={formData.topic}
                   onChange={handleInputChange}
                   rows={8}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent resize-vertical"
+                  className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent resize-vertical ${
+                    validationErrors.topic ? 'border-red-300' : 'border-gray-300'
+                  }`}
                   placeholder={getText('admin.generator.form.topicPlaceholder', 'Enter the main topic and outline for your blog post. Include key points you want to cover, target audience, and any specific angles or perspectives...')}
                   required
                 />
+                {validationErrors.topic && (
+                  <p className="mt-1 text-sm text-red-600">{validationErrors.topic}</p>
+                )}
                 <p className="mt-1 text-sm text-gray-500">
                   {getText('admin.generator.form.topicHelper', 'Describe your blog topic and provide an outline of key points to cover.')}
                 </p>
@@ -190,9 +348,14 @@ ${errorMessage}
                   name="referenceUrl"
                   value={formData.referenceUrl}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+                  className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent ${
+                    validationErrors.referenceUrl ? 'border-red-300' : 'border-gray-300'
+                  }`}
                   placeholder={getText('admin.generator.form.referenceUrlPlaceholder', 'https://example.com/reference-article')}
                 />
+                {validationErrors.referenceUrl && (
+                  <p className="mt-1 text-sm text-red-600">{validationErrors.referenceUrl}</p>
+                )}
                 <p className="mt-1 text-sm text-gray-500">
                   {getText('admin.generator.form.referenceUrlHelper', 'Optional URL to reference for context and inspiration when generating the blog post.')}
                 </p>
@@ -239,6 +402,31 @@ ${errorMessage}
                 />
                 <p className="mt-1 text-sm text-gray-500">
                   {getText('admin.generator.form.instructionsHelper', 'Provide specific guidance for the AI regarding tone, style, target audience, or content requirements.')}
+                </p>
+              </div>
+
+              {/* Resource Category Selection */}
+              <div>
+                <label
+                  htmlFor="resourceCategory"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  {getText('admin.generator.form.categoryLabel', 'Content Category')}
+                </label>
+                <select
+                  id="resourceCategory"
+                  name="resourceCategory"
+                  value={formData.resourceCategory}
+                  onChange={(e) => setFormData(prev => ({ ...prev, resourceCategory: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+                >
+                  <option value="blog">{getText('admin.generator.form.categoryBlog', 'Blog')}</option>
+                  <option value="case-studies">{getText('admin.generator.form.categoryCaseStudies', 'Case Studies')}</option>
+                  <option value="white-papers">{getText('admin.generator.form.categoryWhitePapers', 'White Papers')}</option>
+                  <option value="industry-insights">{getText('admin.generator.form.categoryIndustryInsights', 'Industry Insights')}</option>
+                </select>
+                <p className="mt-1 text-sm text-gray-500">
+                  {getText('admin.generator.form.categoryHelper', 'Select the type of content to generate appropriate structure and tone.')}
                 </p>
               </div>
 
@@ -350,26 +538,119 @@ ${errorMessage}
 
             {generatedContent ? (
               <div className="space-y-4">
-                {/* Content Preview */}
-                <div className="bg-gray-50 rounded-md p-4 border border-gray-200 max-h-96 overflow-y-auto">
-                  <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono">
-                    {generatedContent}
-                  </pre>
+                {/* Editable Content Area */}
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <label
+                      htmlFor="editedContent"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      {getText('admin.generator.content.editorLabel', 'Edit Content (Markdown)')}
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-500">
+                        {editedContent.length} {getText('admin.generator.form.characters', 'characters')} | {getWordCount(editedContent)} {getText('admin.generator.form.words', 'words')}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setShowPreview(!showPreview)}
+                        className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded transition-colors duration-200"
+                      >
+                        {showPreview ? getText('admin.generator.content.hidePreview', 'Hide Preview') : getText('admin.generator.content.showPreview', 'Show Preview')}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className={`grid gap-4 ${showPreview ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    <div>
+                      <textarea
+                        id="editedContent"
+                        value={editedContent}
+                        onChange={(e) => setEditedContent(e.target.value)}
+                        rows={20}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent resize-vertical font-mono text-sm"
+                        placeholder={getText('admin.generator.content.editorPlaceholder', 'Edit your generated content here...')}
+                      />
+                    </div>
+
+                    {showPreview && (
+                      <div className="border border-gray-300 rounded-md p-3 bg-gray-50">
+                        <h4 className="text-sm font-medium text-gray-700 mb-2">
+                          {getText('admin.generator.content.previewLabel', 'Preview')}
+                        </h4>
+                        <div className="prose prose-sm max-w-none h-[480px] overflow-y-auto">
+                          <pre className="whitespace-pre-wrap text-sm text-gray-700 font-sans">
+                            {editedContent || getText('admin.generator.content.previewEmpty', 'Preview will appear here...')}
+                          </pre>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="mt-2 text-sm text-gray-500">
+                    {getText('admin.generator.content.editorHelper', 'You can edit the generated content directly. Markdown formatting is supported.')}
+                  </p>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex space-x-3">
                   <button
-                    onClick={() => navigator.clipboard.writeText(generatedContent)}
+                    onClick={() => navigator.clipboard.writeText(editedContent)}
                     className="px-4 py-2 bg-navy text-white rounded-md hover:bg-navy/90 transition-colors duration-200 text-sm font-medium"
                   >
                     {getText('admin.generator.content.copyButton', 'Copy Content')}
                   </button>
                   <button
-                    onClick={() => setGeneratedContent('')}
+                    onClick={() => setEditedContent(generatedContent)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+                  >
+                    {getText('admin.generator.content.resetButton', 'Reset to Original')}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setGeneratedContent('')
+                      setEditedContent('')
+                    }}
                     className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-200 text-sm font-medium"
                   >
-                    {getText('admin.generator.content.clearButton', 'Clear')}
+                    {getText('admin.generator.content.clearButton', 'Clear All')}
+                  </button>
+                  <button
+                    onClick={handlePublish}
+                    disabled={!canPublish || isPublishing}
+                    className={`px-6 py-2 rounded-md font-medium text-white transition-colors duration-200 ${
+                      canPublish && !isPublishing
+                        ? 'bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+                        : 'bg-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {isPublishing ? (
+                      <div className="flex items-center">
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        {getText('admin.generator.content.publishing', 'Publishing...')}
+                      </div>
+                    ) : (
+                      getText('admin.generator.content.publishButton', 'Publish Blog Post')
+                    )}
                   </button>
                 </div>
               </div>

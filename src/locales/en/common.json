@@ -587,6 +587,22 @@
     }
   },
   "admin": {
+      "login": {
+        "title": "Admin Login",
+        "description": "Only authenticated administrators can access the dashboard.",
+        "passwordLabel": "Administrator Password",
+        "passwordPlaceholder": "Enter password",
+        "button": "Log In",
+        "loading": "Authenticating…",
+        "footerNote": "Contact your administrator if you have questions about your login credentials.",
+        "errors": {
+          "generic": "Authentication failed. Please try again.",
+          "network": "Failed to communicate with the server. Please try again later.",
+          "missingPassword": "Please enter the administrator password.",
+          "invalidPassword": "Administrator authentication failed.",
+          "server": "An error occurred while processing authentication."
+        }
+      },
       "generator": {
         "title": "Blog Generator Admin Panel",
         "subtitle": "Generate AI-powered blog content for Global Genex Inc.",
@@ -604,6 +620,12 @@
           "instructionsLabel": "Instructions for AI",
           "instructionsPlaceholder": "Specify tone, style, target audience, or any specific instructions for the AI. E.g., \"Write in a professional tone for manufacturing executives\" or \"Include technical details and case studies\"...",
           "instructionsHelper": "Provide specific guidance for the AI regarding tone, style, target audience, or content requirements.",
+          "categoryLabel": "Content Category",
+          "categoryHelper": "Select the type of content to generate appropriate structure and tone.",
+          "categoryBlog": "Blog",
+          "categoryCaseStudies": "Case Studies",
+          "categoryWhitePapers": "White Papers",
+          "categoryIndustryInsights": "Industry Insights",
           "modelLabel": "AI Model Selection",
           "modelHelper": "Choose the AI model based on your quality and speed requirements.",
           "modelNanoLabel": "(Default - Fastest & Cheapest)",
@@ -617,7 +639,52 @@
           "placeholder": "Generated blog content will appear here",
           "placeholderSubtext": "Fill out the form and click \"Generate Blog Post\" to create content",
           "copyButton": "Copy Content",
-          "clearButton": "Clear"
+          "clearButton": "Clear All",
+          "resetButton": "Reset to Original",
+          "publishButton": "Publish Blog Post",
+          "publishing": "Publishing...",
+          "editorLabel": "Edit Content (Markdown)",
+          "editorPlaceholder": "Edit your generated content here...",
+          "editorHelper": "You can edit the generated content directly. Markdown formatting is supported.",
+          "showPreview": "Show Preview",
+          "hidePreview": "Hide Preview",
+          "previewLabel": "Preview",
+          "previewEmpty": "Preview will appear here..."
+        },
+        "form": {
+          "contentGeneration": "Content Generation",
+          "topicLabel": "Topic / Outline",
+          "topicPlaceholder": "Enter the main topic and outline for your blog post. Include key points you want to cover, target audience, and any specific angles or perspectives...",
+          "topicHelper": "Describe your blog topic and provide an outline of key points to cover.",
+          "keywordsLabel": "Keywords",
+          "keywordsPlaceholder": "manufacturing, consulting, AI, Japan market entry...",
+          "keywordsHelper": "Comma-separated keywords to include in the blog post for SEO optimization.",
+          "referenceUrlLabel": "Reference URL",
+          "referenceUrlPlaceholder": "https://example.com/reference-article",
+          "referenceUrlHelper": "Optional URL to reference for context and inspiration when generating the blog post.",
+          "instructionsLabel": "Instructions for AI",
+          "instructionsPlaceholder": "Specify tone, style, target audience, or any specific instructions for the AI. E.g., \"Write in a professional tone for manufacturing executives\" or \"Include technical details and case studies\"...",
+          "instructionsHelper": "Provide specific guidance for the AI regarding tone, style, target audience, or content requirements.",
+          "categoryLabel": "Content Category",
+          "categoryHelper": "Select the type of content to generate appropriate structure and tone.",
+          "categoryBlog": "Blog",
+          "categoryCaseStudies": "Case Studies",
+          "categoryWhitePapers": "White Papers",
+          "categoryIndustryInsights": "Industry Insights",
+          "modelLabel": "AI Model Selection",
+          "modelHelper": "Choose the AI model based on your quality and speed requirements.",
+          "modelNanoLabel": "(Default - Fastest & Cheapest)",
+          "modelMiniLabel": "(Balanced)",
+          "modelFullLabel": "(Highest Quality)",
+          "generateButton": "Generate Blog Post",
+          "generating": "Generating Blog Post...",
+          "characters": "characters",
+          "words": "words"
+        },
+        "validation": {
+          "topicRequired": "Topic is required",
+          "topicTooShort": "Topic must be at least 10 characters",
+          "invalidUrl": "Please enter a valid URL"
         },
         "instructions": {
           "title": "Instructions",
@@ -637,7 +704,14 @@
           "fallbackResponse": "Invalid response from API",
           "errorTitle": "Error",
           "debugInfo": "Debug Info",
-          "unknownError": "Unknown error"
+          "unknownError": "Unknown error",
+          "publishFailed": "Failed to publish blog post",
+          "publishResponse": "Invalid response from publish API",
+          "publishDefault": "Error publishing blog post. Please try again.",
+          "publishNetwork": "Network error. Please check your connection and try again."
+        },
+        "success": {
+          "published": "Blog post published successfully!"
         }
       }
     }

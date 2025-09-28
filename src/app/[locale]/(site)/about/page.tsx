@@ -13,10 +13,10 @@ interface AboutPageProps {
 }
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: AboutPageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+  const params = await paramsPromise;
+  const locale = isValidLocale(params.locale) ? params.locale : defaultLocale;
   
   return generateLocalizedMetadata({
     locale,
@@ -25,15 +25,14 @@ export async function generateMetadata({
   });
 }
 
-export default async function LocalizedAboutPage({ params }: AboutPageProps) {
-  const resolvedParams = await params;
-  
-  // Validate locale
-  if (!isValidLocale(resolvedParams.locale)) {
+export default async function LocalizedAboutPage({ params: paramsPromise }: AboutPageProps) {
+  const params = await paramsPromise;
+
+  if (!isValidLocale(params.locale)) {
     notFound();
   }
 
-  const locale = resolvedParams.locale as Locale;
+  const locale = params.locale as Locale;
   const t = await getServerTranslations(locale);
 
   // Generate locale-aware URLs

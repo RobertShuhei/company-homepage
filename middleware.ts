@@ -9,6 +9,8 @@ import {
   cookieConfig
 } from './i18n.config'
 
+const ADMIN_SESSION_COOKIE_NAME = 'admin_token'
+
 // Three-tier locale detection priority system
 function getLocale(request: NextRequest): Locale {
   // Check if there's a locale in the URL (for explicit /ja routes)
@@ -44,7 +46,6 @@ function getLocale(request: NextRequest): Locale {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
-  console.log(`[MIDDLEWARE] Processing pathname: ${pathname}`)
 
   // Exclusion logic moved to middleware function
   if (
@@ -52,7 +53,6 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/api') ||
     /\.(.*)$/.test(pathname)
   ) {
-    console.log(`[MIDDLEWARE] Excluding pathname: ${pathname}`)
     return NextResponse.next()
   }
 
@@ -62,18 +62,36 @@ export function middleware(request: NextRequest) {
   )
   
   if (hasLocalePrefix) {
-    console.log(`[MIDDLEWARE] Has locale prefix, passing through: ${pathname}`)
+    const segments = pathname.split('/')
+    const localeSegment = segments[1]
+    const adminSegment = segments[2]
+
+    if (localeSegment && isValidLocale(localeSegment as Locale) && adminSegment === 'admin') {
+      const isLoginPath = segments[3] === 'login'
+      const adminToken = request.cookies.get(ADMIN_SESSION_COOKIE_NAME)?.value
+      const configuredToken = process.env.ADMIN_PASSWORD
+
+      if (!isLoginPath) {
+        if (!configuredToken || adminToken !== configuredToken) {
+          const loginUrl = new URL(`/${localeSegment}/admin/login`, request.url)
+          const redirectTarget = `${pathname}${request.nextUrl.search}`
+          loginUrl.searchParams.set('redirectTo', redirectTarget)
+          return NextResponse.redirect(loginUrl)
+        }
+      } else if (configuredToken && adminToken === configuredToken) {
+        const destination = new URL(`/${localeSegment}/admin/blog`, request.url)
+        return NextResponse.redirect(destination)
+      }
+    }
+
     return NextResponse.next()
   }
 
   // For clean URLs (no locale prefix), determine the intended locale
   const detectedLocale = getLocale(request)
-  console.log(`[MIDDLEWARE] Detected locale for ${pathname}: ${detectedLocale}`)
-  
   // For all clean URLs, redirect to the appropriate locale-prefixed URL
   // This ensures proper client-side navigation performance
   const redirectPath = pathname === '/' ? `/${detectedLocale}` : `/${detectedLocale}${pathname}`
-  console.log(`[MIDDLEWARE] Redirecting ${pathname} -> ${redirectPath}`)
   const response = NextResponse.redirect(new URL(redirectPath, request.url))
   
   // Set cookie for the detected locale preference

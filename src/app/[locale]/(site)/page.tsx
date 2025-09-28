@@ -14,25 +14,23 @@ interface HomePageProps {
 export async function generateMetadata({
   params,
 }: HomePageProps): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+  const { locale: paramLocale } = await params
+  const locale = isValidLocale(paramLocale) ? paramLocale : defaultLocale;
   
   return generateLocalizedMetadata({
     locale,
-    pathname: '/',
+    pathname: `/${locale}`,
     page: 'home'
   });
 }
 
 export default async function LocalizedHomePage({ params }: HomePageProps) {
-  const resolvedParams = await params;
-  
-  // Validate locale
-  if (!isValidLocale(resolvedParams.locale)) {
+  const { locale: paramLocale } = await params
+  if (!isValidLocale(paramLocale)) {
     notFound();
   }
 
-  const locale = resolvedParams.locale as Locale;
+  const locale = paramLocale as Locale;
   const t = await getServerTranslations(locale);
 
   // Service data with localized content

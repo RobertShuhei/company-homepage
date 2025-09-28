@@ -573,6 +573,22 @@
     }
   },
   "admin": {
+      "login": {
+        "title": "管理者ログイン",
+        "description": "認証された管理者のみが管理画面へアクセスできます。",
+        "passwordLabel": "管理者パスワード",
+        "passwordPlaceholder": "パスワードを入力",
+        "button": "ログイン",
+        "loading": "認証中…",
+        "footerNote": "ログイン情報に関するご質問は管理者までお問い合わせください。",
+        "errors": {
+          "generic": "認証に失敗しました。もう一度お試しください。",
+          "network": "サーバーとの通信に失敗しました。時間をおいて再度お試しください。",
+          "missingPassword": "管理者パスワードを入力してください。",
+          "invalidPassword": "管理者認証に失敗しました。",
+          "server": "認証処理中にエラーが発生しました。"
+        }
+      },
       "generator": {
         "title": "ブログ生成管理パネル",
         "subtitle": "株式会社グローバルジェネックス向けAI駆動ブログコンテンツ生成",
@@ -590,6 +606,12 @@
           "instructionsLabel": "AI向け指示",
           "instructionsPlaceholder": "AIへの具体的な指示を入力してください。例：「製造業の経営者向けに専門的なトーンで書いてください」や「技術的な詳細とケーススタディを含めてください」など...",
           "instructionsHelper": "トーン、スタイル、対象読者、コンテンツ要件に関するAIへの具体的な指示を提供してください。",
+          "categoryLabel": "コンテンツカテゴリ",
+          "categoryHelper": "適切な構造とトーンを生成するためにコンテンツの種類を選択してください。",
+          "categoryBlog": "ブログ",
+          "categoryCaseStudies": "事例研究",
+          "categoryWhitePapers": "ホワイトペーパー",
+          "categoryIndustryInsights": "業界インサイト",
           "modelLabel": "AIモデル選択",
           "modelHelper": "品質と速度の要件に基づいてAIモデルを選択してください。",
           "modelNanoLabel": "(デフォルト - 最安・高速)",
@@ -603,7 +625,26 @@
           "placeholder": "生成されたブログコンテンツがここに表示されます",
           "placeholderSubtext": "フォームに入力して「ブログ記事を生成」をクリックしてコンテンツを作成してください",
           "copyButton": "コンテンツをコピー",
-          "clearButton": "クリア"
+          "clearButton": "すべてクリア",
+          "resetButton": "オリジナルに戻す",
+          "publishButton": "ブログ記事を投稿",
+          "publishing": "投稿中...",
+          "editorLabel": "コンテンツ編集 (Markdown)",
+          "editorPlaceholder": "生成されたコンテンツをここで編集してください...",
+          "editorHelper": "生成されたコンテンツを直接編集できます。Markdownフォーマットがサポートされています。",
+          "showPreview": "プレビュー表示",
+          "hidePreview": "プレビュー非表示",
+          "previewLabel": "プレビュー",
+          "previewEmpty": "プレビューがここに表示されます..."
+        },
+        "form": {
+          "characters": "文字",
+          "words": "単語"
+        },
+        "validation": {
+          "topicRequired": "トピックは必須です",
+          "topicTooShort": "トピックは最低10文字必要です",
+          "invalidUrl": "有効なURLを入力してください"
         },
         "instructions": {
           "title": "使用方法",
@@ -623,7 +664,14 @@
           "fallbackResponse": "APIからの無効な応答",
           "errorTitle": "エラー",
           "debugInfo": "デバッグ情報",
-          "unknownError": "不明なエラー"
+          "unknownError": "不明なエラー",
+          "publishFailed": "ブログ記事の投稿に失敗しました",
+          "publishResponse": "投稿APIからの無効な応答",
+          "publishDefault": "ブログ記事の投稿中にエラーが発生しました。もう一度お試しください。",
+          "publishNetwork": "ネットワークエラーが発生しました。接続を確認してもう一度お試しください。"
+        },
+        "success": {
+          "published": "ブログ記事が正常に投稿されました！"
         }
       }
     }

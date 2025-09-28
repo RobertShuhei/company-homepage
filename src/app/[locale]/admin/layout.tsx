@@ -4,7 +4,10 @@ import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 import BreadcrumbStructuredData from '@/components/BreadcrumbStructuredData';
 import StructuredData from '@/components/StructuredData';
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+import Link from 'next/link';
 import { defaultLocale, isValidLocale, type Locale } from '@/lib/i18n';
+import LogoutButton from './LogoutButton';
+import { validateAdminSession } from '@/lib/adminSession';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -17,8 +20,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+  const { locale: paramLocale } = await params
+  const locale = isValidLocale(paramLocale) ? paramLocale : defaultLocale;
   const adminPath = locale === defaultLocale ? '/admin/generator' : `/${locale}/admin/generator`;
 
   return {
@@ -35,14 +38,13 @@ export default async function AdminLayout({
   children,
   params,
 }: AdminLayoutProps) {
-  const resolvedParams = await params;
-
-  // Validate locale
-  if (!isValidLocale(resolvedParams.locale)) {
+  const { locale: paramLocale } = await params
+  if (!isValidLocale(paramLocale)) {
     notFound();
   }
 
-  const locale = resolvedParams.locale as Locale;
+  const locale = paramLocale as Locale;
+  const isAuthenticated = await validateAdminSession()
 
   return (
     <>
@@ -54,10 +56,29 @@ export default async function AdminLayout({
         <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
-              <div className="text-lg font-semibold text-navy">
-                Admin Panel - Global Genex Inc.
+              <div className="flex items-center space-x-8">
+                <div className="text-lg font-semibold text-navy">
+                  Admin Panel - Global Genex Inc.
+                </div>
+                <nav className="hidden md:flex space-x-6">
+                  <Link
+                    href={`/${locale}/admin/generator`}
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium"
+                  >
+                    ブログ生成
+                  </Link>
+                  <Link
+                    href={`/${locale}/admin/blog`}
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium"
+                  >
+                    記事管理
+                  </Link>
+                </nav>
               </div>
-              <LanguageSwitcher />
+              <div className="flex items-center space-x-4">
+                <LanguageSwitcher />
+                {isAuthenticated ? <LogoutButton locale={locale} /> : null}
+              </div>
             </div>
           </div>
         </div>
@@ -71,12 +92,12 @@ export default async function AdminLayout({
                 <ol className="flex items-center space-x-4">
                   <li>
                     <div>
-                      <a href={`/${locale}`} className="text-gray-400 hover:text-gray-500">
+                      <Link href={`/${locale}`} className="text-gray-400 hover:text-gray-500">
                         <svg className="flex-shrink-0 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                           <path fillRule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 10v8a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H8a1 1 0 00-1 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-8a1 1 0 01.293-.707l7-7z" clipRule="evenodd" />
                         </svg>
                         <span className="sr-only">Home</span>
-                      </a>
+                      </Link>
                     </div>
                   </li>
                   <li>

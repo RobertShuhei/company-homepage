@@ -53,10 +53,12 @@ describe('Header Component', () => {
       services: 'サービス',
       about: '会社概要',
       contact: 'お問い合わせ',
+      getStarted: '無料相談を予約',
       companyName: '株式会社グローバルジェネックス',
       homeAriaLabel: '株式会社グローバルジェネックス - ホーム',
       menuAriaLabel: 'メインナビゲーション',
       openMenu: 'メインメニューを開く',
+      closeMenu: 'メインメニューを閉じる',
     },
     common: {
       learnMore: '詳細を見る',

@@ -587,6 +587,22 @@
     }
   },
   "admin": {
+    "login": {
+      "title": "管理员登录",
+      "description": "仅认证的管理员可以访问控制台。",
+      "passwordLabel": "管理员密码",
+      "passwordPlaceholder": "请输入密码",
+      "button": "登录",
+      "loading": "正在验证…",
+      "footerNote": "如需登录信息，请联系您的管理员。",
+      "errors": {
+        "generic": "认证失败，请重试。",
+        "network": "无法连接服务器，请稍后再试。",
+        "missingPassword": "请输入管理员密码。",
+        "invalidPassword": "管理员认证失败。",
+        "server": "处理认证时发生错误。"
+      }
+    },
     "generator": {
       "title": "博客生成管理面板",
       "subtitle": "为Global Genex株式会社生成AI驱动的博客内容",
@@ -604,6 +620,12 @@
         "instructionsLabel": "AI指令",
         "instructionsPlaceholder": "为AI指定语调、风格、目标受众或任何具体指令。例如：\"为制造业高管撰写专业语调的内容\"或\"包含技术细节和案例研究\"...",
         "instructionsHelper": "为AI提供关于语调、风格、目标受众或内容要求的具体指导。",
+        "categoryLabel": "内容类别",
+        "categoryHelper": "选择内容类型以生成适当的结构和语调。",
+        "categoryBlog": "博客",
+        "categoryCaseStudies": "案例研究",
+        "categoryWhitePapers": "白皮书",
+        "categoryIndustryInsights": "行业洞察",
         "modelLabel": "AI模型选择",
         "modelHelper": "根据您的质量和速度要求选择AI模型。",
         "modelNanoLabel": "(默认 - 最快最便宜)",
@@ -617,7 +639,26 @@
         "placeholder": "生成的博客内容将显示在这里",
         "placeholderSubtext": "填写表单并点击\"生成博客文章\"来创建内容",
         "copyButton": "复制内容",
-        "clearButton": "清除"
+        "clearButton": "全部清除",
+        "resetButton": "重置为原始内容",
+        "publishButton": "发布博客文章",
+        "publishing": "发布中...",
+        "editorLabel": "编辑内容 (Markdown)",
+        "editorPlaceholder": "在这里编辑您生成的内容...",
+        "editorHelper": "您可以直接编辑生成的内容。支持Markdown格式。",
+        "showPreview": "显示预览",
+        "hidePreview": "隐藏预览",
+        "previewLabel": "预览",
+        "previewEmpty": "预览将显示在这里..."
+      },
+      "form": {
+        "characters": "字符",
+        "words": "词"
+      },
+      "validation": {
+        "topicRequired": "主题是必需的",
+        "topicTooShort": "主题至少需要10个字符",
+        "invalidUrl": "请输入有效的URL"
       },
       "instructions": {
         "title": "使用说明",
@@ -637,7 +678,14 @@
         "fallbackResponse": "API响应无效",
         "errorTitle": "错误",
         "debugInfo": "调试信息",
-        "unknownError": "未知错误"
+        "unknownError": "未知错误",
+        "publishFailed": "发布博客文章失败",
+        "publishResponse": "发布API响应无效",
+        "publishDefault": "发布博客文章时出错。请重试。",
+        "publishNetwork": "网络错误。请检查您的连接并重试。"
+      },
+      "success": {
+        "published": "博客文章发布成功！"
       }
     }
   }

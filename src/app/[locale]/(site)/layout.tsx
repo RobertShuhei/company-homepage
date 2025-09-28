@@ -19,8 +19,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const locale = isValidLocale(resolvedParams.locale) ? resolvedParams.locale : defaultLocale;
+  const { locale: paramLocale } = await params
+  const locale = isValidLocale(paramLocale) ? paramLocale : defaultLocale;
 
   return generateLocalizedMetadata({
     locale,
@@ -33,13 +33,12 @@ export default async function SiteLayout({
   children,
   params,
 }: SiteLayoutProps) {
-  const resolvedParams = await params;
-
-  if (!isValidLocale(resolvedParams.locale)) {
+  const { locale: paramLocale } = await params
+  if (!isValidLocale(paramLocale)) {
     notFound();
   }
 
-  const locale = resolvedParams.locale as Locale;
+  const locale = paramLocale as Locale;
   const [navigationTranslations, footerTranslations] = await Promise.all([
     extractNavigationTranslations(locale),
     extractFooterTranslations(locale),
@@ -52,7 +51,7 @@ export default async function SiteLayout({
       <BreadcrumbStructuredData locale={locale} />
       <Header navigationTranslations={navigationTranslations} locale={locale} />
       <main>{children}</main>
-      <Footer translations={footerTranslations} />
+      <Footer translations={footerTranslations} locale={locale} />
     </>
   );
 }

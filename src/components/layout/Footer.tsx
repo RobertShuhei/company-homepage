@@ -1,11 +1,14 @@
-import LocalizedLink from '../ui/LocalizedLink'
+import Link from 'next/link'
 import { type FooterTranslations } from '@/lib/translations'
+import { addLocaleToPathname, type Locale } from '@/lib/i18n'
+import { getLocalizedResourceCategoryPath, type ResourceCategory } from '@/lib/resourceCategories'
 
 interface FooterProps {
+  locale: Locale
   translations: FooterTranslations
 }
 
-const Footer = ({ translations }: FooterProps) => {
+const Footer = ({ translations, locale }: FooterProps) => {
   const currentYear = new Date().getFullYear()
   
   // Helper function to get translations safely
@@ -28,36 +31,46 @@ const Footer = ({ translations }: FooterProps) => {
     }
   }
 
-  // LocalizedLink component will handle locale prefixing automatically
+  const resolveHref = (href: string) => {
+    if (!href.startsWith('/')) {
+      return href
+    }
+
+    return addLocaleToPathname(href, locale)
+  }
+
+  const buildResourceLink = (category: ResourceCategory, label: string) => ({
+    href: getLocalizedResourceCategoryPath(locale, category),
+    label,
+  })
 
   const footerSections = [
     {
       title: t('footer.sections.services.title', 'Services'),
       links: [
-        { href: '/services', label: t('footer.sections.services.links.consulting', 'Business Consulting') },
+        { href: resolveHref('/services'), label: t('footer.sections.services.links.consulting', 'Business Consulting') },
         // それぞれのURLができたら差し替え:
-        { href: '/services', label: t('footer.sections.services.links.planning', 'Strategic Planning') },
-        { href: '/services', label: t('footer.sections.services.links.optimization', 'Process Optimization') },
-        { href: '/services', label: t('footer.sections.services.links.transformation', 'Digital Transformation') },
+        { href: resolveHref('/services'), label: t('footer.sections.services.links.planning', 'Strategic Planning') },
+        { href: resolveHref('/services'), label: t('footer.sections.services.links.optimization', 'Process Optimization') },
+        { href: resolveHref('/services'), label: t('footer.sections.services.links.transformation', 'Digital Transformation') },
       ]
     },
     {
       title: t('footer.sections.company.title', 'Company'),
       links: [
-        { href: '/about', label: t('footer.sections.company.links.about', 'About Us') },
-        { href: '/about', label: t('footer.sections.company.links.team', 'Our Team') },
-        { href: '/about', label: t('footer.sections.company.links.careers', 'Careers') },
-        { href: '/contact', label: t('footer.sections.company.links.contact', 'Contact') },
+        { href: resolveHref('/about'), label: t('footer.sections.company.links.about', 'About Us') },
+        { href: resolveHref('/about'), label: t('footer.sections.company.links.team', 'Our Team') },
+        { href: resolveHref('/about'), label: t('footer.sections.company.links.careers', 'Careers') },
+        { href: resolveHref('/contact'), label: t('footer.sections.company.links.contact', 'Contact') },
       ]
     },
     {
       title: t('footer.sections.resources.title', 'Resources'),
-      // 実URLが用意できるまで # は避ける（非表示か差し替え推奨）
       links: [
-        { href: '#', label: t('footer.sections.resources.links.cases', 'Case Studies') },
-        { href: '#', label: t('footer.sections.resources.links.papers', 'White Papers') },
-        { href: '#', label: t('footer.sections.resources.links.insights', 'Industry Insights') },
-        { href: '#', label: t('footer.sections.resources.links.blog', 'Blog') },
+        buildResourceLink('case-studies', t('footer.sections.resources.links.cases', 'Case Studies')),
+        buildResourceLink('white-papers', t('footer.sections.resources.links.papers', 'White Papers')),
+        buildResourceLink('industry-insights', t('footer.sections.resources.links.insights', 'Industry Insights')),
+        buildResourceLink('blog', t('footer.sections.resources.links.blog', 'Blog')),
       ]
     },
   ]
@@ -69,13 +82,13 @@ const Footer = ({ translations }: FooterProps) => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <LocalizedLink
-                href="/"
+              <Link
+                href={resolveHref('/')}
                 className="text-2xl font-bold hover:text-teal transition-colors duration-200"
                 aria-label={t('nav.homeAriaLabel', 'Global Genex Inc. - Home')}
               >
                 {t('footer.companyName', 'Global Genex Inc.')}
-              </LocalizedLink>
+              </Link>
             </div>
             <p className="text-slate-300 mb-6 leading-relaxed">
               {t('footer.tagline', 'Retail & Manufacturing × AI & Data Analytics × Global Expansion. We bridge Japan and global markets with AI-driven consulting.')}
@@ -116,18 +129,12 @@ const Footer = ({ translations }: FooterProps) => {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    {link.href === '#' ? (
-                      <span className="text-slate-300 cursor-not-allowed opacity-50">
-                        {link.label}
-                      </span>
-                    ) : (
-                      <LocalizedLink
-                        href={link.href}
-                        className="text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
-                      >
-                        {link.label}
-                      </LocalizedLink>
-                    )}
+                    <Link
+                      href={link.href}
+                      className="text-slate-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
+                    >
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -141,12 +148,12 @@ const Footer = ({ translations }: FooterProps) => {
               © {currentYear} {t('footer.companyName', 'Global Genex Inc.')} {t('footer.copyright', 'All rights reserved.')}
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <LocalizedLink
-                href="/privacy"
+              <Link
+                href={resolveHref('/privacy')}
                 className="text-slate-300 hover:text-white text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 focus:ring-offset-navy rounded"
               >
                 {t('footer.legal.privacy', 'Privacy Policy')}
-              </LocalizedLink>
+              </Link>
               <span className="text-slate-300 cursor-not-allowed opacity-50 text-sm">
                 {t('footer.legal.terms', 'Terms of Service')}
               </span>

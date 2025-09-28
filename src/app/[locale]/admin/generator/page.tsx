@@ -1,22 +1,23 @@
-import { notFound } from 'next/navigation';
-import AdminGeneratorClient from './AdminGeneratorClient';
-import { getServerTranslations } from '@/lib/translations';
-import { isValidLocale, type Locale } from '@/lib/i18n';
-
-interface AdminGeneratorPageProps {
-  params: Promise<{ locale: string }>;
-}
+import { notFound } from 'next/navigation'
+import AdminGeneratorClient from './AdminGeneratorClient'
+import { getServerTranslations } from '@/lib/translations'
+import { isValidLocale, type Locale } from '@/lib/i18n'
+import { requireAdminSession } from '@/lib/adminSession'
 
 export default async function AdminGeneratorPage({
   params,
-}: AdminGeneratorPageProps) {
-  const resolvedParams = await params;
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale: localeParam } = await params
 
-  if (!isValidLocale(resolvedParams.locale)) {
-    notFound();
+  if (!isValidLocale(localeParam)) {
+    notFound()
   }
 
-  const locale = resolvedParams.locale as Locale;
+  const locale = localeParam as Locale
+  const currentPath = `/${locale}/admin/generator`
+  await requireAdminSession(locale, currentPath)
 
   try {
     const translations = await getServerTranslations(locale);

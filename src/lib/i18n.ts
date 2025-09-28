@@ -479,6 +479,22 @@ export interface Translations {
 
   // Admin panel
   admin: {
+    login: {
+      title: string
+      description: string
+      passwordLabel: string
+      passwordPlaceholder: string
+      button: string
+      loading: string
+      footerNote: string
+      errors: {
+        generic: string
+        network: string
+        missingPassword: string
+        invalidPassword: string
+        server: string
+      }
+    }
     generator: {
       title: string
       subtitle: string

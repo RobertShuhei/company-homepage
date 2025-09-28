@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { authenticateAdmin, createAuthErrorResponse } from '@/lib/auth'
+import { isResourceCategory, type ResourceCategory } from '@/lib/resourceCategories'
 
 // Initialize OpenAI client only when needed
 function getOpenAIClient() {
@@ -70,6 +72,7 @@ interface BlogGenerationRequest {
   referenceUrl?: string
   keywords?: string
   instructions?: string
+  resourceCategory?: ResourceCategory
   model?: 'gpt-5-nano' | 'gpt-5-mini' | 'gpt-5'
   currentLocale: 'ja' | 'en' | 'zh'
 }
@@ -86,6 +89,7 @@ function validateRequest(data: unknown): data is BlogGenerationRequest {
     (req.referenceUrl === undefined || typeof req.referenceUrl === 'string') &&
     (req.keywords === undefined || typeof req.keywords === 'string') &&
     (req.instructions === undefined || typeof req.instructions === 'string') &&
+    (req.resourceCategory === undefined || (typeof req.resourceCategory === 'string' && isResourceCategory(req.resourceCategory))) &&
     (req.model === undefined || ['gpt-5-nano', 'gpt-5-mini', 'gpt-5'].includes(req.model as string)) &&
     typeof req.currentLocale === 'string' &&
     ['ja', 'en', 'zh'].includes(req.currentLocale)
@@ -93,10 +97,38 @@ function validateRequest(data: unknown): data is BlogGenerationRequest {
 }
 
 // Create language-specific prompt
-function createPrompt(topic: string, referenceUrl: string, keywords: string, instructions: string, locale: 'ja' | 'en' | 'zh'): string {
+function createPrompt(topic: string, referenceUrl: string, keywords: string, instructions: string, resourceCategory: ResourceCategory, locale: 'ja' | 'en' | 'zh'): string {
   const langConfig = LANGUAGE_PROMPTS[locale]
 
+  // Add category-specific instructions
+  const categoryInstructions = {
+    'case-studies': {
+      ja: 'これは事例研究として執筆してください。具体的な課題、解決プロセス、結果と成果を明確に示してください。',
+      en: 'Write this as a case study. Present specific challenges, solution process, and measurable results.',
+      zh: '请写成案例研究。展示具体挑战、解决过程和可衡量的结果。'
+    },
+    'white-papers': {
+      ja: 'これはホワイトペーパーとして執筆してください。業界の深い分析、データに基づく洞察、戦略的な提言を含めてください。',
+      en: 'Write this as a white paper. Include in-depth industry analysis, data-driven insights, and strategic recommendations.',
+      zh: '请写成白皮书。包含深入的行业分析、基于数据的洞察和战略建议。'
+    },
+    'industry-insights': {
+      ja: 'これは業界インサイトとして執筆してください。最新のトレンド分析、市場予測、専門的な見解を提供してください。',
+      en: 'Write this as an industry insight. Provide trend analysis, market forecasts, and expert perspectives.',
+      zh: '请写成行业洞察。提供趋势分析、市场预测和专家观点。'
+    },
+    'blog': {
+      ja: 'これはブログ記事として執筆してください。読みやすく、実践的で、読者の関心を引く内容にしてください。',
+      en: 'Write this as a blog post. Make it engaging, practical, and reader-friendly.',
+      zh: '请写成博客文章。使其引人入胜、实用且易于阅读。'
+    }
+  }
+
+  const categoryInstruction = categoryInstructions[resourceCategory]?.[locale] || ''
+
   let prompt = `${langConfig.systemPrompt}
+
+${categoryInstruction}
 
 トピック/Topic/主题: ${topic}`
 
@@ -124,6 +156,12 @@ ${langConfig.instructionSuffix}`
 
 export async function POST(request: NextRequest) {
   try {
+    // Authenticate admin user
+    const authResult = authenticateAdmin(request)
+    if (!authResult.isAuthenticated) {
+      return createAuthErrorResponse(authResult.error || 'Authentication failed', authResult.statusCode)
+    }
+
     // Check if OpenAI API key is configured
     if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json(
@@ -142,10 +180,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { topic, referenceUrl = '', keywords = '', instructions = '', model = 'gpt-5-nano', currentLocale } = data
+    const { topic, referenceUrl = '', keywords = '', instructions = '', resourceCategory = 'blog', model = 'gpt-5-nano', currentLocale } = data
 
     // Create language-specific prompt
-    const prompt = createPrompt(topic, referenceUrl, keywords, instructions, currentLocale)
+    const prompt = createPrompt(topic, referenceUrl, keywords, instructions, resourceCategory, currentLocale)
 
     // Get OpenAI client and call API
     const openai = getOpenAIClient()
