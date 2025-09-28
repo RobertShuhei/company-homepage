@@ -32,8 +32,12 @@ export async function POST(request: NextRequest) {
     return response
   } catch (error) {
     console.error('Admin login error:', error)
+
+    // Include detailed error for debugging (temporarily in production too)
+    const errorDetails = `認証処理中にエラーが発生しました。Details: ${(error as Error).message || error}`
+
     return NextResponse.json(
-      { success: false, errorCode: 'server', error: '認証処理中にエラーが発生しました。' },
+      { success: false, errorCode: 'server', error: errorDetails },
       { status: 500 }
     )
   }
