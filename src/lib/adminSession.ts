@@ -25,7 +25,15 @@ function getConfiguredAdminToken(): string {
     })
     throw new Error('ADMIN_PASSWORD is not configured')
   }
-  return adminPassword
+
+  // Remove any accidentally included quotes from environment variable
+  const cleanPassword = adminPassword.replace(/^["']|["']$/g, '')
+
+  if (cleanPassword !== adminPassword) {
+    console.warn('Removed quotes from ADMIN_PASSWORD environment variable')
+  }
+
+  return cleanPassword
 }
 
 export function isValidAdminToken(token: string | null | undefined): token is string {

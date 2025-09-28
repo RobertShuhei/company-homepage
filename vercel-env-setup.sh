@@ -1,38 +1,33 @@
 #!/bin/bash
 
-# Vercel環境変数設定スクリプト
-# このスクリプトは手動実行用です
+# Vercel Environment Variables Setup Script
+# This script sets up the environment variables for the production deployment
 
-echo "🚀 Vercel環境変数設定を開始します..."
+echo "Setting up Vercel environment variables..."
 
-# Step 1: Vercelにログイン (手動で実行)
-echo "Step 1: Vercelにログインしてください"
-echo "コマンド: vercel login"
-echo ""
+# Read current .env.local values (without quotes)
+ADMIN_PASSWORD=$(grep "^ADMIN_PASSWORD=" .env.local | cut -d'=' -f2-)
+SUPABASE_URL=$(grep "^NEXT_PUBLIC_SUPABASE_URL=" .env.local | cut -d'=' -f2-)
+SUPABASE_ANON_KEY=$(grep "^NEXT_PUBLIC_SUPABASE_ANON_KEY=" .env.local | cut -d'=' -f2-)
 
-# Step 2: プロジェクトをリンク (手動で実行)
-echo "Step 2: プロジェクトをVercelにリンクしてください"
-echo "コマンド: vercel link"
-echo "- 既存のプロジェクトをリンクを選択"
-echo "- ユーザー名/チーム名を選択"
-echo "- 'company-homepage' プロジェクトを選択"
-echo ""
+echo "Environment variables to set in Vercel:"
+echo "ADMIN_PASSWORD: ${ADMIN_PASSWORD}"
+echo "NEXT_PUBLIC_SUPABASE_URL: ${SUPABASE_URL}"
+echo "NEXT_PUBLIC_SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:0:20}..."
 
-# Step 3: 環境変数設定コマンド
-echo "Step 3: 以下のコマンドで環境変数を設定してください"
+# Instructions for manual setup
 echo ""
-echo "# Supabase URL設定"
-echo "vercel env add NEXT_PUBLIC_SUPABASE_URL production"
-echo "# 値: https://ykunqdnulzadpdwyxxwt.supabase.co"
+echo "🔧 Manual Vercel Setup Instructions:"
+echo "1. Go to https://vercel.com/dashboard"
+echo "2. Select your 'company-homepage' project"
+echo "3. Go to Settings > Environment Variables"
+echo "4. Set the following variables for Production:"
 echo ""
-echo "# Supabase Anon Key設定"
-echo "vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production"
-echo "# 値: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrdW5xZG51bHphZHBkd3l4eHd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwMzExNzUsImV4cCI6MjA3NDYwNzE3NX0.QfKuwQO3qTRwj5Bpv8PfO0Mw8IZ_hPLLcoWBNoRP4lw"
+echo "   ADMIN_PASSWORD = ${ADMIN_PASSWORD}"
+echo "   NEXT_PUBLIC_SUPABASE_URL = ${SUPABASE_URL}"
+echo "   NEXT_PUBLIC_SUPABASE_ANON_KEY = ${SUPABASE_ANON_KEY}"
 echo ""
-
-# Step 4: デプロイの再実行
-echo "Step 4: デプロイを再実行してください"
-echo "コマンド: vercel --prod"
+echo "⚠️  Important: Do NOT include quotes around the values in Vercel"
+echo "⚠️  The values above should be copied exactly as shown (without quotes)"
 echo ""
-
-echo "✅ 設定完了後、https://www.global-genex.com でSupabaseデータが正常に表示されることを確認してください"
+echo "5. After setting all variables, redeploy the application"

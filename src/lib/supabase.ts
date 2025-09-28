@@ -2,9 +2,18 @@ import { createClient } from '@supabase/supabase-js'
 import { revalidateTag } from 'next/cache'
 import { RESOURCE_CATEGORY_SET, type ResourceCategory } from './resourceCategories'
 
-// Supabase configuration
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// Supabase configuration with quote cleaning
+function cleanEnvVar(value: string | undefined): string | undefined {
+  if (!value) return value
+  const cleaned = value.replace(/^["']|["']$/g, '')
+  if (cleaned !== value) {
+    console.warn('Removed quotes from environment variable')
+  }
+  return cleaned
+}
+
+const supabaseUrl = cleanEnvVar(process.env.NEXT_PUBLIC_SUPABASE_URL)
+const supabaseAnonKey = cleanEnvVar(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Supabase configuration error:', {
