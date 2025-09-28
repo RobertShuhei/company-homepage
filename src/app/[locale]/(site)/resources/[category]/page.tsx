@@ -175,10 +175,8 @@ function getCategoryInfo(category: ResourceCategory, locale: string) {
   }
 }
 
-const STATIC_RESOURCE_CATEGORIES = ['case-studies', 'white-papers', 'industry-insights', 'blog'] as const
-
 export async function generateStaticParams() {
-  return STATIC_RESOURCE_CATEGORIES.map((category) => ({
+  return RESOURCE_CATEGORIES.map((category) => ({
     category,
   }))
 }

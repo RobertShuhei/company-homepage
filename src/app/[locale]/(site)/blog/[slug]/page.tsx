@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { getBlogPostBySlug } from '@/lib/supabase'
 
@@ -185,10 +186,13 @@ export default async function BlogPostPage({
         {/* Featured Image */}
         {post.featured_image_url && (
           <div className="mb-12">
-            <img
+            <Image
               src={post.featured_image_url}
               alt={post.title}
+              width={1280}
+              height={720}
               className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+              priority
             />
           </div>
         )}

@@ -255,12 +255,13 @@ export async function getBlogPosts(options: {
 
 // Update blog post
 export async function updateBlogPost(id: number, updates: Partial<BlogPost>): Promise<BlogPost | null> {
-  // Remove immutable fields
-  const { id: _, uuid: __, created_at: ___, ...updateData } = updates
+  // Convert camelCase to snake_case for database while skipping immutable fields
+  const dbUpdates: Record<string, unknown> = {}
+  Object.entries(updates).forEach(([key, value]) => {
+    if (key === 'id' || key === 'created_at' || key === 'createdAt') {
+      return
+    }
 
-  // Convert camelCase to snake_case for database
-  const dbUpdates: Record<string, any> = {}
-  Object.entries(updateData).forEach(([key, value]) => {
     const dbKey = key.replace(/([A-Z])/g, '_$1').toLowerCase()
     dbUpdates[dbKey] = value
   })
@@ -310,28 +311,67 @@ export async function getPublishedBlogPosts(options: {
 }
 
 // Format database row to BlogPost interface (snake_case to camelCase)
-function formatBlogPost(row: any): BlogPost {
+function formatBlogPost(row: unknown): BlogPost {
+  if (!row || typeof row !== 'object') {
+    throw new Error('Invalid Supabase blog post payload')
+  }
+
+  const record = row as Record<string, unknown>
+
+  const toOptionalString = (value: unknown): string | undefined => {
+    return typeof value === 'string' ? value : undefined
+  }
+
+  const toOptionalNumber = (value: unknown): number | undefined => {
+    if (typeof value === 'number') return value
+    if (typeof value === 'string' && value.trim() !== '' && !Number.isNaN(Number(value))) {
+      return Number(value)
+    }
+    return undefined
+  }
+
+  const parseTags = (value: unknown): string[] | undefined => {
+    if (!value) return undefined
+    if (Array.isArray(value)) {
+      return value.filter((tag): tag is string => typeof tag === 'string')
+    }
+    if (typeof value === 'string') {
+      try {
+        const parsed = JSON.parse(value)
+        return Array.isArray(parsed)
+          ? parsed.filter((tag): tag is string => typeof tag === 'string')
+          : undefined
+      } catch {
+        return undefined
+      }
+    }
+    return undefined
+  }
+
+  const language = toOptionalString(record.language) as BlogPost['language'] | undefined
+  const status = toOptionalString(record.status) as BlogPost['status'] | undefined
+
   return {
-    id: row.id,
-    uuid: row.uuid,
-    title: row.title,
-    slug: row.slug,
-    content: row.content,
-    original_content: row.original_content || undefined,
-    summary: row.summary || undefined,
-    language: row.language,
-    status: row.status,
-    resource_category: row.resource_category || row.category || 'blog',
-    tags: row.tags || undefined,
-    meta_description: row.meta_description || undefined,
-    featured_image_url: row.featured_image_url || undefined,
-    keywords: row.keywords || undefined,
-    ai_model: row.ai_model || undefined,
-    reference_url: row.reference_url || undefined,
-    generation_instructions: row.generation_instructions || undefined,
-    author: row.author,
-    published_at: row.published_at || undefined,
-    created_at: row.created_at,
-    updated_at: row.updated_at
+    id: toOptionalNumber(record.id),
+    uuid: toOptionalString(record.uuid),
+    title: toOptionalString(record.title) ?? '',
+    slug: toOptionalString(record.slug) ?? '',
+    content: toOptionalString(record.content) ?? '',
+    original_content: toOptionalString(record.original_content),
+    summary: toOptionalString(record.summary),
+    language: language ?? 'ja',
+    status: status ?? 'draft',
+    resource_category: toOptionalString(record.resource_category) || toOptionalString(record.category) || 'blog',
+    tags: parseTags(record.tags),
+    meta_description: toOptionalString(record.meta_description),
+    featured_image_url: toOptionalString(record.featured_image_url),
+    keywords: toOptionalString(record.keywords),
+    ai_model: toOptionalString(record.ai_model) as BlogPost['ai_model'] | undefined,
+    reference_url: toOptionalString(record.reference_url),
+    generation_instructions: toOptionalString(record.generation_instructions),
+    author: toOptionalString(record.author) ?? 'Global Genex Inc.',
+    published_at: toOptionalString(record.published_at),
+    created_at: toOptionalString(record.created_at),
+    updated_at: toOptionalString(record.updated_at)
   }
 }
