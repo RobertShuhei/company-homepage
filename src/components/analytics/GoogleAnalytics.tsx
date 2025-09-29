@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
@@ -21,7 +21,7 @@ declare global {
 
 const envMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
 
-export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
+function GoogleAnalyticsInner({ measurementId }: GoogleAnalyticsProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const resolvedMeasurementId = (measurementId ?? envMeasurementId)?.trim();
@@ -77,5 +77,13 @@ export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps)
         }}
       />
     </>
+  );
+}
+
+export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
+  return (
+    <Suspense fallback={null}>
+      <GoogleAnalyticsInner measurementId={measurementId} />
+    </Suspense>
   );
 }
