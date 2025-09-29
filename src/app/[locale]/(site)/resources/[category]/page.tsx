@@ -26,11 +26,18 @@ interface PublicResourcePost {
 
 // Fetch resources by category from API
 async function getResourcesByCategory(locale: string, category: ResourceCategory): Promise<PublicResourcePost[]> {
+  console.log(`[DEBUG] getResourcesByCategory called with locale: ${locale}, category: ${category}`)
+  
   try {
+    console.log(`[DEBUG] Attempting to fetch published blog posts for category: ${category}`)
     let posts = await getPublishedBlogPosts({ language: locale, category, limit: 50 })
+    console.log(`[DEBUG] Initial posts fetch returned ${posts.length} posts`)
 
     if (posts.length === 0) {
+      console.log(`[DEBUG] No posts found for category ${category}, trying fallback approach`)
       const fallbackPosts = await getPublishedBlogPosts({ language: locale, limit: 50 })
+      console.log(`[DEBUG] Fallback posts fetch returned ${fallbackPosts.length} posts`)
+      
       const categoryTagMap: Record<ResourceCategory, string> = {
         'case-studies': 'case-study',
         'white-papers': 'white-paper',
@@ -39,6 +46,8 @@ async function getResourcesByCategory(locale: string, category: ResourceCategory
       }
 
       const expectedTag = categoryTagMap[category]
+      console.log(`[DEBUG] Filtering fallback posts for expected tag: ${expectedTag}`)
+      
       posts = fallbackPosts.filter((post) => {
         const normalizedCategory = post.resource_category ?? undefined
         if (normalizedCategory === category) {
@@ -46,12 +55,34 @@ async function getResourcesByCategory(locale: string, category: ResourceCategory
         }
         return Array.isArray(post.tags) ? post.tags.includes(expectedTag) : false
       })
+      console.log(`[DEBUG] Filtered posts count: ${posts.length}`)
     }
 
-    return posts.map(mapBlogPostToResource)
+    console.log(`[DEBUG] Mapping ${posts.length} posts to resource format`)
+    const resources = posts.map(mapBlogPostToResource)
+    console.log(`[DEBUG] Successfully mapped ${resources.length} resources`)
+    return resources
   } catch (error) {
-    console.error('Error fetching resources:', error)
-    return []
+    console.error('[ERROR] Failed to fetch resources:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+      locale,
+      category,
+      timestamp: new Date().toISOString()
+    })
+    
+    // Log additional environment info
+    console.error('[ERROR] Environment context:', {
+      NODE_ENV: process.env.NODE_ENV,
+      VERCEL_ENV: process.env.VERCEL_ENV,
+      hasSupabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      hasSupabaseKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      hasServiceRoleKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY
+    })
+    
+    // Re-throw the error to trigger 500 error page
+    throw error
   }
 }
 

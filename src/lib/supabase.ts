@@ -251,6 +251,8 @@ export async function getBlogPosts(options: {
   limit?: number
   offset?: number
 } = {}): Promise<BlogPost[]> {
+  console.log('[DEBUG] getBlogPosts called with options:', JSON.stringify(options))
+  
   const categoryTagMap = {
     'case-studies': 'case-study',
     'white-papers': 'white-paper',
@@ -259,21 +261,26 @@ export async function getBlogPosts(options: {
   }
 
   const buildQuery = (useCategoryColumn: boolean) => {
+    console.log(`[DEBUG] Building query with useCategoryColumn: ${useCategoryColumn}`)
     let query = supabase.from('blog_posts').select('*')
 
     if (options.language) {
+      console.log(`[DEBUG] Adding language filter: ${options.language}`)
       query = query.eq('language', options.language)
     }
 
     if (options.status) {
+      console.log(`[DEBUG] Adding status filter: ${options.status}`)
       query = query.eq('status', options.status)
     }
 
     if (options.category) {
       if (useCategoryColumn) {
+        console.log(`[DEBUG] Adding resource_category filter: ${options.category}`)
         query = query.eq('resource_category', options.category)
       } else {
         const tag = categoryTagMap[options.category as keyof typeof categoryTagMap] || options.category
+        console.log(`[DEBUG] Adding tags filter: ${tag}`)
         query = query.contains('tags', [tag])
       }
     }
@@ -283,34 +290,78 @@ export async function getBlogPosts(options: {
       .order('created_at', { ascending: false, nullsFirst: false })
 
     if (options.limit) {
+      console.log(`[DEBUG] Adding limit: ${options.limit}`)
       query = query.limit(options.limit)
     }
 
     if (options.offset) {
       const end = (options.offset + (options.limit || 10)) - 1
+      console.log(`[DEBUG] Adding range: ${options.offset} to ${end}`)
       query = query.range(options.offset, end)
     }
 
     return query
   }
 
-  const { data, error } = await buildQuery(true)
+  try {
+    console.log('[DEBUG] Executing primary query with resource_category column')
+    const { data, error } = await buildQuery(true)
 
-  if (error) {
-    const columnMissing = options.category && /resource_category/.test(error.message)
+    if (error) {
+      console.error('[ERROR] Primary query failed:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code,
+        fullError: JSON.stringify(error, Object.getOwnPropertyNames(error))
+      })
 
-    if (columnMissing) {
-      const { data: fallbackData, error: fallbackError } = await buildQuery(false)
-      if (fallbackError) {
-        throw new Error(`Failed to get blog posts: ${fallbackError.message}`)
+      const columnMissing = options.category && /resource_category/.test(error.message)
+      console.log(`[DEBUG] Column missing check: ${columnMissing}`)
+
+      if (columnMissing) {
+        console.log('[DEBUG] Attempting fallback query with tags')
+        const { data: fallbackData, error: fallbackError } = await buildQuery(false)
+        
+        if (fallbackError) {
+          console.error('[ERROR] Fallback query also failed:', {
+            message: fallbackError.message,
+            details: fallbackError.details,
+            hint: fallbackError.hint,
+            code: fallbackError.code,
+            fullError: JSON.stringify(fallbackError, Object.getOwnPropertyNames(fallbackError))
+          })
+          throw new Error(`Failed to get blog posts: ${fallbackError.message}`)
+        }
+        
+        console.log(`[DEBUG] Fallback query succeeded, returned ${fallbackData?.length || 0} records`)
+        return fallbackData ? fallbackData.map(formatBlogPost) : []
       }
-      return fallbackData ? fallbackData.map(formatBlogPost) : []
+
+      throw new Error(`Failed to get blog posts: ${error.message}`)
     }
 
-    throw new Error(`Failed to get blog posts: ${error.message}`)
+    console.log(`[DEBUG] Primary query succeeded, returned ${data?.length || 0} records`)
+    return data ? data.map(formatBlogPost) : []
+  } catch (error) {
+    console.error('[ERROR] getBlogPosts function failed:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+      options,
+      timestamp: new Date().toISOString()
+    })
+    
+    // Log Supabase client configuration
+    console.error('[ERROR] Supabase client context:', {
+      supabaseUrl: supabaseUrl ? `${supabaseUrl.substring(0, 20)}...` : 'undefined',
+      hasAnonKey: !!supabaseAnonKey,
+      hasServiceRoleKey: !!supabaseServiceRoleKey,
+      isServer: isServer()
+    })
+    
+    throw error
   }
-
-  return data ? data.map(formatBlogPost) : []
 }
 
 // Update blog post
