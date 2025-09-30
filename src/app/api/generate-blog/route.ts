@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { topic, referenceUrl = '', keywords = '', instructions = '', resourceCategory = 'blog', model = 'gpt-5-nano', currentLocale } = data
+    const { topic, referenceUrl = '', keywords = '', instructions = '', resourceCategory = 'blog', model = 'gpt-5-mini', currentLocale } = data
 
     // Create language-specific prompt
     const prompt = createPrompt(topic, referenceUrl, keywords, instructions, resourceCategory, currentLocale)

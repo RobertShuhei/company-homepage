@@ -20,7 +20,7 @@ const INITIAL_FORM_STATE: FormState = {
   keywords: '',
   instructions: '',
   resourceCategory: 'blog',
-  model: 'gpt-5-nano',
+  model: 'gpt-5-mini',
 }
 
 interface AdminGeneratorClientProps {
