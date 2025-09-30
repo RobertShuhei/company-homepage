@@ -592,6 +592,7 @@
       "generator": {
         "title": "ブログ生成管理パネル",
         "subtitle": "株式会社グローバルジェネックス向けAI駆動ブログコンテンツ生成",
+        "defaultTitle": "生成されたブログ記事",
         "form": {
           "contentGeneration": "コンテンツ生成",
           "topicLabel": "トピック / アウトライン",
@@ -627,11 +628,17 @@
           "copyButton": "コンテンツをコピー",
           "clearButton": "すべてクリア",
           "resetButton": "オリジナルに戻す",
+          "regenerateButton": "再生成",
+          "discardButton": "破棄",
+          "saveDraftButton": "下書き保存",
           "publishButton": "ブログ記事を投稿",
           "publishing": "投稿中...",
+          "savingDraft": "下書き保存中...",
           "editorLabel": "コンテンツ編集 (Markdown)",
           "editorPlaceholder": "生成されたコンテンツをここで編集してください...",
           "editorHelper": "生成されたコンテンツを直接編集できます。Markdownフォーマットがサポートされています。",
+          "editButton": "編集",
+          "finishEditingButton": "編集を終了",
           "showPreview": "プレビュー表示",
           "hidePreview": "プレビュー非表示",
           "previewLabel": "プレビュー",
@@ -644,7 +651,9 @@
         "validation": {
           "topicRequired": "トピックは必須です",
           "topicTooShort": "トピックは最低10文字必要です",
-          "invalidUrl": "有効なURLを入力してください"
+          "invalidUrl": "有効なURLを入力してください",
+          "instructionsRequired": "AIへの指示は必須です",
+          "atLeastOneInput": "トピック、参考URL、キーワードのいずれかを入力してください"
         },
         "instructions": {
           "title": "使用方法",
@@ -668,10 +677,12 @@
           "publishFailed": "ブログ記事の投稿に失敗しました",
           "publishResponse": "投稿APIからの無効な応答",
           "publishDefault": "ブログ記事の投稿中にエラーが発生しました。もう一度お試しください。",
-          "publishNetwork": "ネットワークエラーが発生しました。接続を確認してもう一度お試しください。"
+          "publishNetwork": "ネットワークエラーが発生しました。接続を確認してもう一度お試しください。",
+          "draftFailed": "下書きの保存に失敗しました。もう一度お試しください。"
         },
         "success": {
-          "published": "ブログ記事が正常に投稿されました！"
+          "published": "ブログ記事が正常に投稿されました！",
+          "draftSaved": "下書きとして保存しました。"
         }
       }
     }

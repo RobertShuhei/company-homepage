@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'next-intl': path.resolve(__dirname, './src/lib/nextIntl.tsx'),
     },
   },
   test: {

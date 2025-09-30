@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@worker/*": ["./worker/src/*"]
+      "@worker/*": ["./worker/src/*"],
+      "next-intl": ["./src/lib/nextIntl"]
     },
     // ここに types を追加します
     "types": ["@cloudflare/workers-types"]

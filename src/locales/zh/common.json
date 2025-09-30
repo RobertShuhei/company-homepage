@@ -606,6 +606,7 @@
     "generator": {
       "title": "博客生成管理面板",
       "subtitle": "为Global Genex株式会社生成AI驱动的博客内容",
+      "defaultTitle": "生成的博客文章",
       "form": {
         "contentGeneration": "内容生成",
         "topicLabel": "主题 / 大纲",
@@ -641,11 +642,17 @@
         "copyButton": "复制内容",
         "clearButton": "全部清除",
         "resetButton": "重置为原始内容",
+        "regenerateButton": "重新生成",
+        "discardButton": "放弃",
+        "saveDraftButton": "保存为草稿",
         "publishButton": "发布博客文章",
         "publishing": "发布中...",
+        "savingDraft": "正在保存草稿...",
         "editorLabel": "编辑内容 (Markdown)",
         "editorPlaceholder": "在这里编辑您生成的内容...",
         "editorHelper": "您可以直接编辑生成的内容。支持Markdown格式。",
+        "editButton": "编辑",
+        "finishEditingButton": "完成编辑",
         "showPreview": "显示预览",
         "hidePreview": "隐藏预览",
         "previewLabel": "预览",
@@ -658,7 +665,9 @@
       "validation": {
         "topicRequired": "主题是必需的",
         "topicTooShort": "主题至少需要10个字符",
-        "invalidUrl": "请输入有效的URL"
+        "invalidUrl": "请输入有效的URL",
+        "instructionsRequired": "必须填写AI指令",
+        "atLeastOneInput": "请至少填写主题、参考链接或关键词中的一项"
       },
       "instructions": {
         "title": "使用说明",
@@ -682,10 +691,12 @@
         "publishFailed": "发布博客文章失败",
         "publishResponse": "发布API响应无效",
         "publishDefault": "发布博客文章时出错。请重试。",
-        "publishNetwork": "网络错误。请检查您的连接并重试。"
+        "publishNetwork": "网络错误。请检查您的连接并重试。",
+        "draftFailed": "保存草稿失败。请再试一次。"
       },
       "success": {
-        "published": "博客文章发布成功！"
+        "published": "博客文章发布成功！",
+        "draftSaved": "草稿已成功保存。"
       }
     }
   }

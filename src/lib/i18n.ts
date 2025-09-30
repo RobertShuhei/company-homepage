@@ -24,7 +24,7 @@ export {
 }
 
 // Translation interface for type safety
-export interface Translations {
+export interface Translations extends Record<string, unknown> {
   // Navigation
   nav: {
     home: string
@@ -498,6 +498,7 @@ export interface Translations {
     generator: {
       title: string
       subtitle: string
+      defaultTitle: string
       form: {
         contentGeneration: string
         topicLabel: string
@@ -512,6 +513,12 @@ export interface Translations {
         instructionsLabel: string
         instructionsPlaceholder: string
         instructionsHelper: string
+        categoryLabel: string
+        categoryHelper: string
+        categoryBlog: string
+        categoryCaseStudies: string
+        categoryWhitePapers: string
+        categoryIndustryInsights: string
         modelLabel: string
         modelHelper: string
         modelNanoLabel: string
@@ -519,6 +526,8 @@ export interface Translations {
         modelFullLabel: string
         generateButton: string
         generating: string
+        characters: string
+        words: string
       }
       content: {
         title: string
@@ -526,6 +535,29 @@ export interface Translations {
         placeholderSubtext: string
         copyButton: string
         clearButton: string
+        resetButton: string
+        regenerateButton: string
+        discardButton: string
+        saveDraftButton: string
+        publishButton: string
+        publishing: string
+        savingDraft: string
+        editorLabel: string
+        editorPlaceholder: string
+        editorHelper: string
+        editButton: string
+        finishEditingButton: string
+        showPreview: string
+        hidePreview: string
+        previewLabel: string
+        previewEmpty: string
+      }
+      validation: {
+        topicRequired: string
+        topicTooShort: string
+        invalidUrl: string
+        instructionsRequired: string
+        atLeastOneInput: string
       }
       instructions: {
         title: string
@@ -541,6 +573,15 @@ export interface Translations {
         errorTitle: string
         debugInfo: string
         unknownError: string
+        publishFailed: string
+        publishResponse: string
+        publishDefault: string
+        publishNetwork: string
+        draftFailed: string
+      }
+      success: {
+        published: string
+        draftSaved: string
       }
     }
   }

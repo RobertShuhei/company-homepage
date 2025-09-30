@@ -606,6 +606,7 @@
       "generator": {
         "title": "Blog Generator Admin Panel",
         "subtitle": "Generate AI-powered blog content for Global Genex Inc.",
+        "defaultTitle": "Generated Blog Post",
         "form": {
           "contentGeneration": "Content Generation",
           "topicLabel": "Topic / Outline",
@@ -641,11 +642,17 @@
           "copyButton": "Copy Content",
           "clearButton": "Clear All",
           "resetButton": "Reset to Original",
+          "regenerateButton": "Regenerate",
+          "discardButton": "Discard",
+          "saveDraftButton": "Save Draft",
           "publishButton": "Publish Blog Post",
           "publishing": "Publishing...",
+          "savingDraft": "Saving Draft...",
           "editorLabel": "Edit Content (Markdown)",
           "editorPlaceholder": "Edit your generated content here...",
           "editorHelper": "You can edit the generated content directly. Markdown formatting is supported.",
+          "editButton": "Edit",
+          "finishEditingButton": "Finish Editing",
           "showPreview": "Show Preview",
           "hidePreview": "Hide Preview",
           "previewLabel": "Preview",
@@ -684,7 +691,9 @@
         "validation": {
           "topicRequired": "Topic is required",
           "topicTooShort": "Topic must be at least 10 characters",
-          "invalidUrl": "Please enter a valid URL"
+          "invalidUrl": "Please enter a valid URL",
+          "instructionsRequired": "Instructions for the AI are required",
+          "atLeastOneInput": "Provide at least one of topic, reference URL, or keywords"
         },
         "instructions": {
           "title": "Instructions",
@@ -708,10 +717,12 @@
           "publishFailed": "Failed to publish blog post",
           "publishResponse": "Invalid response from publish API",
           "publishDefault": "Error publishing blog post. Please try again.",
-          "publishNetwork": "Network error. Please check your connection and try again."
+          "publishNetwork": "Network error. Please check your connection and try again.",
+          "draftFailed": "Failed to save the draft. Please try again."
         },
         "success": {
-          "published": "Blog post published successfully!"
+          "published": "Blog post published successfully!",
+          "draftSaved": "Draft saved successfully."
         }
       }
     }

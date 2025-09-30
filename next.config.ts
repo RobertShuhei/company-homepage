@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from 'path';
 
 const nextConfig: NextConfig = {
   // Exclude the worker directory from Next.js processing
@@ -11,7 +12,13 @@ const nextConfig: NextConfig = {
       ...config.watchOptions,
       ignored: ['**/worker/**', '**/node_modules/**'],
     };
-    
+
+    config.resolve = config.resolve || {}
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      'next-intl': require('path').resolve(__dirname, 'src/lib/nextIntl.tsx'),
+    };
+
     return config;
   },
   

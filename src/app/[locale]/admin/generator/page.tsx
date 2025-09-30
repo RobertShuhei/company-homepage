@@ -3,6 +3,7 @@ import AdminGeneratorClient from './AdminGeneratorClient'
 import { getServerTranslations } from '@/lib/translations'
 import { isValidLocale, type Locale } from '@/lib/i18n'
 import { requireAdminSession } from '@/lib/adminSession'
+import { NextIntlClientProvider } from 'next-intl'
 
 export default async function AdminGeneratorPage({
   params,
@@ -29,10 +30,9 @@ export default async function AdminGeneratorPage({
     }
 
     return (
-      <AdminGeneratorClient
-        locale={locale}
-        translations={translations}
-      />
+      <NextIntlClientProvider locale={locale} messages={translations}>
+        <AdminGeneratorClient locale={locale} />
+      </NextIntlClientProvider>
     );
   } catch (error) {
     console.error('Failed to load translations:', error);
@@ -41,10 +41,9 @@ export default async function AdminGeneratorPage({
     try {
       const fallbackTranslations = await import(`@/locales/${locale}/common.json`);
       return (
-        <AdminGeneratorClient
-          locale={locale}
-          translations={fallbackTranslations.default}
-        />
+        <NextIntlClientProvider locale={locale} messages={fallbackTranslations.default}>
+          <AdminGeneratorClient locale={locale} />
+        </NextIntlClientProvider>
       );
     } catch (fallbackError) {
       console.error('Failed to load fallback translations:', fallbackError);

@@ -459,7 +459,7 @@ function formatBlogPost(row: unknown): BlogPost {
     return undefined
   }
 
-  const toResourceCategory = (value: unknown): ResourceCategory | undefined => {
+  const getResourceCategory = (value: unknown): ResourceCategory | undefined => {
     if (typeof value !== 'string') {
       return undefined
     }
@@ -468,6 +468,10 @@ function formatBlogPost(row: unknown): BlogPost {
 
   const language = toOptionalString(record.language) as BlogPost['language'] | undefined
   const status = toOptionalString(record.status) as BlogPost['status'] | undefined
+  const resourceCategory =
+    getResourceCategory(record.resource_category) ??
+    getResourceCategory(record.category) ??
+    'blog'
 
   return {
     id: toOptionalNumber(record.id),
@@ -479,7 +483,7 @@ function formatBlogPost(row: unknown): BlogPost {
     summary: toOptionalString(record.summary),
     language: language ?? 'ja',
     status: status ?? 'draft',
-    resource_category: toResourceCategory(record.resource_category) || toResourceCategory(record.category) || 'blog',
+    resource_category: resourceCategory,
     tags: parseTags(record.tags),
     meta_description: toOptionalString(record.meta_description),
     featured_image_url: toOptionalString(record.featured_image_url),
