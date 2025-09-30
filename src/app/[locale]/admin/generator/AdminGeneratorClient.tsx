@@ -483,7 +483,7 @@ export default function AdminGeneratorClient({ locale }: AdminGeneratorClientPro
                 className={`w-full flex justify-center items-center px-6 py-3 rounded-md font-semibold text-white transition-colors duration-200 ${
                   canGenerate
                     ? 'bg-teal hover:bg-teal/90 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2'
-                    : 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gray opacity-50 cursor-not-allowed'
                 }`}
               >
                 {isGenerating ? (
