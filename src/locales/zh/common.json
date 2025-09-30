@@ -633,7 +633,9 @@
         "modelMiniLabel": "(平衡)",
         "modelFullLabel": "(最高质量)",
         "generateButton": "生成博客文章",
-        "generating": "正在生成博客文章..."
+        "generating": "正在生成博客文章...",
+        "characters": "字符",
+        "words": "词"
       },
       "content": {
         "title": "生成的内容",

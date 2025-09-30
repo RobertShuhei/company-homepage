@@ -40,12 +40,6 @@ export default async function AdminGeneratorPage({
     // Extract only admin-specific translations to prevent hydration errors
     const clientTranslations = pick(fullTranslations, ['admin', 'common'] as const)
 
-    // Validate admin translations are loaded (only warn in development)
-    if (!clientTranslations.admin && process.env.NODE_ENV === 'development') {
-      console.warn('Admin translations missing for locale:', locale);
-      console.warn('Available translation keys:', Object.keys(fullTranslations));
-    }
-
     return (
       <NextIntlClientProvider locale={locale} messages={clientTranslations}>
         <AdminGeneratorClient locale={locale} />

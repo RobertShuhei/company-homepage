@@ -21,12 +21,12 @@ async function loadServerTranslations(locale: Locale): Promise<Translations> {
     return serverTranslationCache[locale]!
   } catch (error) {
     console.warn(`Failed to load translations for locale: ${locale}`, error)
-    
+
     // Fallback to default locale
     if (locale !== defaultLocale) {
       return loadServerTranslations(defaultLocale)
     }
-    
+
     throw new Error(`Failed to load translations for default locale: ${defaultLocale}`)
   }
 }

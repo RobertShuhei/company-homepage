@@ -619,7 +619,9 @@
           "modelMiniLabel": "(バランス)",
           "modelFullLabel": "(最高品質)",
           "generateButton": "ブログ記事を生成",
-          "generating": "ブログ記事を生成中..."
+          "generating": "ブログ記事を生成中...",
+          "characters": "文字",
+          "words": "単語"
         },
         "content": {
           "title": "生成されたコンテンツ",
