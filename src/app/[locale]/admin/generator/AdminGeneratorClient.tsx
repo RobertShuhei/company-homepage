@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { useTranslations, useIntlMessages } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { type Locale } from '@/lib/i18n'
 
 type FormState = {
@@ -39,7 +39,6 @@ export default function AdminGeneratorClient({ locale }: AdminGeneratorClientPro
   const tValidation = useTranslations('admin.generator.validation')
   const tErrors = useTranslations('admin.generator.errors')
   const tSuccess = useTranslations('admin.generator.success')
-  const messages = useIntlMessages()
 
   const [formData, setFormData] = useState<FormState>(INITIAL_FORM_STATE)
   const [generatedContent, setGeneratedContent] = useState('')
@@ -54,22 +53,17 @@ export default function AdminGeneratorClient({ locale }: AdminGeneratorClientPro
   const [hasAttemptedGenerate, setHasAttemptedGenerate] = useState(false)
 
   const instructionItems = useMemo(() => {
-    const raw = (messages as Record<string, unknown>)?.admin as Record<string, unknown> | undefined
-    const generatorNode = raw?.generator as Record<string, unknown> | undefined
-    const instructionsNode = generatorNode?.instructions as Record<string, unknown> | undefined
-    const items = instructionsNode?.items
-
-    if (Array.isArray(items) && items.every((item) => typeof item === 'string')) {
-      return items as string[]
+    try {
+      return [
+        tGenerator('instructions.items.0'),
+        tGenerator('instructions.items.1'),
+        tGenerator('instructions.items.2'),
+        tGenerator('instructions.items.3'),
+      ]
+    } catch {
+      return []
     }
-
-    return [
-      tGenerator('instructions.items.0'),
-      tGenerator('instructions.items.1'),
-      tGenerator('instructions.items.2'),
-      tGenerator('instructions.items.3'),
-    ]
-  }, [messages, tGenerator])
+  }, [tGenerator])
 
   const isValidUrl = useCallback((value: string) => {
     try {
