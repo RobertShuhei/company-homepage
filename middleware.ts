@@ -47,6 +47,51 @@ function getLocale(request: NextRequest): Locale {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
+  const basicAuthUser = process.env.BASIC_AUTH_USERNAME
+  const basicAuthPassword = process.env.BASIC_AUTH_PASSWORD
+
+  const requiresAdminBasicAuth = () => {
+    if (!basicAuthUser || !basicAuthPassword) {
+      return false
+    }
+
+    if (pathname.startsWith('/admin')) {
+      return true
+    }
+
+    return locales.some((locale) =>
+      pathname === `/${locale}/admin` || pathname.startsWith(`/${locale}/admin/`)
+    )
+  }
+
+  if (requiresAdminBasicAuth()) {
+    const authorizationHeader = request.headers.get('authorization')
+
+    if (!authorizationHeader?.startsWith('Basic ')) {
+      return new NextResponse('Unauthorized', {
+        status: 401,
+        headers: { 'WWW-Authenticate': 'Basic realm="Admin Area"' },
+      })
+    }
+
+    try {
+      const decoded = atob(authorizationHeader.substring(6))
+      const [user, password] = decoded.split(':')
+
+      if (user !== basicAuthUser || password !== basicAuthPassword) {
+        return new NextResponse('Unauthorized', {
+          status: 401,
+          headers: { 'WWW-Authenticate': 'Basic realm="Admin Area"' },
+        })
+      }
+    } catch {
+      return new NextResponse('Unauthorized', {
+        status: 401,
+        headers: { 'WWW-Authenticate': 'Basic realm="Admin Area"' },
+      })
+    }
+  }
+
   // Exclusion logic moved to middleware function
   if (
     pathname.startsWith('/_next') ||
