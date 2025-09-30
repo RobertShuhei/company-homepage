@@ -660,10 +660,6 @@
         "previewLabel": "预览",
         "previewEmpty": "预览将显示在这里..."
       },
-      "form": {
-        "characters": "字符",
-        "words": "词"
-      },
       "validation": {
         "topicRequired": "主题是必需的",
         "topicTooShort": "主题至少需要10个字符",

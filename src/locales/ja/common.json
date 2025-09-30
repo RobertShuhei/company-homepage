@@ -646,10 +646,6 @@
           "previewLabel": "プレビュー",
           "previewEmpty": "プレビューがここに表示されます..."
         },
-        "form": {
-          "characters": "文字",
-          "words": "単語"
-        },
         "validation": {
           "topicRequired": "トピックは必須です",
           "topicTooShort": "トピックは最低10文字必要です",
