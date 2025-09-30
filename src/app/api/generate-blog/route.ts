@@ -196,7 +196,7 @@ export async function POST(request: NextRequest) {
         }
       ],
       temperature: 0.65, // Slightly more focused for professional content
-      max_tokens: 6000, // Increased for GPT-5's enhanced capabilities
+      max_completion_tokens: 6000, // Increased for GPT-5's enhanced capabilities
       presence_penalty: 0.15, // Enhanced diverse content generation
       frequency_penalty: 0.12, // Improved repetition reduction
       top_p: 0.9 // Leverage GPT-5's improved reasoning
