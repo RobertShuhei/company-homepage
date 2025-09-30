@@ -1,9 +1,25 @@
 import { redirect } from 'next/navigation'
 import { getBlogPosts, type BlogPost } from '@/lib/supabase'
-import { defaultLocale, isValidLocale } from '@/lib/i18n'
+import { defaultLocale, isValidLocale, type Locale } from '@/lib/i18n'
 import { requireAdminSession, validateAdminSession } from '@/lib/adminSession'
+import { getServerTranslations } from '@/lib/translations'
+import { NextIntlClientProvider } from 'next-intl'
 import AdminBlogClient from './AdminBlogClient'
 import { type AdminBlogFilter, type AdminBlogPost } from './types'
+
+// Utility function to pick specific keys from an object (prevents hydration errors)
+function pick<T extends Record<string, unknown>, K extends keyof T>(
+  obj: T,
+  keys: K[]
+): Pick<T, K> {
+  const result = {} as Pick<T, K>
+  for (const key of keys) {
+    if (key in obj) {
+      result[key] = obj[key]
+    }
+  }
+  return result
+}
 
 const DEFAULT_LIMIT = 20
 
@@ -62,12 +78,32 @@ export default async function AdminBlogPage({ params }: { params: Promise<{ loca
     return toAdminBlogPosts(posts)
   }
 
-  return (
-    <AdminBlogClient
-      locale={locale}
-      initialPosts={toAdminBlogPosts(initialPosts)}
-      defaultFilter={defaultFilter}
-      fetchBlogPostsAction={fetchBlogPostsAction}
-    />
-  )
+  try {
+    const fullTranslations = await getServerTranslations(locale as Locale);
+    // Extract only admin and common translations to prevent hydration errors
+    const clientTranslations = pick(fullTranslations, ['admin', 'common'] as const)
+
+    return (
+      <NextIntlClientProvider locale={locale} messages={clientTranslations}>
+        <AdminBlogClient
+          locale={locale}
+          initialPosts={toAdminBlogPosts(initialPosts)}
+          defaultFilter={defaultFilter}
+          fetchBlogPostsAction={fetchBlogPostsAction}
+        />
+      </NextIntlClientProvider>
+    )
+  } catch (error) {
+    console.error('Failed to load translations for admin blog:', error);
+
+    // Fallback without translations (current behavior)
+    return (
+      <AdminBlogClient
+        locale={locale}
+        initialPosts={toAdminBlogPosts(initialPosts)}
+        defaultFilter={defaultFilter}
+        fetchBlogPostsAction={fetchBlogPostsAction}
+      />
+    )
+  }
 }

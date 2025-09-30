@@ -5,6 +5,20 @@ import { isValidLocale, type Locale } from '@/lib/i18n'
 import { requireAdminSession } from '@/lib/adminSession'
 import { NextIntlClientProvider } from 'next-intl'
 
+// Utility function to pick specific keys from an object (prevents hydration errors)
+function pick<T extends Record<string, unknown>, K extends keyof T>(
+  obj: T,
+  keys: K[]
+): Pick<T, K> {
+  const result = {} as Pick<T, K>
+  for (const key of keys) {
+    if (key in obj) {
+      result[key] = obj[key]
+    }
+  }
+  return result
+}
+
 export default async function AdminGeneratorPage({
   params,
 }: {
@@ -21,16 +35,19 @@ export default async function AdminGeneratorPage({
   await requireAdminSession(locale, currentPath)
 
   try {
-    const translations = await getServerTranslations(locale);
+    const fullTranslations = await getServerTranslations(locale);
+
+    // Extract only admin-specific translations to prevent hydration errors
+    const clientTranslations = pick(fullTranslations, ['admin', 'common'] as const)
 
     // Validate admin translations are loaded (only warn in development)
-    if (!translations.admin && process.env.NODE_ENV === 'development') {
+    if (!clientTranslations.admin && process.env.NODE_ENV === 'development') {
       console.warn('Admin translations missing for locale:', locale);
-      console.warn('Available translation keys:', Object.keys(translations));
+      console.warn('Available translation keys:', Object.keys(fullTranslations));
     }
 
     return (
-      <NextIntlClientProvider locale={locale} messages={translations}>
+      <NextIntlClientProvider locale={locale} messages={clientTranslations}>
         <AdminGeneratorClient locale={locale} />
       </NextIntlClientProvider>
     );
@@ -40,8 +57,10 @@ export default async function AdminGeneratorPage({
     // Try to load fallback translations directly
     try {
       const fallbackTranslations = await import(`@/locales/${locale}/common.json`);
+      const clientFallback = pick(fallbackTranslations.default, ['admin', 'common'] as const)
+
       return (
-        <NextIntlClientProvider locale={locale} messages={fallbackTranslations.default}>
+        <NextIntlClientProvider locale={locale} messages={clientFallback}>
           <AdminGeneratorClient locale={locale} />
         </NextIntlClientProvider>
       );
