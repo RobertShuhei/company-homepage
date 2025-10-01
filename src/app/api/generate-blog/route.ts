@@ -156,14 +156,21 @@ ${langConfig.instructionSuffix}`
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('[BLOG API] Request received')
+
     // Authenticate admin user
     const authResult = authenticateAdmin(request)
+    console.log('[BLOG API] Auth result:', { isAuthenticated: authResult.isAuthenticated, error: authResult.error, statusCode: authResult.statusCode })
+
     if (!authResult.isAuthenticated) {
+      console.log('[BLOG API] Authentication failed, returning error response')
       return createAuthErrorResponse(authResult.error || 'Authentication failed', authResult.statusCode)
     }
 
     // Check if OpenAI API key is configured
+    console.log('[BLOG API] Checking OpenAI API key:', process.env.OPENAI_API_KEY ? 'EXISTS' : 'MISSING')
     if (!process.env.OPENAI_API_KEY) {
+      console.error('[BLOG API] OpenAI API key is not configured')
       return NextResponse.json(
         { error: 'OpenAI API key is not configured' },
         { status: 500 }
@@ -171,7 +178,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse and validate request
+    console.log('[BLOG API] Parsing request body')
     const data = await request.json()
+    console.log('[BLOG API] Request data:', JSON.stringify(data, null, 2))
 
     if (!validateRequest(data)) {
       return NextResponse.json(
@@ -181,12 +190,16 @@ export async function POST(request: NextRequest) {
     }
 
     const { topic, referenceUrl = '', keywords = '', instructions = '', resourceCategory = 'blog', model = 'gpt-5-mini', currentLocale } = data
+    console.log('[BLOG API] Extracted parameters:', { topic, model, currentLocale, resourceCategory })
 
     // Create language-specific prompt
     const prompt = createPrompt(topic, referenceUrl, keywords, instructions, resourceCategory, currentLocale)
+    console.log('[BLOG API] Prompt created, length:', prompt.length)
 
     // Get OpenAI client and call API
+    console.log('[BLOG API] Initializing OpenAI client')
     const openai = getOpenAIClient()
+    console.log('[BLOG API] Calling OpenAI API with model:', model)
     const completion = await openai.chat.completions.create({
       model: model, // Use dynamically selected model
       messages: [
@@ -226,11 +239,16 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Blog generation API error:', error)
+    console.error('[BLOG API] ===== ERROR CAUGHT =====')
+    console.error('[BLOG API] Error type:', error instanceof Error ? 'Error object' : typeof error)
+    console.error('[BLOG API] Error message:', error instanceof Error ? error.message : String(error))
+    console.error('[BLOG API] Full error:', error)
+    console.error('[BLOG API] Error stack:', error instanceof Error ? error.stack : 'No stack trace')
 
     // Handle specific OpenAI errors
     if (error instanceof Error) {
       if (error.message.includes('API key')) {
+        console.error('[BLOG API] Invalid API key error detected')
         return NextResponse.json(
           { error: 'Invalid OpenAI API key' },
           { status: 401 }
@@ -238,6 +256,7 @@ export async function POST(request: NextRequest) {
       }
 
       if (error.message.includes('quota')) {
+        console.error('[BLOG API] Quota exceeded error detected')
         return NextResponse.json(
           { error: 'OpenAI API quota exceeded' },
           { status: 429 }
@@ -245,6 +264,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    console.error('[BLOG API] Returning generic 500 error')
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
