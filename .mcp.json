@@ -18,13 +18,17 @@
       "env": {}
     },
     "supabase": {
+      "type": "stdio",
       "command": "npx",
       "args": [
         "-y",
         "@supabase/mcp-server-supabase@latest",
         "--access-token",
-        "sbp_93a5ee7fcc4584c9700231324503fd362753255f"
-      ]
+        "${SUPABASE_ACCESS_TOKEN}"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}"
+      }
     },
     "codex": {
       "type": "stdio",
@@ -34,6 +38,10 @@
         "@anthropic/codex-mcp"
       ],
       "env": {}
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
     }
   }
 }
