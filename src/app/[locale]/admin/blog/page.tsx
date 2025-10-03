@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getBlogPosts, type BlogPost } from '@/lib/supabase'
 import { defaultLocale, isValidLocale, type Locale } from '@/lib/i18n'
-import { requireAdminSession, validateAdminSession } from '@/lib/adminSession'
+import { requireAdminAuth } from '@/lib/auth-guard'
 import { getServerTranslations } from '@/lib/translations'
 import { NextIntlClientProvider } from 'next-intl'
 import AdminBlogClient from './AdminBlogClient'
@@ -59,7 +59,7 @@ export default async function AdminBlogPage({ params }: { params: Promise<{ loca
   const locale = isValidLocale(localeParam) ? localeParam : defaultLocale
 
   const currentPath = `/${locale}/admin/blog`
-  await requireAdminSession(locale, currentPath)
+  await requireAdminAuth(locale, currentPath)
 
   const defaultFilter: AdminBlogFilter = {
     language: locale,
@@ -71,9 +71,7 @@ export default async function AdminBlogPage({ params }: { params: Promise<{ loca
 
   async function fetchBlogPostsAction(filter: AdminBlogFilter): Promise<AdminBlogPost[]> {
     'use server'
-    if (!(await validateAdminSession())) {
-      redirect(`/${locale}/admin/login?redirectTo=${encodeURIComponent(currentPath)}`)
-    }
+    await requireAdminAuth(locale, currentPath)
     const posts = await getBlogPosts(buildFilters(filter))
     return toAdminBlogPosts(posts)
   }

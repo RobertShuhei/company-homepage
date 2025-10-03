@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import AdminGeneratorClient from './AdminGeneratorClient'
 import { getServerTranslations } from '@/lib/translations'
 import { isValidLocale, type Locale } from '@/lib/i18n'
-import { requireAdminSession } from '@/lib/adminSession'
+import { requireAdminAuth } from '@/lib/auth-guard'
 import { NextIntlClientProvider } from 'next-intl'
 
 // Utility function to pick specific keys from an object (prevents hydration errors)
@@ -32,7 +32,7 @@ export default async function AdminGeneratorPage({
 
   const locale = localeParam as Locale
   const currentPath = `/${locale}/admin/generator`
-  await requireAdminSession(locale, currentPath)
+  await requireAdminAuth(locale, currentPath)
 
   try {
     const fullTranslations = await getServerTranslations(locale);

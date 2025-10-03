@@ -8,7 +8,6 @@ import {
   LOCALE_COOKIE_NAME,
   cookieConfig
 } from './i18n.config'
-import { verifyToken } from './src/lib/jwt'
 
 const JWT_COOKIE_NAME = 'admin_jwt_token'
 
@@ -45,7 +44,7 @@ function getLocale(request: NextRequest): Locale {
   return defaultLocale
 }
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   const basicAuthUser = process.env.BASIC_AUTH_USERNAME
@@ -117,29 +116,18 @@ export async function middleware(request: NextRequest) {
       const jwtToken = request.cookies.get(JWT_COOKIE_NAME)?.value
 
       if (!isLoginPath) {
-        // For non-login admin pages, verify JWT token
+        // For non-login admin pages, check if JWT token exists
+        // Note: Full JWT verification happens server-side in page components
         if (!jwtToken) {
           const loginUrl = new URL(`/${localeSegment}/admin/login`, request.url)
           const redirectTarget = `${pathname}${request.nextUrl.search}`
           loginUrl.searchParams.set('redirectTo', redirectTarget)
           return NextResponse.redirect(loginUrl)
         }
-
-        // Verify JWT token asynchronously
-        const payload = await verifyToken(jwtToken)
-        if (!payload || payload.role !== 'admin') {
-          const loginUrl = new URL(`/${localeSegment}/admin/login`, request.url)
-          const redirectTarget = `${pathname}${request.nextUrl.search}`
-          loginUrl.searchParams.set('redirectTo', redirectTarget)
-          return NextResponse.redirect(loginUrl)
-        }
       } else if (jwtToken) {
-        // If user is already authenticated and accessing login page, redirect to admin blog
-        const payload = await verifyToken(jwtToken)
-        if (payload && payload.role === 'admin') {
-          const destination = new URL(`/${localeSegment}/admin/blog`, request.url)
-          return NextResponse.redirect(destination)
-        }
+        // If user has a token and is accessing login page, redirect to admin blog
+        const destination = new URL(`/${localeSegment}/admin/blog`, request.url)
+        return NextResponse.redirect(destination)
       }
     }
 
