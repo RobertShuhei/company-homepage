@@ -157,8 +157,8 @@ export default function AdminGeneratorClient({ locale }: AdminGeneratorClientPro
           topic: formData.topic,
           referenceUrl: formData.referenceUrl,
           keywords: formData.keywords,
-          instructions: formData.instructions,
-          resourceCategory: formData.resourceCategory,
+          aiInstruction: formData.instructions,
+          category: formData.resourceCategory,
           model: formData.model,
           currentLocale: locale,
         }),
@@ -169,14 +169,14 @@ export default function AdminGeneratorClient({ locale }: AdminGeneratorClientPro
         return
       }
 
-      const data = await response.json() as { success?: boolean; content?: string; error?: string }
+      const data = await response.json() as { ok?: boolean; post?: { content: string }; error?: string }
 
-      if (!response.ok || !data.success || !data.content) {
+      if (!response.ok || !data.ok || !data.post?.content) {
         throw new Error(data.error || tErrors('fallbackGeneration'))
       }
 
-      setGeneratedContent(data.content)
-      setEditedContent(data.content)
+      setGeneratedContent(data.post.content)
+      setEditedContent(data.post.content)
       setIsEditing(false)
       setShowPreview(false)
       setHasAttemptedGenerate(false)
