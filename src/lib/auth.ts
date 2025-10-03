@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server'
-import { getAdminTokenFromRequest, isValidAdminToken } from './adminSession'
+import { verifyToken } from './jwt'
+
+const JWT_COOKIE_NAME = 'admin_jwt_token'
 
 // Simple admin authentication for blog endpoints
 export interface AuthResult {
@@ -8,12 +10,13 @@ export interface AuthResult {
   statusCode?: number
 }
 
-// Admin authentication check
-export function authenticateAdmin(request: NextRequest): AuthResult {
+// Admin authentication check using JWT (async version)
+export async function authenticateAdminAsync(request: NextRequest): Promise<AuthResult> {
   try {
-    const token = getAdminTokenFromRequest(request)
+    // Get JWT token from cookie
+    const jwtToken = request.cookies.get(JWT_COOKIE_NAME)?.value
 
-    if (!token) {
+    if (!jwtToken) {
       return {
         isAuthenticated: false,
         error: '管理者セッションが見つかりません。',
@@ -21,10 +24,13 @@ export function authenticateAdmin(request: NextRequest): AuthResult {
       }
     }
 
-    if (!isValidAdminToken(token)) {
+    // Verify JWT token
+    const payload = await verifyToken(jwtToken)
+
+    if (!payload || payload.role !== 'admin') {
       return {
         isAuthenticated: false,
-        error: '認証トークンが無効です。',
+        error: '認証トークンが無効または期限切れです。',
         statusCode: 403,
       }
     }
@@ -37,7 +43,36 @@ export function authenticateAdmin(request: NextRequest): AuthResult {
     console.error('Authentication error:', error)
     return {
       isAuthenticated: false,
-      error: 'Authentication system error'
+      error: 'Authentication system error',
+      statusCode: 500
+    }
+  }
+}
+
+// Synchronous version for backward compatibility (only checks token existence)
+export function authenticateAdmin(request: NextRequest): AuthResult {
+  try {
+    const jwtToken = request.cookies.get(JWT_COOKIE_NAME)?.value
+
+    if (!jwtToken) {
+      return {
+        isAuthenticated: false,
+        error: '管理者セッションが見つかりません。',
+        statusCode: 401,
+      }
+    }
+
+    // Just check token existence - full verification should use authenticateAdminAsync
+    return {
+      isAuthenticated: true
+    }
+
+  } catch (error) {
+    console.error('Authentication error:', error)
+    return {
+      isAuthenticated: false,
+      error: 'Authentication system error',
+      statusCode: 500
     }
   }
 }

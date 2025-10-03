@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
-import { authenticateAdmin, createAuthErrorResponse } from '@/lib/auth'
+import { authenticateAdminAsync, createAuthErrorResponse } from '@/lib/auth'
 import { isResourceCategory, type ResourceCategory } from '@/lib/resourceCategories'
 
 // Initialize OpenAI client only when needed
@@ -187,8 +187,8 @@ export async function POST(request: NextRequest) {
   try {
     console.log('[BLOG API] Request received')
 
-    // Authenticate admin user
-    const authResult = authenticateAdmin(request)
+    // Authenticate admin user with JWT verification
+    const authResult = await authenticateAdminAsync(request)
     console.log('[BLOG API] Auth result:', { isAuthenticated: authResult.isAuthenticated, error: authResult.error, statusCode: authResult.statusCode })
 
     if (!authResult.isAuthenticated) {
