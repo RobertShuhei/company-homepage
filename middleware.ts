@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { 
-  locales, 
-  defaultLocale, 
+import {
+  locales,
+  defaultLocale,
   type Locale,
   isValidLocale,
   parseAcceptLanguage,
   LOCALE_COOKIE_NAME,
   cookieConfig
 } from './i18n.config'
+import { verifyToken } from './src/lib/jwt'
 
-const ADMIN_SESSION_COOKIE_NAME = 'admin_token'
+const JWT_COOKIE_NAME = 'admin_jwt_token'
 
 // Three-tier locale detection priority system
 function getLocale(request: NextRequest): Locale {
@@ -44,7 +45,7 @@ function getLocale(request: NextRequest): Locale {
   return defaultLocale
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   const basicAuthUser = process.env.BASIC_AUTH_USERNAME
@@ -113,19 +114,32 @@ export function middleware(request: NextRequest) {
 
     if (localeSegment && isValidLocale(localeSegment as Locale) && adminSegment === 'admin') {
       const isLoginPath = segments[3] === 'login'
-      const adminToken = request.cookies.get(ADMIN_SESSION_COOKIE_NAME)?.value
-      const configuredToken = process.env.ADMIN_PASSWORD
+      const jwtToken = request.cookies.get(JWT_COOKIE_NAME)?.value
 
       if (!isLoginPath) {
-        if (!configuredToken || adminToken !== configuredToken) {
+        // For non-login admin pages, verify JWT token
+        if (!jwtToken) {
           const loginUrl = new URL(`/${localeSegment}/admin/login`, request.url)
           const redirectTarget = `${pathname}${request.nextUrl.search}`
           loginUrl.searchParams.set('redirectTo', redirectTarget)
           return NextResponse.redirect(loginUrl)
         }
-      } else if (configuredToken && adminToken === configuredToken) {
-        const destination = new URL(`/${localeSegment}/admin/blog`, request.url)
-        return NextResponse.redirect(destination)
+
+        // Verify JWT token asynchronously
+        const payload = await verifyToken(jwtToken)
+        if (!payload || payload.role !== 'admin') {
+          const loginUrl = new URL(`/${localeSegment}/admin/login`, request.url)
+          const redirectTarget = `${pathname}${request.nextUrl.search}`
+          loginUrl.searchParams.set('redirectTo', redirectTarget)
+          return NextResponse.redirect(loginUrl)
+        }
+      } else if (jwtToken) {
+        // If user is already authenticated and accessing login page, redirect to admin blog
+        const payload = await verifyToken(jwtToken)
+        if (payload && payload.role === 'admin') {
+          const destination = new URL(`/${localeSegment}/admin/blog`, request.url)
+          return NextResponse.redirect(destination)
+        }
       }
     }
 

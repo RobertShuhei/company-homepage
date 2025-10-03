@@ -1,9 +1,21 @@
 import { NextResponse } from 'next/server'
-import { clearAdminSessionCookie } from '@/lib/adminSession'
+
+const JWT_COOKIE_NAME = 'admin_jwt_token'
 
 export async function POST() {
   const response = NextResponse.json({ success: true })
-  clearAdminSessionCookie(response)
+
+  // Clear JWT token cookie
+  response.cookies.set({
+    name: JWT_COOKIE_NAME,
+    value: '',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 0, // Immediately expire the cookie
+  })
+
   return response
 }
 

@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { appendAdminSessionCookie, isValidAdminToken } from '@/lib/adminSession'
+import { generateAccessToken, validateAdminPassword } from '@/lib/jwt'
 
 interface LoginRequestBody {
   password?: string
   redirectTo?: string
 }
+
+// Cookie configuration for JWT token
+const JWT_COOKIE_NAME = 'admin_jwt_token'
+const JWT_COOKIE_MAX_AGE = 60 * 60 * 8 // 8 hours in seconds
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,22 +22,39 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!isValidAdminToken(password)) {
+    // Validate password against configured admin password
+    if (!validateAdminPassword(password)) {
       return NextResponse.json(
         { success: false, errorCode: 'invalidPassword', error: '管理者認証に失敗しました。' },
         { status: 401 }
       )
     }
 
+    // Generate JWT token with admin role
+    const accessToken = await generateAccessToken({
+      sub: 'admin',
+      role: 'admin',
+    })
+
     const safeRedirect = body.redirectTo && body.redirectTo.startsWith('/') ? body.redirectTo : undefined
 
     const response = NextResponse.json({ success: true, redirectTo: safeRedirect })
-    appendAdminSessionCookie(response, password)
+
+    // Set JWT token in HttpOnly secure cookie
+    response.cookies.set({
+      name: JWT_COOKIE_NAME,
+      value: accessToken,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: JWT_COOKIE_MAX_AGE,
+    })
+
     return response
   } catch (error) {
     console.error('Admin login error:', error)
 
-    // Include detailed error for debugging (temporarily in production too)
     const errorDetails = `認証処理中にエラーが発生しました。Details: ${(error as Error).message || error}`
 
     return NextResponse.json(
