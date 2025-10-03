@@ -69,12 +69,25 @@ Before writing, analyze the given topic thoroughly to identify the most valuable
 // Request validation interface
 interface BlogGenerationRequest {
   topic: string
-  referenceUrl?: string
+  outline?: string
   keywords?: string
-  instructions?: string
-  resourceCategory?: ResourceCategory
-  model?: 'gpt-5-nano' | 'gpt-5-mini' | 'gpt-5'
+  referenceUrl?: string
+  aiInstruction?: string
+  category?: ResourceCategory
+  model?: 'gpt-5' | 'gpt-5-mini' | 'gpt-5-nano'
   currentLocale: 'ja' | 'en' | 'zh'
+}
+
+// Valid model types
+const VALID_MODELS = ['gpt-5', 'gpt-5-mini', 'gpt-5-nano'] as const
+type ValidModel = typeof VALID_MODELS[number]
+
+// Validate and normalize model parameter
+function validateModel(model: unknown): ValidModel {
+  if (typeof model === 'string' && VALID_MODELS.includes(model as ValidModel)) {
+    return model as ValidModel
+  }
+  return 'gpt-5-mini' // Default fallback
 }
 
 // Validate request data
@@ -86,18 +99,26 @@ function validateRequest(data: unknown): data is BlogGenerationRequest {
   return (
     typeof req.topic === 'string' &&
     req.topic.trim().length > 0 &&
-    (req.referenceUrl === undefined || typeof req.referenceUrl === 'string') &&
+    (req.outline === undefined || typeof req.outline === 'string') &&
     (req.keywords === undefined || typeof req.keywords === 'string') &&
-    (req.instructions === undefined || typeof req.instructions === 'string') &&
-    (req.resourceCategory === undefined || (typeof req.resourceCategory === 'string' && isResourceCategory(req.resourceCategory))) &&
-    (req.model === undefined || ['gpt-5-nano', 'gpt-5-mini', 'gpt-5'].includes(req.model as string)) &&
+    (req.referenceUrl === undefined || typeof req.referenceUrl === 'string') &&
+    (req.aiInstruction === undefined || typeof req.aiInstruction === 'string') &&
+    (req.category === undefined || (typeof req.category === 'string' && isResourceCategory(req.category))) &&
     typeof req.currentLocale === 'string' &&
     ['ja', 'en', 'zh'].includes(req.currentLocale)
   )
 }
 
-// Create language-specific prompt
-function createPrompt(topic: string, referenceUrl: string, keywords: string, instructions: string, resourceCategory: ResourceCategory, locale: 'ja' | 'en' | 'zh'): string {
+// Create language-specific prompts for Responses API
+function createPrompts(
+  topic: string,
+  outline: string,
+  keywords: string,
+  referenceUrl: string,
+  aiInstruction: string,
+  category: ResourceCategory,
+  locale: 'ja' | 'en' | 'zh'
+): { systemPrompt: string; userPrompt: string } {
   const langConfig = LANGUAGE_PROMPTS[locale]
 
   // Add category-specific instructions
@@ -124,34 +145,42 @@ function createPrompt(topic: string, referenceUrl: string, keywords: string, ins
     }
   }
 
-  const categoryInstruction = categoryInstructions[resourceCategory]?.[locale] || ''
+  const categoryInstruction = categoryInstructions[category]?.[locale] || ''
 
-  let prompt = `${langConfig.systemPrompt}
+  const systemPrompt = `${langConfig.systemPrompt}
 
 ${categoryInstruction}
 
-トピック/Topic/主题: ${topic}`
+${langConfig.instructionSuffix}`
 
-  if (referenceUrl && referenceUrl.trim()) {
-    prompt += `
-参考URL/Reference URL/参考链接: ${referenceUrl}`
+  let userPrompt = `トピック/Topic/主题: ${topic}`
+
+  if (outline && outline.trim()) {
+    userPrompt += `
+
+アウトライン/Outline/大纲:
+${outline}`
   }
 
   if (keywords && keywords.trim()) {
-    prompt += `
+    userPrompt += `
+
 キーワード/Keywords/关键词: ${keywords}`
   }
 
-  if (instructions && instructions.trim()) {
-    prompt += `
-特別な指示/Special Instructions/特殊说明: ${instructions}`
+  if (referenceUrl && referenceUrl.trim()) {
+    userPrompt += `
+
+参考URL/Reference URL/参考链接: ${referenceUrl}`
   }
 
-  prompt += `
+  if (aiInstruction && aiInstruction.trim()) {
+    userPrompt += `
 
-${langConfig.instructionSuffix}`
+特別な指示/Special Instructions/特殊说明: ${aiInstruction}`
+  }
 
-  return prompt
+  return { systemPrompt, userPrompt }
 }
 
 export async function POST(request: NextRequest) {
@@ -172,7 +201,7 @@ export async function POST(request: NextRequest) {
     if (!process.env.OPENAI_API_KEY) {
       console.error('[BLOG API] OpenAI API key is not configured')
       return NextResponse.json(
-        { error: 'OpenAI API key is not configured' },
+        { ok: false, error: 'OpenAI API key is not configured' },
         { status: 500 }
       )
     }
@@ -184,58 +213,72 @@ export async function POST(request: NextRequest) {
 
     if (!validateRequest(data)) {
       return NextResponse.json(
-        { error: 'Invalid request. Required: topic (string), currentLocale (ja|en|zh). Optional: referenceUrl (string), keywords (string), instructions (string), model (gpt-5-nano|gpt-5-mini|gpt-5)' },
+        {
+          ok: false,
+          error: 'Invalid request. Required: topic (string), currentLocale (ja|en|zh). Optional: outline (string), keywords (string), referenceUrl (string), aiInstruction (string), category (blog|case-studies|white-papers|industry-insights), model (gpt-5|gpt-5-mini|gpt-5-nano)'
+        },
         { status: 400 }
       )
     }
 
-    const { topic, referenceUrl = '', keywords = '', instructions = '', resourceCategory = 'blog', model = 'gpt-5-mini', currentLocale } = data
-    console.log('[BLOG API] Extracted parameters:', { topic, model, currentLocale, resourceCategory })
+    const {
+      topic,
+      outline = '',
+      keywords = '',
+      referenceUrl = '',
+      aiInstruction = '',
+      category = 'blog',
+      model,
+      currentLocale
+    } = data
 
-    // Create language-specific prompt
-    const prompt = createPrompt(topic, referenceUrl, keywords, instructions, resourceCategory, currentLocale)
-    console.log('[BLOG API] Prompt created, length:', prompt.length)
+    // Validate and normalize model parameter (defaults to gpt-5-mini if invalid)
+    const chosenModel = validateModel(model)
+    console.log('[BLOG API] Extracted parameters:', { topic, model: chosenModel, currentLocale, category })
 
-    // Get OpenAI client and call API
+    // Create language-specific prompts for Responses API
+    const { systemPrompt, userPrompt } = createPrompts(topic, outline, keywords, referenceUrl, aiInstruction, category, currentLocale)
+    console.log('[BLOG API] Prompts created, system length:', systemPrompt.length, 'user length:', userPrompt.length)
+
+    // Get OpenAI client and call Responses API
     console.log('[BLOG API] Initializing OpenAI client')
-    const openai = getOpenAIClient()
-    console.log('[BLOG API] Calling OpenAI API with model:', model)
-    const completion = await openai.chat.completions.create({
-      model: model, // Use dynamically selected model
-      messages: [
-        {
-          role: 'user',
-          content: prompt
-        }
+    const client = getOpenAIClient()
+    console.log('[BLOG API] Calling OpenAI Responses API with model:', chosenModel)
+
+    const resp = await client.responses.create({
+      model: chosenModel,
+      input: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
       ],
-      temperature: 0.65, // Slightly more focused for professional content
-      max_completion_tokens: 6000, // Increased for GPT-5's enhanced capabilities
-      presence_penalty: 0.15, // Enhanced diverse content generation
-      frequency_penalty: 0.12, // Improved repetition reduction
-      top_p: 0.9 // Leverage GPT-5's improved reasoning
     })
 
-    const generatedContent = completion.choices[0]?.message?.content
+    const generatedContent = resp.output_text
 
     if (!generatedContent) {
       return NextResponse.json(
-        { error: 'Failed to generate content' },
+        { ok: false, error: 'Failed to generate content from OpenAI API' },
         { status: 500 }
       )
     }
 
-    // Return successful response
+    // Return successful response in new format
     return NextResponse.json({
-      success: true,
-      content: generatedContent,
-      metadata: {
-        locale: currentLocale,
-        model: model,
-        topic,
-        keywords: keywords || null,
-        wordCount: generatedContent.length,
-        generatedAt: new Date().toISOString()
-      }
+      ok: true,
+      post: {
+        title: topic,
+        content: generatedContent,
+        summary: generatedContent.substring(0, 200) + '...',
+        language: currentLocale,
+        status: 'draft',
+        resource_category: category,
+        tags: keywords ? keywords.split(',').map(k => k.trim()) : [],
+        ai_model: chosenModel,
+        author: 'Global Genex Inc.',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      model: chosenModel,
     })
 
   } catch (error) {
@@ -245,28 +288,37 @@ export async function POST(request: NextRequest) {
     console.error('[BLOG API] Full error:', error)
     console.error('[BLOG API] Error stack:', error instanceof Error ? error.stack : 'No stack trace')
 
-    // Handle specific OpenAI errors
+    // Handle specific OpenAI errors with graceful error responses
     if (error instanceof Error) {
       if (error.message.includes('API key')) {
         console.error('[BLOG API] Invalid API key error detected')
         return NextResponse.json(
-          { error: 'Invalid OpenAI API key' },
+          { ok: false, error: 'Invalid OpenAI API key' },
           { status: 401 }
         )
       }
 
-      if (error.message.includes('quota')) {
-        console.error('[BLOG API] Quota exceeded error detected')
+      if (error.message.includes('quota') || error.message.includes('rate limit')) {
+        console.error('[BLOG API] Quota/rate limit exceeded error detected')
         return NextResponse.json(
-          { error: 'OpenAI API quota exceeded' },
+          { ok: false, error: 'OpenAI API quota exceeded or rate limited' },
           { status: 429 }
+        )
+      }
+
+      if (error.message.includes('model')) {
+        console.error('[BLOG API] Model-related error detected')
+        return NextResponse.json(
+          { ok: false, error: 'Invalid model or model access denied' },
+          { status: 400 }
         )
       }
     }
 
-    console.error('[BLOG API] Returning generic 500 error')
+    // Generic error response
+    console.error('[BLOG API] Returning generic error response')
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { ok: false, error: 'Failed to generate blog post. Please try again later.' },
       { status: 500 }
     )
   }
@@ -275,7 +327,7 @@ export async function POST(request: NextRequest) {
 // Handle unsupported methods
 export async function GET() {
   return NextResponse.json(
-    { error: 'Method not allowed. Use POST.' },
+    { ok: false, error: 'Method not allowed. Use POST.' },
     { status: 405 }
   )
 }
