@@ -265,7 +265,7 @@ export default async function LocalizedAboutPage({ params: paramsPromise }: Abou
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-8">{t.about.leadership.title}</h2>
               <p className="text-xl lg:text-2xl text-gray max-w-4xl mx-auto">{t.about.leadership.subtitle}</p>
             </div>
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-5xl mx-auto">
               {leadership.map((leader, index) => (
                 <div key={index} className="bg-slate-50 p-10 lg:p-12 rounded-xl">
                   <div className="mb-8">
@@ -298,7 +298,7 @@ export default async function LocalizedAboutPage({ params: paramsPromise }: Abou
                 {t.about.timeline.subtitle}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-gap-enhanced">
+            <div className="grid grid-cols-1 grid-gap-enhanced">
               {milestones.map((m, i) => (
                 <div key={i} className="bg-white/5 p-8 lg:p-10 rounded-xl border border-white/10 h-full">
                   <div className="text-3xl lg:text-4xl font-bold text-teal mb-4">{m.year}</div>
