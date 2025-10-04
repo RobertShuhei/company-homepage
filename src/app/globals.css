@@ -386,13 +386,9 @@ html[lang="ja"] header .hidden.md\\:flex.space-x-8 {
 
 /* Gradient Backgrounds */
 .gradient-bg-primary {
-  /* 右側25%の範囲でのみグラデーションがかかるように調整 */
-  /* 左側75%は単色のダークブルーで統一し、より落ち着いた印象に */
-  background: linear-gradient(135deg,
-    rgba(30, 58, 95, 1) 0%,
-    rgba(30, 58, 95, 1) 75%,
-    rgba(8, 145, 178, 0.2) 100%
-  );
+  /* グラデーションを削除し、単色のダークブルーに統一 */
+  /* よりミニマルで落ち着いた、力強い印象を実現 */
+  background: #1e3a5f;
 }
 
 .gradient-bg-light {
