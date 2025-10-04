@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTranslations, getNestedTranslation } from '@/lib/hooks/useTranslations'
 import { type NavigationTranslations } from '@/lib/translations'
@@ -18,8 +18,19 @@ interface HeaderProps {
 
 const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { t: translations } = useTranslations()
+
+  // Glassmorphism scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   
   // Helper function to get nested value safely from any object
   const getNestedValue = (obj: NavigationTranslations | Record<string, unknown>, path: string): string | null => {
@@ -81,7 +92,11 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
   }
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 scroll-mt-16">
+    <header className={`sticky top-0 z-50 scroll-mt-16 transition-all duration-300 ${
+      isScrolled
+        ? 'glass-card border-b border-white/20 shadow-lg'
+        : 'bg-white border-b border-gray-200'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

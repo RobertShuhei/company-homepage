@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
+import AnimationProvider from '@/components/AnimationProvider';
 import BreadcrumbStructuredData from '@/components/BreadcrumbStructuredData';
 import StructuredData from '@/components/StructuredData';
 import Footer from '@/components/layout/Footer';
@@ -47,6 +48,7 @@ export default async function SiteLayout({
   return (
     <>
       <GoogleAnalytics />
+      <AnimationProvider />
       <StructuredData locale={locale} />
       <BreadcrumbStructuredData locale={locale} />
       <Header navigationTranslations={navigationTranslations} locale={locale} />

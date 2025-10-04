@@ -25,27 +25,27 @@ const CTA: React.FC<CTAProps> = ({
     switch (variant) {
       case 'dark':
         return {
-          section: 'bg-navy text-white',
+          section: 'gradient-bg-primary text-white relative overflow-hidden',
           title: 'text-white',
           description: 'text-slate-300',
-          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal focus:ring-offset-navy shadow-xl hover:shadow-2xl px-10 py-5',
-          secondaryBtn: 'border-white text-white hover:bg-white hover:text-navy focus:ring-white focus:ring-offset-navy opacity-90 hover:opacity-100'
+          primaryBtn: 'btn-primary-elevated text-lg lg:text-xl px-10 lg:px-12 py-5 lg:py-6 min-w-[200px]',
+          secondaryBtn: 'btn-secondary-light text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
         }
       case 'light':
         return {
-          section: 'bg-slate-50 text-navy',
-          title: 'text-navy',
+          section: 'bg-gradient-to-br from-slate-50 to-white text-navy',
+          title: 'bg-gradient-to-r from-navy to-teal bg-clip-text text-transparent',
           description: 'text-gray',
-          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal focus:ring-offset-slate-50 shadow-xl hover:shadow-2xl px-10 py-5',
-          secondaryBtn: 'border-navy text-navy hover:bg-navy hover:text-white focus:ring-navy focus:ring-offset-slate-50 opacity-90 hover:opacity-100'
+          primaryBtn: 'btn-primary-elevated text-lg lg:text-xl px-10 lg:px-12 py-5 lg:py-6 min-w-[200px]',
+          secondaryBtn: 'btn-secondary text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
         }
       default:
         return {
           section: 'bg-white text-navy',
           title: 'text-navy',
           description: 'text-gray',
-          primaryBtn: 'bg-teal text-white hover:bg-teal/90 focus:ring-teal shadow-xl hover:shadow-2xl px-10 py-5',
-          secondaryBtn: 'border-navy text-navy hover:bg-navy hover:text-white focus:ring-navy opacity-90 hover:opacity-100'
+          primaryBtn: 'btn-primary-elevated text-lg lg:text-xl px-10 lg:px-12 py-5 lg:py-6 min-w-[200px]',
+          secondaryBtn: 'btn-secondary text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
         }
     }
   }
@@ -53,29 +53,36 @@ const CTA: React.FC<CTAProps> = ({
   const classes = getVariantClasses()
 
   return (
-    <section className={`py-16 lg:py-24 ${classes.section}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`section-spacing-lg ${classes.section}`}>
+      {/* Background Pattern for Dark Variant */}
+      {variant === 'dark' && (
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-teal/20 to-transparent"></div>
+        </div>
+      )}
+
+      <div className="container-wide relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 ${classes.title}`}>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 lg:mb-10 animate-on-scroll fade-in-up ${classes.title}`}>
             {title}
           </h2>
-          
-          <p className={`text-xl md:text-2xl mb-10 leading-relaxed ${classes.description}`}>
+
+          <p className={`text-xl md:text-2xl lg:text-3xl mb-12 lg:mb-16 leading-relaxed max-w-prose mx-auto animate-on-scroll fade-in-up stagger-1 ${classes.description}`}>
             {description}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 lg:gap-8 justify-center animate-on-scroll scale-in stagger-2">
             <LocalizedLink
               href={primaryButton.href}
-              className={`rounded-lg text-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center transform hover:-translate-y-0.5 ${classes.primaryBtn}`}
+              className={`btn-interactive ${classes.primaryBtn}`}
             >
               {primaryButton.text}
             </LocalizedLink>
-            
+
             {secondaryButton && (
               <LocalizedLink
                 href={secondaryButton.href}
-                className={`border-2 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 text-center transform hover:-translate-y-0.5 ${classes.secondaryBtn}`}
+                className={classes.secondaryBtn}
               >
                 {secondaryButton.text}
               </LocalizedLink>

@@ -24,11 +24,11 @@ const Hero: React.FC<HeroProps> = ({
   backgroundPattern = true
 }) => {
   return (
-    <section className="relative bg-navy text-white overflow-hidden">
-      {/* Background Pattern */}
+    <section className="relative gradient-bg-primary text-white overflow-hidden min-h-[90vh] flex items-center">
+      {/* Enhanced Background Pattern with Gradient Overlay */}
       {backgroundPattern && (
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-teal/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal/30 to-transparent"></div>
           <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -40,32 +40,34 @@ const Hero: React.FC<HeroProps> = ({
         </div>
       )}
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 xl:py-40">
+      <div className="relative container-wide section-spacing-xl">
         <div className="max-w-5xl">
-          {/* Subtitle */}
-          <div className="mb-8">
-            <span className="inline-block bg-teal/10 text-teal px-6 py-3 rounded-full text-sm lg:text-base font-medium border border-teal/20 backdrop-blur-sm">
+          {/* Subtitle with Glass Effect */}
+          <div className="mb-8 animate-on-scroll fade-in-up">
+            <span className="glass-card inline-flex items-center px-6 py-3 rounded-full text-sm lg:text-base font-medium">
               {subtitle}
             </span>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10 [text-wrap:balance] [line-break:strict] whitespace-pre-line">
-            {title}
+          {/* Main Title with Gradient Text */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10 [text-wrap:balance] [line-break:strict] whitespace-pre-line animate-on-scroll fade-in-up stagger-1">
+            <span className="bg-gradient-to-r from-white via-white to-slate-200 bg-clip-text text-transparent">
+              {title}
+            </span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 mb-12 lg:mb-16 leading-relaxed max-w-prose">
+          <p className="text-xl md:text-2xl lg:text-3xl text-slate-300 mb-12 lg:mb-16 leading-relaxed max-w-prose animate-on-scroll fade-in-up stagger-2">
             {description}
           </p>
 
-          {/* CTA Buttons */}
+          {/* Enhanced CTA Buttons */}
           {(primaryCTA || secondaryCTA) && (
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8">
+            <div className="flex flex-col sm:flex-row gap-6 lg:gap-8 animate-on-scroll scale-in stagger-3">
               {primaryCTA && (
                 <LocalizedLink
                   href={primaryCTA.href}
-                  className="btn-primary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
+                  className="btn-primary-elevated btn-interactive text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
                 >
                   {primaryCTA.text}
                 </LocalizedLink>
@@ -73,7 +75,7 @@ const Hero: React.FC<HeroProps> = ({
               {secondaryCTA && (
                 <LocalizedLink
                   href={secondaryCTA.href}
-                  className="btn-secondary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px]"
+                  className="btn-secondary text-lg lg:text-xl text-center min-w-[200px] lg:min-w-[240px] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   {secondaryCTA.text}
                 </LocalizedLink>
