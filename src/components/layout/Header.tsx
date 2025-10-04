@@ -31,6 +31,23 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // モバイルメニュー自動クローズ機能
+  // メニューが開いている時にスクロールされたら自動的に閉じる
+  useEffect(() => {
+    if (isMenuOpen) {
+      const handleScroll = () => {
+        setIsMenuOpen(false)
+      }
+
+      window.addEventListener('scroll', handleScroll)
+
+      // クリーンアップ: コンポーネントのアンマウント時やisMenuOpenがfalseになった時にリスナーを削除
+      return () => {
+        window.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [isMenuOpen])
   
   // Helper function to get nested value safely from any object
   const getNestedValue = (obj: NavigationTranslations | Record<string, unknown>, path: string): string | null => {

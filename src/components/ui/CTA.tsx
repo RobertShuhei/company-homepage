@@ -34,7 +34,8 @@ const CTA: React.FC<CTAProps> = ({
       case 'light':
         return {
           section: 'bg-gradient-to-br from-slate-50 to-white text-navy',
-          title: 'bg-gradient-to-r from-navy to-teal bg-clip-text text-transparent',
+          // 右側25%の範囲でのみグラデーションがかかるように調整
+          title: 'bg-gradient-to-r from-navy from-75% to-teal bg-clip-text text-transparent',
           description: 'text-gray',
           primaryBtn: 'btn-primary-elevated text-lg lg:text-xl px-10 lg:px-12 py-5 lg:py-6 min-w-[200px]',
           secondaryBtn: 'btn-secondary-solid text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'

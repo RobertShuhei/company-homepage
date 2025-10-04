@@ -51,7 +51,8 @@ const Hero: React.FC<HeroProps> = ({
 
           {/* Main Title with Gradient Text */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-8 lg:mb-10 [text-wrap:balance] [line-break:strict] whitespace-pre-line animate-on-scroll fade-in-up stagger-1">
-            <span className="bg-gradient-to-r from-white via-white to-slate-200 bg-clip-text text-transparent">
+            {/* 右側25%の範囲でのみグラデーションがかかるように調整 */}
+            <span className="bg-gradient-to-r from-white from-75% to-slate-200 bg-clip-text text-transparent">
               {title}
             </span>
           </h1>
