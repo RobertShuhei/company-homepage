@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
-import CTA from '@/components/ui/CTA'
+import CtaSection from '@/components/ui/CtaSection'
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
 import { type Locale, isValidLocale, defaultLocale } from '@/lib/i18n'
@@ -154,12 +154,11 @@ export default async function LocalizedHomePage({ params }: HomePageProps) {
         </section>
 
       {/* CTA Section */}
-      <CTA
+      <CtaSection
         title={t.homepage.cta.title}
-        description={t.homepage.cta.description}
+        subtitle={t.homepage.cta.description}
         primaryButton={{ text: t.homepage.cta.primaryButton, href: "/contact" }}
         secondaryButton={{ text: t.homepage.cta.secondaryButton, href: "/about" }}
-        variant="light"
       />
     </main>
   )

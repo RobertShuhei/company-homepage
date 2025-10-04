@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Hero from '@/components/ui/Hero'
 import Card from '@/components/ui/Card'
-import CTA from '@/components/ui/CTA'
+import CtaSection from '@/components/ui/CtaSection'
 import Script from 'next/script'
 import { getServerTranslations } from '@/lib/translations'
 import { generateLocalizedMetadata } from '@/lib/metadata'
@@ -312,12 +312,11 @@ export default async function LocalizedAboutPage({ params: paramsPromise }: Abou
           </div>
         </section>
 
-        <CTA
+        <CtaSection
           title={t.about.cta.title}
-          description={t.about.cta.description}
+          subtitle={t.about.cta.description}
           primaryButton={{ text: t.about.cta.primaryButton, href: "/contact" }}
           secondaryButton={{ text: t.about.cta.secondaryButton, href: "/services" }}
-          variant="default"
         />
       </main>
 
