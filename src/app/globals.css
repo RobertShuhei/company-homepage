@@ -620,24 +620,24 @@ html[lang="ja"] header .hidden.md\\:flex.space-x-8 {
 .mobile-menu {
   position: fixed;
   top: 64px; /* Header height */
-  right: 0;
+  left: 0;
   width: 100%;
   max-height: calc(100vh - 64px);
   overflow-y: auto;
   background: white;
 
-  /* アニメーションの初期状態（画面外・非表示） */
-  transform: translateX(100%);
+  /* アニメーションの初期状態（上に隠れている） */
+  transform: translateY(-100%);
   opacity: 0;
   visibility: hidden;
 
-  /* 滑らかなスライドアニメーション */
+  /* 滑らかなスライドアニメーション（上から下へ） */
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s;
 }
 
 .mobile-menu.is-open {
-  /* メニューが開いた時の状態（画面内・表示） */
-  transform: translateX(0);
+  /* メニューが開いた時の状態（下にスライド表示） */
+  transform: translateY(0);
   opacity: 1;
   visibility: visible;
 }
