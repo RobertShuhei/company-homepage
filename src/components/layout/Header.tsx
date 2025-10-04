@@ -194,44 +194,47 @@ const Header = ({ navigationTranslations, locale }: HeaderProps) => {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden" id="mobile-menu">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-              {navItems.map((item) => {
-                const active = isActiveHref(item.href)
-                return (
-                  <LocalizedLink
-                    key={item.href}
-                    href={item.href}
-                    className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
-                      active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
-                    }`}
-                    aria-current={active ? 'page' : undefined}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </LocalizedLink>
-                )
-              })}
-              {/* CTA Button - Commented out for future features */}
-              {/* 
-              <LocalizedLink
-                href="/contact"
-                className="bg-teal text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 mt-4"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {t('nav.getStarted', 'Get Started')}
-              </LocalizedLink>
-              */}
-              
-              {/* Language Switcher (Mobile) */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <LanguageSwitcher variant="mobile" />
-              </div>
+        {/* Mobile menu - Always rendered for smooth animation */}
+        <div
+          className={`mobile-menu md:hidden ${isMenuOpen ? 'is-open' : ''}`}
+          id="mobile-menu"
+          aria-hidden={!isMenuOpen}
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+            {navItems.map((item) => {
+              const active = isActiveHref(item.href)
+              return (
+                <LocalizedLink
+                  key={item.href}
+                  href={item.href}
+                  className={`block px-3 py-2 text-base font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 ${
+                    active ? 'text-navy font-semibold' : 'text-gray hover:text-navy'
+                  }`}
+                  aria-current={active ? 'page' : undefined}
+                  onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  {item.label}
+                </LocalizedLink>
+              )
+            })}
+            {/* CTA Button - Commented out for future features */}
+            {/*
+            <LocalizedLink
+              href="/contact"
+              className="bg-teal text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-teal/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 mt-4"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t('nav.getStarted', 'Get Started')}
+            </LocalizedLink>
+            */}
+
+            {/* Language Switcher (Mobile) */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <LanguageSwitcher variant="mobile" />
             </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   )

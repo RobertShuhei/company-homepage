@@ -616,6 +616,32 @@ html[lang="ja"] header .hidden.md\\:flex.space-x-8 {
   width: 100%;
 }
 
+/* Mobile Menu Slide Animation */
+.mobile-menu {
+  position: fixed;
+  top: 64px; /* Header height */
+  right: 0;
+  width: 100%;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  background: white;
+
+  /* アニメーションの初期状態（画面外・非表示） */
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;
+
+  /* 滑らかなスライドアニメーション */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s;
+}
+
+.mobile-menu.is-open {
+  /* メニューが開いた時の状態（画面内・表示） */
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Accessibility - Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
