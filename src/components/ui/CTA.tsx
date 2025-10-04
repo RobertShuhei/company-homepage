@@ -37,7 +37,7 @@ const CTA: React.FC<CTAProps> = ({
           title: 'bg-gradient-to-r from-navy to-teal bg-clip-text text-transparent',
           description: 'text-gray',
           primaryBtn: 'btn-primary-elevated text-lg lg:text-xl px-10 lg:px-12 py-5 lg:py-6 min-w-[200px]',
-          secondaryBtn: 'btn-secondary text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
+          secondaryBtn: 'btn-secondary-solid text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
         }
       default:
         return {
@@ -45,7 +45,7 @@ const CTA: React.FC<CTAProps> = ({
           title: 'text-navy',
           description: 'text-gray',
           primaryBtn: 'btn-primary-elevated text-lg lg:text-xl px-10 lg:px-12 py-5 lg:py-6 min-w-[200px]',
-          secondaryBtn: 'btn-secondary text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
+          secondaryBtn: 'btn-secondary-solid text-lg lg:text-xl px-8 lg:px-10 py-4 lg:py-5 min-w-[180px]'
         }
     }
   }

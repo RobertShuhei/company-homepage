@@ -246,13 +246,15 @@ export default async function LocalizedAboutPage({ params: paramsPromise }: Abou
         {/* Values */}
         <section className="section-spacing bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-20">
+            <div className="text-center mb-20 animate-on-scroll fade-in-up">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-8">{t.about.values.title}</h2>
               <p className="text-xl lg:text-2xl text-gray max-w-4xl mx-auto">{t.about.values.subtitle}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 grid-gap-enhanced">
               {values.map((value, i) => (
-                <Card key={i} title={value.title} description={value.description} icon={value.icon} />
+                <div key={i} className="animate-on-scroll scale-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                  <Card title={value.title} description={value.description} icon={value.icon} />
+                </div>
               ))}
             </div>
           </div>
